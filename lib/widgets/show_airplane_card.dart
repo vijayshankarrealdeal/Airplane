@@ -1,3 +1,4 @@
+import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/planepage_controllers.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/model/plane.dart';
@@ -10,34 +11,39 @@ class ShowAirPlaneCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer3<PlaneControllers, Data, TypoGraphyOfApp>(
-      builder: (context, logicBoard, e, fonts, child) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+    return Consumer4<PlaneControllers, Data, TypoGraphyOfApp, ColorManager>(
+      builder: (context, logicBoard, e, fonts, color, child) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8),
         child: GestureDetector(
-          onTap: () {
-            if(e.selected)
-            {
-            logicBoard.removeWatchList(e);
-
-            }else{
-            logicBoard.addToWatchList(e);
-
-            }
-          },
+          onTap: () {},
           child: Card(
+            color: color.appBarColor(),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0),
+              borderRadius: BorderRadius.circular(25.0),
             ),
             elevation: 0.8,
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(12.0),
               child: Column(
                 children: [
-                  e.selected
-                      ? const Align(
-                          alignment: Alignment.centerRight,
-                          child: Icon(CupertinoIcons.checkmark_circle,color:Colors.green,))
-                      : const SizedBox(),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      onPressed: () {
+                        if (e.selected) {
+                          logicBoard.removeWatchList(e);
+                        } else {
+                          logicBoard.addToWatchList(e);
+                        }
+                      },
+                      icon: Icon(
+                        e.selected
+                            ? CupertinoIcons.heart_fill
+                            : CupertinoIcons.heart,
+                        color: e.selected ? color.warning() : Colors.white,
+                      ),
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -53,38 +59,39 @@ class ShowAirPlaneCards extends StatelessWidget {
                               fit: BoxFit.fitHeight,
                             ),
                           ),
-                          fonts.heading6(e.fightName, Colors.black)
+                          fonts.heading6(e.fightName, color.textColor())
                         ],
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          fonts.body2(e.orginCode, Colors.black),
-                          fonts.body2(e.orginTime, Colors.black),
-                          fonts.body2(e.orginDate, Colors.black),
+                          fonts.body2(e.orginCode, color.textColor()),
+                          fonts.body2(e.orginTime, color.textColor()),
+                          fonts.body2(e.orginDate, color.textColor()),
                         ],
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          fonts.subTitle1(e.durationOfFlight, Colors.grey),
+                          fonts.subTitle1(
+                              e.durationOfFlight, color.iconColor()),
                           Container(
                             height: 2.0,
                             width: 50,
                             color: Colors.grey,
                           ),
-                          fonts.body1(e.durationStops, Colors.black)
+                          fonts.body1(e.durationStops, color.textColor())
                         ],
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          fonts.body2(e.destCode, Colors.black),
-                          fonts.body2(e.destTime, Colors.black),
-                          fonts.body2(e.destDate, Colors.black),
+                          fonts.body2(e.destCode, color.textColor()),
+                          fonts.body2(e.destTime, color.textColor()),
+                          fonts.body2(e.destDate, color.textColor()),
                         ],
                       ),
                     ],
@@ -94,18 +101,19 @@ class ShowAirPlaneCards extends StatelessWidget {
                     children: [
                       Row(
                         children: [
+                          fonts.heading5(e.orginCity.toString() + ' - ',
+                              color.textColor()),
                           fonts.heading5(
-                              e.orginCity.toString() + ' - ', Colors.black),
-                          fonts.heading5(e.destCity.toString(), Colors.black),
+                              e.destCity.toString(), color.textColor()),
                         ],
                       ),
                       Column(
                         children: [
                           fonts.heading3('\u{20B9}' + e.flightPrice.toString(),
-                              Colors.black),
+                              color.textColor()),
                           fonts.body1(
                               e.discountCredit.substring(0, 4) + ' App credit.',
-                              Colors.red),
+                              color.warning()),
                         ],
                       ),
                     ],

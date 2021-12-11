@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:airplane/model/plane.dart';
 import 'package:flutter/material.dart';
-
 import 'package:http/http.dart' as http;
 
 class PlaneControllers extends ChangeNotifier {
@@ -67,12 +66,13 @@ class PlaneControllers extends ChangeNotifier {
       int infant) async {
     from = _codeX[from].toString();
     where = _codeX[where].toString();
+    String host = "10.0.2.2:5000";
     try {
       searchdone = false;
       load = false;
       notifyListeners();
       final _response = await http.get(Uri.parse(
-          'http://10.0.2.2:5000/getflights/$from/$where/$date/$adult/$children/$infant'));
+          'http://$host/getflights/$from/$where/$date/$adult/$children/$infant'));
       Map<String, dynamic> _daa = json.decode(_response.body);
       List<dynamic> data = _daa['data'] ?? [];
       _flightMainData = data.map((e) => Data.fromJson(e)).toList();

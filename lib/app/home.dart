@@ -2,6 +2,7 @@ import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/planepage_controllers.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/model/plane.dart';
+import 'package:airplane/routes/airplane_watchlist.dart';
 import 'package:airplane/widgets/show_airplane_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,15 @@ class Home extends StatelessWidget {
                         ),
                       ),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChangeNotifierProvider<
+                                          PlaneControllers>.value(
+                                      value: data,
+                                      child: const AirplaneWatchList()),
+                                ),
+                              ),
                           icon: Icon(
                             CupertinoIcons.bag,
                             color: colors.iconColor(),
@@ -50,66 +59,86 @@ class Home extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 sliver: SliverList(
                     delegate: SliverChildListDelegate([
-                  TypeAheadField(
-                      textFieldConfiguration: TextFieldConfiguration(
-                          decoration: InputDecoration(
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: colors.textColor()),
+                  Theme(
+                    data: ThemeData(
+                        brightness: colors.darkmode
+                            ? Brightness.dark
+                            : Brightness.light),
+                    child: TypeAheadField(
+                        suggestionsBoxDecoration: SuggestionsBoxDecoration(
+                            elevation: 2, color: colors.appBarColor()),
+                        textFieldConfiguration: TextFieldConfiguration(
+                            decoration: InputDecoration(
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: colors.textColor()),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: colors.textColor()),
+                              ),
+                              hintText: "From",
+                              hintStyle: GoogleFonts.sourceSansPro(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: 0.4,
+                                color: colors.formPlaceholder(),
+                              ),
                             ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: colors.textColor()),
+                            controller: data.originfrom),
+                        suggestionsCallback: (pattern) async {
+                          return await data.returnSuggestion(pattern);
+                        },
+                        itemBuilder: (context, suggestion) {
+                          return ListTile(
+                            title: fonts.body1(
+                                suggestion.toString(), colors.textColor()),
+                          );
+                        },
+                        onSuggestionSelected: (suggestion) {
+                          data.onsuggestionselect(suggestion.toString());
+                        }),
+                  ),
+                  Theme(
+                    data: ThemeData(
+                        brightness: colors.darkmode
+                            ? Brightness.dark
+                            : Brightness.light),
+                    child: TypeAheadField(
+                        suggestionsBoxDecoration: SuggestionsBoxDecoration(
+                            elevation: 2, color: colors.appBarColor()),
+                        textFieldConfiguration: TextFieldConfiguration(
+                            decoration: InputDecoration(
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: colors.textColor()),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: colors.textColor()),
+                              ),
+                              hintText: "To",
+                              hintStyle: GoogleFonts.sourceSansPro(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: 0.4,
+                                color: colors.formPlaceholder(),
+                              ),
                             ),
-                            hintText: "From",
-                            hintStyle: GoogleFonts.sourceSansPro(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w400,
-                              letterSpacing: 0.4,
-                              color: colors.formPlaceholder(),
-                            ),
-                          ),
-                          controller: data.originfrom),
-                      suggestionsCallback: (pattern) async {
-                        return await data.returnSuggestion(pattern);
-                      },
-                      itemBuilder: (context, suggestion) {
-                        return ListTile(
-                          title: fonts.body1(
-                              suggestion.toString(), colors.textColor()),
-                        );
-                      },
-                      onSuggestionSelected: (suggestion) {
-                        data.onsuggestionselect(suggestion.toString());
-                      }),
-                  TypeAheadField(
-                      textFieldConfiguration: TextFieldConfiguration(
-                          decoration: InputDecoration(
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: colors.textColor()),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: colors.textColor()),
-                            ),
-                            hintText: "To",
-                            hintStyle: GoogleFonts.sourceSansPro(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w400,
-                              letterSpacing: 0.4,
-                              color: colors.formPlaceholder(),
-                            ),
-                          ),
-                          controller: data.destto),
-                      suggestionsCallback: (pattern) async {
-                        return await data.returnSuggestion(pattern);
-                      },
-                      itemBuilder: (context, suggestion) {
-                        return ListTile(
-                          title: fonts.body1(
-                              suggestion.toString(), colors.textColor()),
-                        );
-                      },
-                      onSuggestionSelected: (suggestion) {
-                        data.onsuggestionselect2(suggestion.toString());
-                      }),
+                            controller: data.destto),
+                        suggestionsCallback: (pattern) async {
+                          return await data.returnSuggestion(pattern);
+                        },
+                        itemBuilder: (context, suggestion) {
+                          return ListTile(
+                            title: fonts.body1(
+                                suggestion.toString(), colors.textColor()),
+                          );
+                        },
+                        onSuggestionSelected: (suggestion) {
+                          data.onsuggestionselect2(suggestion.toString());
+                        }),
+                  ),
                   const SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
