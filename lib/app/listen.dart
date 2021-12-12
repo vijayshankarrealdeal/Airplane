@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/movie_controllers.dart';
 import 'package:airplane/controllers/typography.dart';
+import 'package:airplane/routes/all_shop_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
@@ -119,9 +120,21 @@ class ListenPage extends StatelessWidget {
                               children: [
                                 fonts.heading4("Shopping", color.textColor()),
                                 CupertinoButton(
-                                    child:
-                                        fonts.button("More", color.warning()),
-                                    onPressed: () {})
+                                  child: fonts.button("More", color.warning()),
+                                  onPressed: () => {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ChangeNotifierProvider<
+                                                MovieController>.value(
+                                          value: movie,
+                                          child: const ShoppingShowAll(),
+                                        ),
+                                      ),
+                                    )
+                                  },
+                                )
                               ],
                             ),
                           ),
