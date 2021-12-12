@@ -2,6 +2,7 @@ import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/planepage_controllers.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/model/plane.dart';
+import 'package:airplane/routes/show_plane_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,12 @@ class ShowAirPlaneCards extends StatelessWidget {
       builder: (context, logicBoard, e, fonts, color, child) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8),
         child: GestureDetector(
-          onTap: () {},
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ShowPlaneDetails(data: e),
+            ),
+          ),
           child: Card(
             color: color.appBarColor(),
             shape: RoundedRectangleBorder(

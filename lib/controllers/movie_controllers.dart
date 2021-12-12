@@ -16,6 +16,9 @@ class MovieController extends ChangeNotifier {
   List<ShopData> _shop = [];
   List<ShopData> get resultshop => _shop;
   bool load = true;
+  bool get bothapicalldone =>
+      (result.isNotEmpty && _shop.isNotEmpty) ? true : false;
+
   void call() async {
     String host = "10.0.2.2:5000";
     try {

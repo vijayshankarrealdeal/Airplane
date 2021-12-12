@@ -3,8 +3,11 @@ import 'dart:ui';
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/movie_controllers.dart';
 import 'package:airplane/controllers/typography.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ListenPage extends StatelessWidget {
@@ -12,22 +15,35 @@ class ListenPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ChangeNotifierProvider(
-        create: (context) => MovieController(),
-        child: Consumer3<MovieController, TypoGraphyOfApp, ColorManager>(
-          builder: (context, movie, fonts, color, _) {
-            return CustomScrollView(
+    return ChangeNotifierProvider(
+      create: (context) => MovieController(),
+      child: Consumer3<MovieController, TypoGraphyOfApp, ColorManager>(
+        builder: (context, movie, fonts, color, _) {
+          return Scaffold(
+            backgroundColor: color.colorofScaffold(),
+            body: CustomScrollView(
               slivers: [
                 SliverAppBar(
                   backgroundColor: color.appBarColor(),
                 ),
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    fonts.heading6("Movie", color.textColor()),
-                    movie.result.isEmpty
-                        ? const Center(child: CircularProgressIndicator())
-                        : CarouselSlider.builder(
+                movie.bothapicalldone
+                    ? SliverList(
+                        delegate: SliverChildListDelegate([
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 2.0, bottom: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                fonts.heading4("Movie", color.textColor()),
+                                CupertinoButton(
+                                    child:
+                                        fonts.button("More", color.warning()),
+                                    onPressed: () {})
+                              ],
+                            ),
+                          ),
+                          CarouselSlider.builder(
                             itemCount: movie.result.length - 5,
                             itemBuilder: (BuildContext context, int itemIndex,
                                     int pageViewIndex) =>
@@ -95,79 +111,127 @@ class ListenPage extends StatelessWidget {
                                 height:
                                     MediaQuery.of(context).size.height * 0.65),
                           ),
-                    fonts.heading6("Shopping", color.textColor()),
-                    movie.resultshop.isEmpty
-                        ? const Center(child: CircularProgressIndicator())
-                        : SizedBox(
-                            height: 400,
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 2.0, bottom: 8.0, top: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                fonts.heading4("Shopping", color.textColor()),
+                                CupertinoButton(
+                                    child:
+                                        fonts.button("More", color.warning()),
+                                    onPressed: () {})
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.8,
                             child: ListView.builder(
-                                itemCount: movie.resultshop.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (ctx, index) {
-                                  return Column(
-                                    children: [
-                                      Container(
-                                        height: 200,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                movie.resultshop[index].img
-                                                    .toString(),
-                                              ),
-                                              fit: BoxFit.cover),
+                              itemCount: movie.resultshop.length - 10,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (ctx, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Container(
+                                    color: color.appBarColor(),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.35,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.9,
+                                          child: Image.network(
+                                            movie.resultshop[index].img,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
-                                      ),
-                                      fonts.body1(movie.resultshop[index].text,
-                                          color.textColor())
-                                    ],
-                                  );
-                                }),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.9,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                fonts.heading4(
+                                                    movie.resultshop[index]
+                                                        .title,
+                                                    color.textColor()),
+                                                const SizedBox(height: 10),
+                                                SizedBox(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.15,
+                                                  child: AutoSizeText(
+                                                    movie.resultshop[index]
+                                                        .content,
+                                                    style: GoogleFonts
+                                                        .sourceSansPro(
+                                                            color: color
+                                                                .textColor(),
+                                                            fontSize: 15,
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .none,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            letterSpacing: 0.5),
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 10),
+                                                fonts.button(
+                                                    movie.resultshop[index]
+                                                        .opening,
+                                                    color.textColor()),
+                                                fonts.caption(
+                                                    movie.resultshop[index]
+                                                        .contanctDetails,
+                                                    color.textColor()),
+                                                fonts.caption(
+                                                    movie.resultshop[index]
+                                                        .location,
+                                                    color.textColor()),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
                           )
-                  ]),
-                )
+                        ]),
+                      )
+                    : SliverFillRemaining(
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: color.textColor(),
+                          ),
+                        ),
+                      )
               ],
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// .builder(
-//             // gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-//             //   maxCrossAxisExtent: 200,
-//             //   childAspectRatio: 3 / 4,
-//             // ),
-//             itemCount: movie.result.length,
-//             itemBuilder: (context, index) {
-//               var data = movie.result[index];
-//               return AspectRatio(
-//                 aspectRatio: 1.5,
-//                 child: Container(
-//                   decoration: BoxDecoration(
-//                     image: DecorationImage(
-//                         image: NetworkImage(
-//                           'http://image.tmdb.org/t/p/w500' +
-//                               data.backdropPath.toString(),
-//                         ),
-//                         fit: BoxFit.cover),
-//                   ),
-//                 ),
-//               );
-//             },
-//           );
