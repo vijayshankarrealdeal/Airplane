@@ -178,4 +178,20 @@ class ColorManager extends ChangeNotifier {
       return Colors.black;
     }
   }
+
+  Color yellow() {
+    if (!darkmode) {
+      return Colors.yellow.shade700;
+    } else {
+      return Colors.yellow.shade600;
+    }
+  }
+
+  Color orange() {
+    if (!darkmode) {
+      return Colors.orangeAccent;
+    } else {
+      return Colors.orange;
+    }
+  }
 }
