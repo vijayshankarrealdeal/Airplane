@@ -13,14 +13,15 @@ class Settings extends StatelessWidget {
     final fonts = Provider.of<TypoGraphyOfApp>(context);
     return SafeArea(
       child: Scaffold(
+        
         appBar: AppBar(
           elevation: 0,
           iconTheme: IconThemeData(
             color: color.backButton(), //change your color here
           ),
-          backgroundColor: color.appBarColor(),
+          backgroundColor: color.appBarColorroute(),
         ),
-        backgroundColor: color.colorofScaffold(),
+        backgroundColor: color.colorofScaffoldroute(),
         body: Consumer<ColorManager>(
           builder: (context, color, _) {
             return SizedBox(

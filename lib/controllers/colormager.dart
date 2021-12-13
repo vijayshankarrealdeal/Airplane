@@ -29,17 +29,33 @@ class ColorManager extends ChangeNotifier {
 
   Color colorofScaffold() {
     if (!darkmode) {
-      return const Color(0xffffffff);
+      return const Color.fromRGBO(239, 239, 244, 1);
     } else {
-      return const Color(0xff0D0D0D);
+      return const Color.fromRGBO(0, 0, 0, 1);
     }
   }
 
   Color appBarColor() {
     if (!darkmode) {
-      return const Color(0xffF9F9F9);
+      return const Color.fromRGBO(249, 249, 249, 0.94);
     } else {
-      return const Color(0xff1D1D1D);
+      return const Color.fromRGBO(29, 29, 29, 0.94);
+    }
+  }
+
+    Color colorofScaffoldroute() {
+    if (!darkmode) {
+      return const Color.fromRGBO(255, 255, 255, 1);
+    } else {
+      return const Color.fromRGBO(13, 13, 13, 1);
+    }
+  }
+
+  Color appBarColorroute() {
+    if (!darkmode) {
+      return const Color.fromRGBO(249, 249, 249, 0.94);
+    } else {
+      return const Color.fromRGBO(29, 29, 29, 0.94);
     }
   }
 
@@ -181,9 +197,9 @@ class ColorManager extends ChangeNotifier {
 
   Color planeCardColorHome() {
     if (!darkmode) {
-      return const Color.fromRGBO(231, 113, 78, 1);
+      return const Color.fromRGBO(255, 255, 255, 1);
     } else {
-      return const Color.fromRGBO(87, 115, 82, 1);
+      return const Color(0xffFF3B30);
     }
   }
 

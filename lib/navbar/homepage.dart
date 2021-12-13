@@ -28,6 +28,8 @@ class MaterialHomePage extends StatelessWidget {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: color.appBarColor(),
+      systemNavigationBarIconBrightness:
+          color.darkmode ? Brightness.dark : Brightness.light,
       statusBarBrightness: color.darkmode ? Brightness.dark : Brightness.light,
     ));
     return SafeArea(

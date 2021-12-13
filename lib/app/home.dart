@@ -149,12 +149,13 @@ class Home extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          IconButton(
+                          CupertinoButton(
                             padding: EdgeInsets.zero,
-                            color: colors.interestTab(),
                             onPressed: () => data.selectDate(context),
-                            icon: const Icon(
+                            child: Icon(
                               CupertinoIcons.calendar,
+                              color: colors.backButton(),
+                              textDirection: TextDirection.ltr,
                             ),
                           ),
                           fonts.body1(data.pickedDate, colors.textColor()),

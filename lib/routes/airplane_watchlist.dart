@@ -14,13 +14,13 @@ class AirplaneWatchList extends StatelessWidget {
     final fonts = Provider.of<TypoGraphyOfApp>(context);
 
     return Scaffold(
-      backgroundColor: color.colorofScaffold(),
+      backgroundColor: color.colorofScaffoldroute(),
       appBar: AppBar(
         elevation: 0,
         iconTheme: IconThemeData(
           color: color.backButton(), //change your color here
         ),
-        backgroundColor: color.appBarColor(),
+        backgroundColor: color.appBarColorroute(),
       ),
       body: Consumer<PlaneControllers>(
         builder: (context, data, _) {

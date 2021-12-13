@@ -21,15 +21,15 @@ class ShowPlaneDetails extends StatelessWidget {
     final fonts = Provider.of<TypoGraphyOfApp>(context);
 
     return Scaffold(
-      backgroundColor: color.colorofScaffold(),
+      backgroundColor: color.colorofScaffoldroute(),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            elevation: 0,
+              elevation: 0,
               iconTheme: IconThemeData(
                 color: color.backButton(), //change your color here
               ),
-              backgroundColor: color.appBarColor()),
+              backgroundColor: color.appBarColorroute()),
           SliverPersistentHeader(
             pinned: false,
             delegate: PlaneHeaderDelgate(

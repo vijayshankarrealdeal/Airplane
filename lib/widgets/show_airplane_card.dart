@@ -25,9 +25,9 @@ class ShowAirPlaneCards extends StatelessWidget {
           child: Card(
             color: color.planeCardColorHome(),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25.0),
+              borderRadius: BorderRadius.circular(12.0),
             ),
-            elevation: 0.8,
+            elevation: 6,
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(

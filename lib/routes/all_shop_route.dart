@@ -19,13 +19,13 @@ class ShoppingShowAll extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: color.colorofScaffold(),
+        backgroundColor: color.colorofScaffoldroute(),
         appBar: AppBar(
           elevation: 0,
           iconTheme: IconThemeData(
             color: color.backButton(), //change your color here
           ),
-          backgroundColor: color.appBarColor(),
+          backgroundColor: color.appBarColorroute(),
           bottom: TabBar(
             tabs: [
               fonts.body1("National", color.textColor()),
