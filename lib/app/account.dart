@@ -2,6 +2,8 @@ import 'package:airplane/controllers/account_controller.dart';
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/routes/dark_mode.dart';
+import 'package:airplane/widgets/drawer.dart';
+import 'package:airplane/widgets/loading_spinner.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,87 +15,17 @@ class Account extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final color = Provider.of<ColorManager>(context);
     final fonts = Provider.of<TypoGraphyOfApp>(context);
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     return SafeArea(
       child: ChangeNotifierProvider<AccountControllers>(
         create: (context) => AccountControllers(),
         child: Scaffold(
-            backgroundColor: color.colorofScaffold(),
             key: _scaffoldKey,
-            endDrawer: Drawer(
-              elevation: 0,
-              child: Container(
-                color: color.drawerColor(),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: IconButton(
-                            icon: Icon(Icons.arrow_back,
-                                color: color.iconColor()),
-                            onPressed: () => Navigator.pop(context),
-                          ),
-                        ),
-                        ListTile(
-                          leading: Icon(
-                            CupertinoIcons.bookmark,
-                            color: color.bottomnavBarInactieIcons(),
-                          ),
-                          title: fonts.body1('Your Trips', color.textColor()),
-                          onTap: () {},
-                        ),
-                        ListTile(
-                          leading: Icon(CupertinoIcons.time,
-                              color: color.bottomnavBarInactieIcons()),
-                          title: fonts.body1('Hotels', color.textColor()),
-                          onTap: () {},
-                        ),
-                        ListTile(
-                            leading: Icon(CupertinoIcons.car,
-                                color: color.bottomnavBarInactieIcons()),
-                            title: fonts.body1('Parking', color.textColor()),
-                            onTap: () => print('todo')),
-                        ListTile(
-                          leading: Icon(CupertinoIcons.app_badge_fill,
-                              color: color.bottomnavBarInactieIcons()),
-                          title:
-                              fonts.body1('Another Servies', color.textColor()),
-                          onTap: () {},
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        ListTile(
-                          leading: Icon(CupertinoIcons.settings_solid,
-                              color: color.bottomnavBarInactieIcons()),
-                          title: fonts.body1('Settings', color.textColor()),
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const Settings(),
-                            ),
-                          ),
-                        ),
-                        ListTile(
-                          leading: Icon(Icons.exit_to_app_rounded,
-                              color: color.bottomnavBarInactieIcons()),
-                          title: fonts.body1('Log out', color.textColor()),
-                          onTap: () => print('todo'),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            backgroundColor: color.colorofScaffold(),
+            endDrawer: const GetDrawer(),
             body: Consumer<AccountControllers>(
               builder: (context, dataFlow, _) {
                 return CustomScrollView(
@@ -124,14 +56,16 @@ class Account extends StatelessWidget {
                               var _data = dataFlow.flightdetails[index];
                               return Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    color: Colors.blue.shade900,
+                                    const EdgeInsets.symmetric(vertical: 4.0),
+                                child: Card(
+                                  elevation: 6,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12.0),
                                   ),
+                                  shadowColor: Colors.black,
+                                  color: color.homeListTile(),
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(6.0),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -192,11 +126,8 @@ class Account extends StatelessWidget {
                               );
                             }, childCount: dataFlow.flightdetails.length),
                           )
-                        : SliverFillRemaining(
-                            child: Center(
-                                child: CircularProgressIndicator(
-                              color: color.textColor(),
-                            )),
+                        : const SliverFillRemaining(
+                            child: LoadingSpinner(),
                           ),
                   ],
                 );
@@ -215,6 +146,13 @@ _getcolor(String status, ColorManager color) {
     return color.nowarning();
   }
   if (status.contains('Unknown')) {
+    return color.warning();
+  }
+  if (status.contains('Scheduled')) {
+    return color.purple();
+  }
+
+  if (status.contains('Canceled')) {
     return color.warning();
   }
   if (status.contains('En Route')) {

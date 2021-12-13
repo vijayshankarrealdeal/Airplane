@@ -1,11 +1,12 @@
-
 import 'package:airplane/app/account.dart';
 import 'package:airplane/app/home.dart';
 import 'package:airplane/app/listen.dart';
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/navbar/bottom_navigation_bar.dart';
+import 'package:airplane/widgets/drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'change.dart';
@@ -24,11 +25,19 @@ class MaterialHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final nav = Provider.of<ChangeofPage>(context);
     final color = Provider.of<ColorManager>(context);
-
-    return Scaffold(
-      backgroundColor: color.colorofScaffold(),
-      body: children[nav.pageIndex],
-      bottomNavigationBar: const MaterialBottomNavigationBar(),
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: color.appBarColor(),
+      statusBarBrightness: color.darkmode ? Brightness.dark : Brightness.light,
+    ));
+    return SafeArea(
+      child: Scaffold(
+        endDrawer: const GetDrawer(),
+        key: _scaffoldKey,
+        backgroundColor: color.colorofScaffold(),
+        body: children[nav.pageIndex],
+        bottomNavigationBar: const MaterialBottomNavigationBar(),
+      ),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:airplane/controllers/planepage_controllers.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/model/plane.dart';
 import 'package:airplane/routes/airplane_watchlist.dart';
+import 'package:airplane/widgets/loading_spinner.dart';
 import 'package:airplane/widgets/show_airplane_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class Home extends StatelessWidget {
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
+                elevation: 0,
                 actions: [
                   Stack(
                     children: [
@@ -171,8 +173,8 @@ class Home extends StatelessWidget {
                               child: fonts.subTitle1(
                                   "Search", colors.buttonInside()),
                             )
-                          : CircularProgressIndicator(
-                              color: colors.textColor(),
+                          : const LoadingSpinner(
+                              addText: false,
                             )
                     ],
                   ),

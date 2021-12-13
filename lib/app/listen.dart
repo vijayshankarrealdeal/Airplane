@@ -4,6 +4,7 @@ import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/movie_controllers.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/routes/all_shop_route.dart';
+import 'package:airplane/widgets/loading_spinner.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,6 +26,7 @@ class ListenPage extends StatelessWidget {
             body: CustomScrollView(
               slivers: [
                 SliverAppBar(
+                  elevation: 0,
                   backgroundColor: color.appBarColor(),
                 ),
                 movie.bothapicalldone
@@ -233,13 +235,7 @@ class ListenPage extends StatelessWidget {
                           )
                         ]),
                       )
-                    : SliverFillRemaining(
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: color.textColor(),
-                          ),
-                        ),
-                      )
+                    : const SliverFillRemaining(child: LoadingSpinner())
               ],
             ),
           );

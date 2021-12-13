@@ -25,7 +25,7 @@ class MaterialBottomNavigationBar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Transform.rotate(
-                  angle: -0.5,
+                  angle: -0.55,
                   child: IconButton(
                       icon: Icon(
                         CupertinoIcons.airplane,

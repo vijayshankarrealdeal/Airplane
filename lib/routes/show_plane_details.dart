@@ -24,7 +24,12 @@ class ShowPlaneDetails extends StatelessWidget {
       backgroundColor: color.colorofScaffold(),
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(backgroundColor: color.appBarColor()),
+          SliverAppBar(
+            elevation: 0,
+              iconTheme: IconThemeData(
+                color: color.backButton(), //change your color here
+              ),
+              backgroundColor: color.appBarColor()),
           SliverPersistentHeader(
             pinned: false,
             delegate: PlaneHeaderDelgate(
@@ -240,7 +245,7 @@ class PlaneHeaderDelgate extends SliverPersistentHeaderDelegate {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [],
+            children: const [],
           ),
         ),
       ],

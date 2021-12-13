@@ -23,7 +23,7 @@ class ShowAirPlaneCards extends StatelessWidget {
             ),
           ),
           child: Card(
-            color: color.appBarColor(),
+            color: color.planeCardColorHome(),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25.0),
             ),

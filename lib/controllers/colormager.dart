@@ -29,9 +29,17 @@ class ColorManager extends ChangeNotifier {
 
   Color colorofScaffold() {
     if (!darkmode) {
-      return const Color(0xfff9f9f9);
+      return const Color(0xffffffff);
     } else {
-      return const Color(0xff121212);
+      return const Color(0xff0D0D0D);
+    }
+  }
+
+  Color appBarColor() {
+    if (!darkmode) {
+      return const Color(0xffF9F9F9);
+    } else {
+      return const Color(0xff1D1D1D);
     }
   }
 
@@ -64,14 +72,6 @@ class ColorManager extends ChangeNotifier {
       return whiteProgress[i]!;
     } else {
       return blackProgress[i]!;
-    }
-  }
-
-  Color appBarColor() {
-    if (!darkmode) {
-      return Colors.white60;
-    } else {
-      return Colors.black54;
     }
   }
 
@@ -117,33 +117,49 @@ class ColorManager extends ChangeNotifier {
 
   Color bottomnavBar() {
     if (!darkmode) {
-      return Colors.white;
+      return const Color(0xffF9F9F9);
     } else {
-      return Colors.black;
+      return const Color(0xff161616);
     }
   }
 
   Color bottomnavBaractieIcons() {
     if (!darkmode) {
-      return Colors.black;
+      return const Color(0xff007AFF);
     } else {
-      return Colors.white;
+      return const Color(0xff0A84FF);
     }
   }
 
   Color formPlaceholder() {
     if (!darkmode) {
-      return Colors.grey;
+      return const Color.fromRGBO(60, 60, 67, 0.6);
     } else {
-      return Colors.grey.shade400;
+      return const Color.fromRGBO(235, 225, 245, 0.6);
     }
   }
 
   Color bottomnavBarInactieIcons() {
     if (!darkmode) {
-      return Colors.grey;
+      return const Color(0xff999999);
     } else {
-      return Colors.grey.shade800;
+      return const Color(0xff757575);
+    }
+  }
+
+  Color homeListTile() {
+    if (!darkmode) {
+      return const Color.fromRGBO(249, 249, 249, 0.94);
+    } else {
+      return const Color.fromRGBO(24, 24, 24, 0.94);
+    }
+  }
+
+  Color backButton() {
+    if (!darkmode) {
+      return const Color.fromRGBO(0, 122, 255, 1);
+    } else {
+      return const Color.fromRGBO(10, 132, 255, 1);
     }
   }
 
@@ -157,17 +173,33 @@ class ColorManager extends ChangeNotifier {
 
   Color warning() {
     if (!darkmode) {
-      return Colors.red.shade900;
+      return const Color(0xffFF3B30);
     } else {
-      return Colors.red.shade400;
+      return const Color(0xffFF453A);
+    }
+  }
+
+  Color planeCardColorHome() {
+    if (!darkmode) {
+      return const Color.fromRGBO(231, 113, 78, 1);
+    } else {
+      return const Color.fromRGBO(87, 115, 82, 1);
+    }
+  }
+
+  Color purple() {
+    if (!darkmode) {
+      return const Color(0xffAF52DE);
+    } else {
+      return const Color(0xffBF5AF2);
     }
   }
 
   Color nowarning() {
     if (!darkmode) {
-      return Colors.green.shade900;
+      return const Color(0xff34C759);
     } else {
-      return Colors.green.shade400;
+      return const Color(0xff30D158);
     }
   }
 
@@ -181,17 +213,17 @@ class ColorManager extends ChangeNotifier {
 
   Color yellow() {
     if (!darkmode) {
-      return Colors.yellow.shade700;
+      return const Color(0xffFFCC00);
     } else {
-      return Colors.yellow.shade600;
+      return const Color(0xffFFD60A);
     }
   }
 
   Color orange() {
     if (!darkmode) {
-      return Colors.orangeAccent;
+      return const Color(0xffFF9500);
     } else {
-      return Colors.orange;
+      return const Color(0xffFF9F0A);
     }
   }
 }

@@ -14,6 +14,10 @@ class Settings extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          elevation: 0,
+          iconTheme: IconThemeData(
+            color: color.backButton(), //change your color here
+          ),
           backgroundColor: color.appBarColor(),
         ),
         backgroundColor: color.colorofScaffold(),

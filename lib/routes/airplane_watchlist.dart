@@ -16,6 +16,10 @@ class AirplaneWatchList extends StatelessWidget {
     return Scaffold(
       backgroundColor: color.colorofScaffold(),
       appBar: AppBar(
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: color.backButton(), //change your color here
+        ),
         backgroundColor: color.appBarColor(),
       ),
       body: Consumer<PlaneControllers>(

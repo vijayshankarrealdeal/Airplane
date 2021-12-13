@@ -1,6 +1,7 @@
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/movie_controllers.dart';
 import 'package:airplane/controllers/typography.dart';
+import 'package:airplane/widgets/loading_spinner.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,6 +21,10 @@ class ShoppingShowAll extends StatelessWidget {
       child: Scaffold(
         backgroundColor: color.colorofScaffold(),
         appBar: AppBar(
+          elevation: 0,
+          iconTheme: IconThemeData(
+            color: color.backButton(), //change your color here
+          ),
           backgroundColor: color.appBarColor(),
           bottom: TabBar(
             tabs: [
@@ -140,11 +145,7 @@ class ShoppingShowAll extends StatelessWidget {
                           );
                         },
                       )
-                    : Center(
-                        child: CircularProgressIndicator(
-                          color: color.textColor(),
-                        ),
-                      ),
+                    : const LoadingSpinner(),
               ],
             );
           },
