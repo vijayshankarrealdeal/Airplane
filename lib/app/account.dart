@@ -20,120 +20,118 @@ class Account extends StatelessWidget {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     return SafeArea(
-      child: ChangeNotifierProvider<AccountControllers>(
-        create: (context) => AccountControllers(),
-        child: Scaffold(
-            key: _scaffoldKey,
-            backgroundColor: color.colorofScaffold(),
-            endDrawer: const GetDrawer(),
-            body: Consumer<AccountControllers>(
-              builder: (context, dataFlow, _) {
-                return CustomScrollView(
-                  slivers: [
-                    SliverAppBar(
-                      iconTheme: IconThemeData(
-                        color: color.textColor(), //change your color here
-                      ),
-                      actions: [
-                        CupertinoButton(
-                          child: Icon(
-                            CupertinoIcons.cube,
-                            color: color.iconColor(),
-                          ),
-                          onPressed: () =>
-                              _scaffoldKey.currentState!.openEndDrawer(),
-                        )
-                      ],
-                      shadowColor: Colors.white,
-                      backgroundColor: color.appBarColor(),
-                      elevation: 0,
-                      title: fonts.heading5("Account", color.textColor()),
+      child: Scaffold(
+          key: _scaffoldKey,
+          backgroundColor: color.colorofScaffold(),
+          endDrawer: const GetDrawer(),
+          body: Consumer<AccountControllers>(
+            builder: (context, dataFlow, _) {
+              return CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    iconTheme: IconThemeData(
+                      color: color.textColor(), //change your color here
                     ),
-                    dataFlow.flightdetails.isNotEmpty
-                        ? SliverList(
-                            delegate:
-                                SliverChildBuilderDelegate((context, index) {
-                              var _data = dataFlow.flightdetails[index];
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 4.0),
-                                child: Card(
-                                  elevation: 6,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  shadowColor: Colors.black,
-                                  color: color.homeListTile(),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(6.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.45,
-                                              child: AutoSizeText(
-                                                _data.departure,
-                                                style:
-                                                    GoogleFonts.sourceSansPro(
-                                                        decoration:
-                                                            TextDecoration.none,
-                                                        color:
-                                                            color.textColor(),
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        letterSpacing: 0.15),
-                                              ),
+                    actions: [
+                      CupertinoButton(
+                        child: Icon(
+                          CupertinoIcons.cube,
+                          color: color.iconColor(),
+                        ),
+                        onPressed: () =>
+                            _scaffoldKey.currentState!.openEndDrawer(),
+                      )
+                    ],
+                    shadowColor: Colors.white,
+                    backgroundColor: color.appBarColor(),
+                    elevation: 0,
+                    title: fonts.heading5("Account", color.textColor()),
+                  ),
+                  dataFlow.flightdetails.isNotEmpty
+                      ? SliverList(
+                          delegate:
+                              SliverChildBuilderDelegate((context, index) {
+                            var _data = dataFlow.flightdetails[index];
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 4.0),
+                              child: Card(
+                                elevation: 6,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                shadowColor: Colors.black,
+                                color: color.homeListTile(),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.45,
+                                            child: AutoSizeText(
+                                              _data.departure,
+                                              style: GoogleFonts.sourceSansPro(
+                                                  decoration:
+                                                      TextDecoration.none,
+                                                  color: color.textColor(),
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500,
+                                                  letterSpacing: 0.15),
                                             ),
-                                            fonts.heading6(
-                                              _data.time,
-                                              color.textColor(),
-                                            ),
-                                            fonts.heading6(
-                                              _data.airline,
-                                              color.textColor(),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            fonts.heading6(
-                                              _data.status,
-                                              color.textColor(),
-                                            ),
-                                            const SizedBox(width: 5),
-                                            CircleAvatar(
-                                              radius: 5,
-                                              backgroundColor: _getcolor(
-                                                  _data.status, color),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                          ),
+                                          fonts.heading6(
+                                            _data.time,
+                                            color.textColor(),
+                                          ),
+                                          fonts.heading6(
+                                            _data.infoUrl,
+                                            color.textColor(),
+                                          ),
+                                          fonts.heading6(
+                                            _data.departure,
+                                            color.textColor(),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          fonts.heading6(
+                                            _data.status,
+                                            color.textColor(),
+                                          ),
+                                          const SizedBox(width: 5),
+                                          CircleAvatar(
+                                            radius: 5,
+                                            backgroundColor:
+                                                _getcolor(_data.status, color),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              );
-                            }, childCount: dataFlow.flightdetails.length),
-                          )
-                        : const SliverFillRemaining(
-                            child: LoadingSpinner(),
-                          ),
-                  ],
-                );
-              },
-            )),
-      ),
+                              ),
+                            );
+                          }, childCount: dataFlow.flightdetails.length),
+                        )
+                      : const SliverFillRemaining(
+                          child: LoadingSpinner(),
+                        ),
+                ],
+              );
+            },
+          )),
     );
   }
 }

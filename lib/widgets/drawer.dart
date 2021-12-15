@@ -1,6 +1,7 @@
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/routes/dark_mode.dart';
+import 'package:airplane/routes/hotels_show.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +43,12 @@ class GetDrawer extends StatelessWidget {
                   leading: Icon(CupertinoIcons.time,
                       color: color.bottomnavBarInactieIcons()),
                   title: fonts.body1('Hotels', color.textColor()),
-                  onTap: () {},
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HotelShow(),
+                    ),
+                  ),
                 ),
                 ListTile(
                     leading: Icon(CupertinoIcons.car,

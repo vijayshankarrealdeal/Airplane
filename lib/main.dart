@@ -1,3 +1,4 @@
+import 'package:airplane/controllers/account_controller.dart';
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/planepage_controllers.dart';
 import 'package:airplane/controllers/typography.dart';
@@ -22,14 +23,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-      ),
-      home: ChangeNotifierProvider<PlaneControllers>(
-        create: (context) => PlaneControllers(),
-        child: MaterialHomePage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AccountControllers>(
+            create: (context) => AccountControllers()),
+        ChangeNotifierProvider<PlaneControllers>(
+            create: (context) => PlaneControllers()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.purple,
+        ),
+        home: MaterialHomePage(),
       ),
     );
   }
