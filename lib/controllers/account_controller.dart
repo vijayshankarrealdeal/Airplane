@@ -8,10 +8,16 @@ class AccountControllers extends ChangeNotifier {
   AccountControllers() {
     call();
   }
+
+  TextEditingController controller = TextEditingController();
+
   List<FlightDashboardData> _dashBoard = [];
   List<FlightDashboardData> get flightdetails => _dashBoard;
-  List<HotelData> _hotel_list = [];
-  List<HotelData> get hoteldetails => _hotel_list;
+  List<FlightDashboardData> searchyourf = [];
+  List<HotelData> _hotellist = [];
+  List<HotelData> get hoteldetails => _hotellist;
+
+  bool load = true;
   void call() async {
     String host = "10.0.2.2:5000";
     try {
@@ -26,20 +32,40 @@ class AccountControllers extends ChangeNotifier {
     }
   }
 
+  void getSearch(String s) {
+    searchyourf.clear();
+    searchyourf = flightdetails
+        .where((element) =>
+            element.airline.toLowerCase().contains(s.toLowerCase()))
+        .toList();
+    notifyListeners();
+  }
+
   void hotelcall(int checkinday, int checkoutday, int checkinmonth,
       int checkoutmonth, int checkinyr, int checkoutyr) async {
     String host = "10.0.2.2:5000";
+    _hotellist.clear();
     try {
-      final _response = await http.get(Uri.parse(
-          'http://$host/gethotel/$checkinday/$checkinmonth/$checkinyr/$checkoutday/$checkoutmonth/$checkoutyr'));
+      load = false;
+      notifyListeners();
+      final _response = await http
+          .get(Uri.parse('http://$host/gethotel/15/12/2021/22/12/2021'));
+      //  "gethotel/$checkinday/$checkinmonth/$checkinyr/$checkoutday/$checkoutmonth/$checkoutyr"
       Map<String, dynamic> _daa = json.decode(_response.body);
       Hotels _data = Hotels.fromJson(_daa);
-      _hotel_list = _data.data;
+      _hotellist = _data.data;
+      load = true;
       notifyListeners();
     } catch (e) {
+      load = true;
       notifyListeners();
     }
   }
 
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
   //
 }

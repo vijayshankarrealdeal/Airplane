@@ -43,12 +43,14 @@ class GetDrawer extends StatelessWidget {
                   leading: Icon(CupertinoIcons.time,
                       color: color.bottomnavBarInactieIcons()),
                   title: fonts.body1('Hotels', color.textColor()),
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HotelShow(),
-                    ),
-                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HotelShow(),
+                      ),
+                    );
+                  },
                 ),
                 ListTile(
                     leading: Icon(CupertinoIcons.car,

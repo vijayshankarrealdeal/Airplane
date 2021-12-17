@@ -3,6 +3,7 @@ import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/routes/dark_mode.dart';
 import 'package:airplane/widgets/drawer.dart';
+import 'package:airplane/widgets/form.dart';
 import 'package:airplane/widgets/loading_spinner.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -47,14 +48,30 @@ class Account extends StatelessWidget {
                     elevation: 0,
                     title: fonts.heading5("Account", color.textColor()),
                   ),
+                  SliverList(
+                    delegate: SliverChildListDelegate([
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                        child: FormForApp(
+                          callback: () =>
+                              dataFlow.getSearch(dataFlow.controller.text),
+                          change: (s) => dataFlow.getSearch(s),
+                          email: dataFlow.controller,
+                          placeholder: "Search Your Flight",
+                        ),
+                      ),
+                    ]),
+                  ),
                   dataFlow.flightdetails.isNotEmpty
                       ? SliverList(
-                          delegate:
-                              SliverChildBuilderDelegate((context, index) {
-                            var _data = dataFlow.flightdetails[index];
+                          delegate: SliverChildBuilderDelegate(
+                              (context, index) {
+                            var _data = dataFlow.controller.text.isEmpty
+                                ? dataFlow.flightdetails[index]
+                                : dataFlow.searchyourf[index];
                             return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 4.0),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 1, vertical: 4.0),
                               child: Card(
                                 elevation: 6,
                                 shape: RoundedRectangleBorder(
@@ -62,68 +79,79 @@ class Account extends StatelessWidget {
                                 ),
                                 shadowColor: Colors.black,
                                 color: color.homeListTile(),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(6.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.45,
-                                            child: AutoSizeText(
-                                              _data.departure,
-                                              style: GoogleFonts.sourceSansPro(
-                                                  decoration:
-                                                      TextDecoration.none,
-                                                  color: color.textColor(),
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w500,
-                                                  letterSpacing: 0.15),
-                                            ),
-                                          ),
-                                          fonts.heading6(
-                                            _data.time,
-                                            color.textColor(),
-                                          ),
-                                          fonts.heading6(
-                                            _data.infoUrl,
-                                            color.textColor(),
-                                          ),
-                                          fonts.heading6(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.4,
+                                          child: AutoSizeText(
                                             _data.departure,
-                                            color.textColor(),
+                                            style: GoogleFonts.sourceSansPro(
+                                                decoration: TextDecoration.none,
+                                                color: color.textColor(),
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w500,
+                                                letterSpacing: 0.15),
                                           ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          fonts.heading6(
-                                            _data.status,
-                                            color.textColor(),
-                                          ),
-                                          const SizedBox(width: 5),
-                                          CircleAvatar(
-                                            radius: 5,
-                                            backgroundColor:
-                                                _getcolor(_data.status, color),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                        ),
+                                        fonts.heading6(
+                                          _data.time,
+                                          color.textColor(),
+                                        ),
+                                        fonts.body1(
+                                          _data.infoUrl.substring(
+                                                    _data.infoUrl.length - 6,
+                                                    _data.infoUrl.length,
+                                                  )[0] ==
+                                                  '/'
+                                              ? _data.infoUrl.substring(
+                                                  _data.infoUrl.length - 5,
+                                                  _data.infoUrl.length,
+                                                )
+                                              : _data.infoUrl.substring(
+                                                  _data.infoUrl.length - 6,
+                                                  _data.infoUrl.length,
+                                                ),
+                                          color.textColor(),
+                                        ),
+                                        fonts.heading6(
+                                          _data.airline,
+                                          color.textColor(),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        fonts.heading6(
+                                          _data.status,
+                                          color.textColor(),
+                                        ),
+                                        const SizedBox(width: 5),
+                                        CircleAvatar(
+                                          radius: 5,
+                                          backgroundColor:
+                                              _getcolor(_data.status, color),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
                             );
-                          }, childCount: dataFlow.flightdetails.length),
+                          },
+                              childCount: dataFlow.controller.text.isEmpty
+                                  ? dataFlow.flightdetails.length
+                                  : dataFlow.searchyourf.length),
                         )
                       : const SliverFillRemaining(
                           child: LoadingSpinner(),
