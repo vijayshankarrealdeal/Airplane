@@ -20,17 +20,17 @@ class MovieController extends ChangeNotifier {
   List<ShopData> _shopInter = [];
   List<ShopData> get resultshopInter => _shopInter;
   bool load = true;
-  bool get bothapicalldone =>
-      (result.isNotEmpty && _shop.isNotEmpty && _shopInter.isNotEmpty)
-          ? true
-          : false;
+  // bool get bothapicalldone =>
+  //     (result.isNotEmpty && _shop.isNotEmpty && _shopInter.isNotEmpty)
+  //         ? true
+  //         : false;
 
   void call() async {
-    String host = "10.0.2.2:5000";
+    String host = "https://airlinefly.azurewebsites.net/api/getmovies";
     try {
       load = false;
-      final _response =
-          await http.get(Uri.parse('http://$host/getlatestmovies/'));
+      final _response = await http.get(Uri.parse(host));
+      print(_response.statusCode);
       Map<String, dynamic> _daa = json.decode(_response.body);
       MovieLatest movieLatest = MovieLatest.fromJson(_daa);
       _results = movieLatest.results ?? [];
@@ -43,10 +43,11 @@ class MovieController extends ChangeNotifier {
   }
 
   void shopCalling() async {
-    String host = "10.0.2.2:5000";
+    String host = "https://airlinefly.azurewebsites.net";
     try {
-      final _response = await http.get(Uri.parse('http://$host/getshoping/n'));
+      final _response = await http.get(Uri.parse('$host/api/shop/n'));
       Map<String, dynamic> _daa = json.decode(_response.body);
+      print(_response.statusCode.toString() + " assf");
       ShoppingModel shoppingModel = ShoppingModel.fromJson(_daa);
       _shop = shoppingModel.data;
       notifyListeners();
