@@ -29,7 +29,7 @@ class ListenPage extends StatelessWidget {
                   elevation: 0,
                   backgroundColor: color.appBarColor(),
                 ),
-                movie.result.isNotEmpty
+                movie.load && movie.resultshop.isNotEmpty
                     ? SliverList(
                         delegate: SliverChildListDelegate([
                           Padding(

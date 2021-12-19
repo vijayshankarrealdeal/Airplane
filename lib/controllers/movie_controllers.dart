@@ -19,11 +19,10 @@ class MovieController extends ChangeNotifier {
   List<ShopData> get resultshop => _shop;
   List<ShopData> _shopInter = [];
   List<ShopData> get resultshopInter => _shopInter;
-  bool load = true;
+  bool load = false;
   void call() async {
     String host = "https://airlinefly.azurewebsites.net/api/getmovies";
     try {
-      load = false;
       final _response = await http.get(Uri.parse(host));
       Map<String, dynamic> _daa = json.decode(_response.body);
       MovieLatest movieLatest = MovieLatest.fromJson(_daa);
@@ -39,6 +38,7 @@ class MovieController extends ChangeNotifier {
   void shopCalling() async {
     String host = "https://airlinefly.azurewebsites.net";
     try {
+      
       final _response = await http.get(Uri.parse('$host/api/shop/n'));
       Map<String, dynamic> _daa = json.decode(_response.body);
       ShoppingModel shoppingModel = ShoppingModel.fromJson(_daa);

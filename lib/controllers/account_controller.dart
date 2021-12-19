@@ -19,10 +19,9 @@ class AccountControllers extends ChangeNotifier {
 
   bool load = true;
   void call() async {
-    String host = "10.0.2.2:5000";
+    String host = "https://airlinefly.azurewebsites.net/api/getflightstatus";
     try {
-      final _response =
-          await http.get(Uri.parse('http://$host/getflightstatus/'));
+      final _response = await http.get(Uri.parse(host));
       Map<String, dynamic> _daa = json.decode(_response.body);
       AirportDashBoard _data = AirportDashBoard.fromJson(_daa);
       _dashBoard = _data.data;
@@ -43,13 +42,13 @@ class AccountControllers extends ChangeNotifier {
 
   void hotelcall(int checkinday, int checkoutday, int checkinmonth,
       int checkoutmonth, int checkinyr, int checkoutyr) async {
-    String host = "10.0.2.2:5000";
     _hotellist.clear();
     try {
       load = false;
       notifyListeners();
-      final _response = await http
-          .get(Uri.parse('http://$host/gethotel/15/12/2021/22/12/2021'));
+      final url =
+          "https://airlinefly.azurewebsites.net/api/hotels/15/12/2021/22/12/2021";
+      final _response = await http.get(Uri.parse(url));
       //  "gethotel/$checkinday/$checkinmonth/$checkinyr/$checkoutday/$checkoutmonth/$checkoutyr"
       Map<String, dynamic> _daa = json.decode(_response.body);
       Hotels _data = Hotels.fromJson(_daa);
