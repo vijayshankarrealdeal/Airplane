@@ -70,6 +70,7 @@ class PlaneControllers extends ChangeNotifier {
         "https://airlinefly.azurewebsites.net/api/getflights/$from/$where/$date/$adult/$children/$infant";
     try {
       searchdone = false;
+      load = false;
       notifyListeners();
       final _response = await http.get(Uri.parse(host));
       Map<String, dynamic> _daa = json.decode(_response.body);
@@ -81,7 +82,7 @@ class PlaneControllers extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       searchdone = true;
-      error = e.toString();
+      error = "Some error";
       load = true;
       notifyListeners();
     }
