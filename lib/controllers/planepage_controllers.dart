@@ -66,13 +66,12 @@ class PlaneControllers extends ChangeNotifier {
       int infant) async {
     from = _codeX[from].toString();
     where = _codeX[where].toString();
-    String host = "10.0.2.2:5000";
+    String host =
+        "https://airlinefly.azurewebsites.net/api/getflights/$from/$where/$date/$adult/$children/$infant";
     try {
       searchdone = false;
-      load = false;
       notifyListeners();
-      final _response = await http.get(Uri.parse(
-          'http://$host/getflights/$from/$where/$date/$adult/$children/$infant'));
+      final _response = await http.get(Uri.parse(host));
       Map<String, dynamic> _daa = json.decode(_response.body);
       List<dynamic> data = _daa['data'] ?? [];
       _flightMainData = data.map((e) => Data.fromJson(e)).toList();
