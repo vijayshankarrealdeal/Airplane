@@ -12,7 +12,8 @@ class ShowAirPlaneCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer4<PlaneControllers, Data, TypoGraphyOfApp, ColorManager>(
+    return Consumer4<PlaneControllers, FlightData, TypoGraphyOfApp,
+        ColorManager>(
       builder: (context, logicBoard, e, fonts, color, child) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8),
         child: GestureDetector(
@@ -36,17 +37,17 @@ class ShowAirPlaneCards extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: IconButton(
                       onPressed: () {
-                        if (e.selected) {
+                        if (e.isselected) {
                           logicBoard.removeWatchList(e);
                         } else {
                           logicBoard.addToWatchList(e);
                         }
                       },
                       icon: Icon(
-                        e.selected
+                        e.isselected
                             ? CupertinoIcons.heart_fill
                             : CupertinoIcons.heart,
-                        color: e.selected ? color.warning() : Colors.white,
+                        color: e.isselected ? color.warning() : Colors.white,
                       ),
                     ),
                   ),

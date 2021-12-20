@@ -4,6 +4,8 @@ import 'dart:ui';
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/model/plane.dart';
+import 'package:airplane/routes/login.dart';
+import 'package:airplane/services/auth.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +13,7 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 class ShowPlaneDetails extends StatelessWidget {
-  final Data data;
+  final FlightData data;
 
   const ShowPlaneDetails({Key? key, required this.data}) : super(key: key);
 
@@ -19,7 +21,7 @@ class ShowPlaneDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = Provider.of<ColorManager>(context);
     final fonts = Provider.of<TypoGraphyOfApp>(context);
-
+    final auth = Provider.of<Auth>(context);
     return Scaffold(
       backgroundColor: color.colorofScaffoldroute(),
       body: CustomScrollView(
@@ -107,7 +109,7 @@ class ShowPlaneDetails extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         fonts.heading2(
-                          '\u{20B9} ' + data.flightPrice,
+                          '\u{20B9} ' + data.flightPrice.toString(),
                           color.textColor(),
                         ),
                         fonts.body1(
@@ -158,7 +160,16 @@ class ShowPlaneDetails extends StatelessWidget {
           borderRadius: BorderRadius.zero,
           color: color.interestTab(),
           child: fonts.button("Book", color.buttonInside()),
-          onPressed: () {},
+          onPressed: () {
+            if (auth.token.isEmpty) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SignIn(),
+                ),
+              );
+            } else {}
+          },
         ),
       ),
     );
@@ -199,7 +210,7 @@ class PlaneHeaderDelgate extends SliverPersistentHeaderDelegate {
   final double height;
   final TypoGraphyOfApp fonts;
   final ColorManager color;
-  final Data userd;
+  final FlightData userd;
 
   PlaneHeaderDelgate(
       {required this.height,

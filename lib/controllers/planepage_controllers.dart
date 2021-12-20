@@ -6,8 +6,8 @@ import 'package:http/http.dart' as http;
 class PlaneControllers extends ChangeNotifier {
   bool load = true;
 
-  List<Data> _flightMainData = [];
-  List<Data> get flight => _flightMainData;
+  List<FlightData> _flightMainData = [];
+  List<FlightData> get flight => _flightMainData;
   DateTime selectedDate = DateTime.now();
   String pickedDate = 'Select Date';
   String error = '';
@@ -45,17 +45,17 @@ class PlaneControllers extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Data> watchLish = [];
-  void addToWatchList(Data data) {
+  List<FlightData> watchLish = [];
+  void addToWatchList(FlightData data) {
     int index = _flightMainData.indexOf(data);
-    flight[index].selected = true;
+    flight[index].isselected = true;
     watchLish.add(data);
     notifyListeners();
   }
 
-  void removeWatchList(Data data) {
+  void removeWatchList(FlightData data) {
     int index = _flightMainData.indexOf(data);
-    flight[index].selected = false;
+    flight[index].isselected = false;
     watchLish.remove(data);
     notifyListeners();
   }
@@ -75,7 +75,7 @@ class PlaneControllers extends ChangeNotifier {
       final _response = await http.get(Uri.parse(host));
       Map<String, dynamic> _daa = json.decode(_response.body);
       List<dynamic> data = _daa['data'] ?? [];
-      _flightMainData = data.map((e) => Data.fromJson(e)).toList();
+      _flightMainData = data.map((e) => FlightData.fromJson(e)).toList();
 
       load = true;
       searchdone = true;

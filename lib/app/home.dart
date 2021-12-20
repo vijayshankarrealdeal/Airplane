@@ -17,7 +17,8 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer3<PlaneControllers, TypoGraphyOfApp, ColorManager>(
-      builder: (ctx, data, fonts, colors, _) {
+      builder: (context, data, fonts, colors, _) {
+        print(data.flight.length);
         return Scaffold(
           backgroundColor: colors.colorofScaffold(),
           body: CustomScrollView(
@@ -198,7 +199,7 @@ class Home extends StatelessWidget {
                     )
                   : SliverList(
                       delegate: SliverChildBuilderDelegate(
-                        (context, index) => ChangeNotifierProvider<Data>.value(
+                        (context, index) => ChangeNotifierProvider<FlightData>.value(
                           value: data.flight[index],
                           child: const ShowAirPlaneCards(),
                         ),

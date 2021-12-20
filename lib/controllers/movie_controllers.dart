@@ -38,7 +38,6 @@ class MovieController extends ChangeNotifier {
   void shopCalling() async {
     String host = "https://airlinefly.azurewebsites.net";
     try {
-      
       final _response = await http.get(Uri.parse('$host/api/shop/n'));
       Map<String, dynamic> _daa = json.decode(_response.body);
       ShoppingModel shoppingModel = ShoppingModel.fromJson(_daa);
@@ -50,9 +49,9 @@ class MovieController extends ChangeNotifier {
   }
 
   void runInternational() async {
-    String host = "10.0.2.2:5000";
+    String host = "https://airlinefly.azurewebsites.net";
     try {
-      final _response = await http.get(Uri.parse('http://$host/getshoping/I'));
+      final _response = await http.get(Uri.parse('$host/api/shop/I'));
       Map<String, dynamic> _daa = json.decode(_response.body);
       ShoppingModel shoppingModel = ShoppingModel.fromJson(_daa);
       _shopInter = shoppingModel.data;

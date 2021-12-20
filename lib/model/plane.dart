@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
-class Flights {
-  Flights({
+class FlightDetails {
+  FlightDetails({
     required this.data,
   });
-  late final List<Data> data;
+  late final List<FlightData> data;
 
-  Flights.fromJson(Map<String, dynamic> json) {
-    data = List.from(json['data']).map((e) => Data.fromJson(e)).toList();
+  FlightDetails.fromJson(Map<String, dynamic> json) {
+    data = List.from(json['data']).map((e) => FlightData.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -17,8 +17,8 @@ class Flights {
   }
 }
 
-class Data extends ChangeNotifier {
-  Data({
+class FlightData extends ChangeNotifier {
+  FlightData({
     required this.destCity,
     required this.destCode,
     required this.destDate,
@@ -33,7 +33,7 @@ class Data extends ChangeNotifier {
     required this.orginCode,
     required this.orginDate,
     required this.orginTime,
-    this.selected = false,
+    this.isselected = false,
   });
   late final String destCity;
   late final String destCode;
@@ -44,14 +44,14 @@ class Data extends ChangeNotifier {
   late final String durationStops;
   late final String fightImg;
   late final String fightName;
-  late final String flightPrice;
+  late final int flightPrice;
   late final String orginCity;
   late final String orginCode;
   late final String orginDate;
   late final String orginTime;
-  bool selected = false;
+  bool isselected = false;
 
-  Data.fromJson(Map<String, dynamic> json) {
+  FlightData.fromJson(Map<String, dynamic> json) {
     destCity = json['dest_city'];
     destCode = json['dest_code'];
     destDate = json['dest_date'];

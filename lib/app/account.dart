@@ -1,7 +1,6 @@
 import 'package:airplane/controllers/account_controller.dart';
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
-import 'package:airplane/routes/dark_mode.dart';
 import 'package:airplane/widgets/drawer.dart';
 import 'package:airplane/widgets/form.dart';
 import 'package:airplane/widgets/loading_spinner.dart';
@@ -79,72 +78,76 @@ class Account extends StatelessWidget {
                                 ),
                                 shadowColor: Colors.black,
                                 color: color.homeListTile(),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.4,
-                                          child: AutoSizeText(
-                                            _data.departure,
-                                            style: GoogleFonts.sourceSansPro(
-                                                decoration: TextDecoration.none,
-                                                color: color.textColor(),
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w500,
-                                                letterSpacing: 0.15),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.4,
+                                            child: AutoSizeText(
+                                              _data.departure,
+                                              style: GoogleFonts.sourceSansPro(
+                                                  decoration:
+                                                      TextDecoration.none,
+                                                  color: color.textColor(),
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500,
+                                                  letterSpacing: 0.15),
+                                            ),
                                           ),
-                                        ),
-                                        fonts.heading6(
-                                          _data.time,
-                                          color.textColor(),
-                                        ),
-                                        fonts.body1(
-                                          _data.infoUrl.substring(
+                                          fonts.heading6(
+                                            _data.time,
+                                            color.textColor(),
+                                          ),
+                                          fonts.body1(
+                                            _data.infoUrl.substring(
+                                                      _data.infoUrl.length - 6,
+                                                      _data.infoUrl.length,
+                                                    )[0] ==
+                                                    '/'
+                                                ? _data.infoUrl.substring(
+                                                    _data.infoUrl.length - 5,
+                                                    _data.infoUrl.length,
+                                                  )
+                                                : _data.infoUrl.substring(
                                                     _data.infoUrl.length - 6,
                                                     _data.infoUrl.length,
-                                                  )[0] ==
-                                                  '/'
-                                              ? _data.infoUrl.substring(
-                                                  _data.infoUrl.length - 5,
-                                                  _data.infoUrl.length,
-                                                )
-                                              : _data.infoUrl.substring(
-                                                  _data.infoUrl.length - 6,
-                                                  _data.infoUrl.length,
-                                                ),
-                                          color.textColor(),
-                                        ),
-                                        fonts.heading6(
-                                          _data.airline,
-                                          color.textColor(),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        fonts.heading6(
-                                          _data.status,
-                                          color.textColor(),
-                                        ),
-                                        const SizedBox(width: 5),
-                                        CircleAvatar(
-                                          radius: 5,
-                                          backgroundColor:
-                                              _getcolor(_data.status, color),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                                  ),
+                                            color.textColor(),
+                                          ),
+                                          fonts.heading6(
+                                            _data.airline,
+                                            color.textColor(),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          fonts.heading6(
+                                            _data.status,
+                                            color.textColor(),
+                                          ),
+                                          const SizedBox(width: 5),
+                                          CircleAvatar(
+                                            radius: 5,
+                                            backgroundColor:
+                                                _getcolor(_data.status, color),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             );

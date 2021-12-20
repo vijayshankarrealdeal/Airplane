@@ -22,21 +22,23 @@ class AirplaneWatchList extends StatelessWidget {
         ),
         backgroundColor: color.appBarColorroute(),
       ),
-      body: Consumer<PlaneControllers>(
-        builder: (context, data, _) {
-          return data.watchLish.isNotEmpty
-              ? ListView.builder(
-                  itemCount: data.watchLish.length,
-                  itemBuilder: (context, index) {
-                    return ChangeNotifierProvider.value(
-                      value: data.watchLish[index],
-                      child: const ShowAirPlaneCards(),
-                    );
-                  })
-              : Center(
-                  child:
-                      fonts.heading4("Nothing in Wishlist", color.textColor()));
-        },
+      body: Center(
+        child: Consumer<PlaneControllers>(
+          builder: (context, data, _) {
+            return data.watchLish.isNotEmpty
+                ? ListView.builder(
+                    itemCount: data.watchLish.length,
+                    itemBuilder: (context, index) {
+                      return ChangeNotifierProvider.value(
+                        value: data.watchLish[index],
+                        child: const ShowAirPlaneCards(),
+                      );
+                    })
+                : Center(
+                    child: fonts.heading4(
+                        "Nothing in Wishlist", color.textColor()));
+          },
+        ),
       ),
     );
   }

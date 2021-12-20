@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:airplane/controllers/account_controller.dart';
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/widgets/loading_spinner.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class HotelShow extends StatelessWidget {
@@ -18,7 +22,6 @@ class HotelShow extends StatelessWidget {
       backgroundColor: color.colorofScaffoldroute(),
       body: Consumer<AccountControllers>(
         builder: (context, data, _) {
-          print(data.hoteldetails.length.toString() + "sddsads");
           return CustomScrollView(
             slivers: [
               SliverAppBar(
@@ -28,8 +31,8 @@ class HotelShow extends StatelessWidget {
                 backgroundColor: color.appBarColorroute(),
                 actions: [
                   CupertinoButton(
-                    child: Icon(CupertinoIcons.arrow_up_arrow_down),
-                    onPressed: () {},
+                    child: const Icon(CupertinoIcons.arrow_up_arrow_down),
+                    onPressed: () => showPopModelSheet(context, fonts, color),
                   ),
                 ],
               ),
@@ -42,27 +45,28 @@ class HotelShow extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           CupertinoButton(
-                            child: Icon(CupertinoIcons.macwindow),
-                            onPressed: () {},
+                            child: const Icon(CupertinoIcons.macwindow),
+                            onPressed: () => data.incomedate(context),
                           ),
-                          fonts.body1("Check In Date", color.textColor())
+                          fonts.body1(data.pickedDate, color.textColor())
                         ],
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           CupertinoButton(
-                            child: Icon(CupertinoIcons.calendar_badge_plus),
-                            onPressed: () {},
+                            child:
+                                const Icon(CupertinoIcons.calendar_badge_plus),
+                            onPressed: () => data.outdate(context),
                           ),
-                          fonts.body1("Check Out Date", color.textColor())
+                          fonts.body1(data.endate, color.textColor())
                         ],
                       ),
                       data.load
                           ? CupertinoButton(
                               child: fonts.button("Search", color.textColor()),
                               onPressed: () =>
-                                  data.hotelcall(15, 22, 12, 12, 2021, 2021),
+                                  data.hotelcall(data.pickedDate, data.endate),
                             )
                           : const LoadingSpinner(addText: false),
                     ],
@@ -74,33 +78,97 @@ class HotelShow extends StatelessWidget {
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
                           var _hotels = data.hoteldetails[index];
+                          var _hotelname = _hotels.hotelName
+                              .substring(1, _hotels.hotelName.length - 1)
+                              .split(',')[0];
+                          var _name =
+                              _hotelname.substring(1, _hotelname.length - 1);
                           return Card(
                             color: color.colorofCardShowing(),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Row(
+                              child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(
-                                      height: 100,
-                                      width: 100,
-                                      child: CachedNetworkImage(
-                                          imageUrl: _hotels.mediaImg)),
-                                  Column(
-                                    children: _hotels.hotelName
-                                        .split(',')
-                                        .toList()
-                                        .map(
-                                          (e) => fonts.caption(
-                                              e, color.textColor()),
-                                        )
-                                        .toList(),
-                                  ),
-                                  Column(
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      fonts.body1(
-                                          _hotels.money, color.textColor())
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: CachedNetworkImageProvider(
+                                              _hotels.mediaImg,
+                                            ),
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.33,
+                                        width:
+                                            MediaQuery.of(context).size.height *
+                                                0.25,
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 12.0),
+                                        child: SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.4,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              AutoSizeText(
+                                                _name.length > 21
+                                                    ? _name.substring(0, 21) +
+                                                        ".."
+                                                    : _name,
+                                                style:
+                                                    GoogleFonts.sourceSansPro(
+                                                        color:
+                                                            color.textColor(),
+                                                        fontSize: 28,
+                                                        decoration:
+                                                            TextDecoration.none,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        letterSpacing: 0.15),
+                                              ),
+                                              fonts.subTitle1(_hotels.rating,
+                                                  color.textColor()),
+                                              SizedBox(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.02),
+                                              fonts.subTitle1(_hotels.distance,
+                                                  color.textColor()),
+                                              SizedBox(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.002),
+                                              fonts.heading6(
+                                                _hotels.money,
+                                                color.textColor(),
+                                              ),
+                                              fonts.caption(_hotels.tax,
+                                                  color.textColor()),
+                                            ],
+                                          ),
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ],
@@ -125,6 +193,65 @@ class HotelShow extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  void showPopModelSheet(
+      BuildContext context, TypoGraphyOfApp fonts, ColorManager color) {
+    showBottomSheet(
+      context: context,
+      builder: (context) {
+        return Consumer<AccountControllers>(
+          builder: (ctx, data, _) {
+            return SizedBox(
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: ListView(
+                children: [
+                  Container(width: double.infinity),
+                  IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(
+                      CupertinoIcons.clear,
+                    ),
+                  ),
+                  ListTile(
+                    title: fonts.body1(
+                        "Sort By High to Low Amount", color.textColor()),
+                    onTap: () {
+                      data.sortbylowtohighamount();
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: fonts.body1(
+                        "Sort By Low to Hogh Amount", color.textColor()),
+                    onTap: () {
+                      data.sortbyhightolowamount();
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title:
+                        fonts.body1("Sort By Far Distance", color.textColor()),
+                    onTap: () {
+                      data.sortbydistance();
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title:
+                        fonts.body1("Sort By Near Distance", color.textColor()),
+                    onTap: () {
+                      data.sortbylowdistance();
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }
