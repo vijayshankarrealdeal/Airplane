@@ -4,6 +4,7 @@ import 'package:airplane/controllers/planepage_controllers.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/navbar/change.dart';
 import 'package:airplane/navbar/homepage.dart';
+import 'package:airplane/services/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
             create: (context) => AccountControllers()),
         ChangeNotifierProvider<PlaneControllers>(
             create: (context) => PlaneControllers()),
+        ChangeNotifierProvider<Auth>(create: (context) => Auth()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
