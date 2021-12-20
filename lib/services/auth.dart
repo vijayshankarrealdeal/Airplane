@@ -37,6 +37,7 @@ class Auth extends ChangeNotifier {
     try {
       final _respond = await http.get(Uri.parse(url));
       final _data = Map.from(json.decode(_respond.body));
+      print(_data);
       token = _data['token'];
       uid = _data['uid'];
       _oflineref.setString("token", token);
@@ -46,7 +47,8 @@ class Auth extends ChangeNotifier {
       print(e);
     }
   }
- Future<void> login(String email, String password) async {
+
+  Future<void> login(String email, String password) async {
     final _oflineref = await SharedPreferences.getInstance();
     final url =
         "https://airlinefly.azurewebsites.net/api/login/$email/$password";
@@ -62,6 +64,4 @@ class Auth extends ChangeNotifier {
       print(e);
     }
   }
-
 }
-
