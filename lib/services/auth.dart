@@ -22,7 +22,7 @@ class Auth extends ChangeNotifier {
       final _data = Map.from(json.decode(_respond.body));
       if (_data['token'] != 'error') {
         token = _data['token'];
-        uid = _data['uid'];
+        uid = _data['userId'];
         notifyListeners();
       }
       return;
@@ -30,16 +30,26 @@ class Auth extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> logout() async {
+    final _oflineref = await SharedPreferences.getInstance();
+    token = '';
+    uid = '';
+    _oflineref.setString("token", '');
+    _oflineref.setString("uid", '');
+    notifyListeners();
+  }
+
   Future<void> register(String email, String password) async {
     final _oflineref = await SharedPreferences.getInstance();
+
     final url =
         "https://airlinefly.azurewebsites.net/api/userreg/$email/$password";
+
     try {
       final _respond = await http.get(Uri.parse(url));
-      final _data = Map.from(json.decode(_respond.body));
-      print(_data);
+      final _data = json.decode(_respond.body);
       token = _data['token'];
-      uid = _data['uid'];
+      uid = _data['userId'];
       _oflineref.setString("token", token);
       _oflineref.setString("uid", uid);
       notifyListeners();
@@ -56,7 +66,7 @@ class Auth extends ChangeNotifier {
       final _respond = await http.get(Uri.parse(url));
       final _data = Map.from(json.decode(_respond.body));
       token = _data['token'];
-      uid = _data['uid'];
+      uid = _data['userId'];
       _oflineref.setString("token", token);
       _oflineref.setString("uid", uid);
       notifyListeners();

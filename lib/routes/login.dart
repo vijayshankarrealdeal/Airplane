@@ -149,7 +149,7 @@ class _SignInState extends State<SignIn> {
         setState(() {
           isSpin = false;
         });
-        await auth.register(email, password);
+        await auth.login(email, password);
         Navigator.pop(context);
       } catch (e) {
         setState(() {
@@ -163,7 +163,7 @@ class _SignInState extends State<SignIn> {
           setState(() {
             isSpin = false;
           });
-          await auth.login(email, password);
+          await auth.register(email, password);
           Navigator.pop(context);
         } catch (e) {
           setState(() {

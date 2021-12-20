@@ -2,6 +2,7 @@ import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/routes/dark_mode.dart';
 import 'package:airplane/routes/hotels_show.dart';
+import 'package:airplane/services/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,7 @@ class GetDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = Provider.of<ColorManager>(context);
     final fonts = Provider.of<TypoGraphyOfApp>(context);
+    final auht = Provider.of<Auth>(context);
 
     return Drawer(
       elevation: 6,
@@ -82,7 +84,10 @@ class GetDrawer extends StatelessWidget {
                   leading: Icon(Icons.exit_to_app_rounded,
                       color: color.bottomnavBarInactieIcons()),
                   title: fonts.body1('Log out', color.textColor()),
-                  onTap: () => print('todo'),
+                  onTap: () {
+                    auht.logout();
+                    Navigator.pop(context);
+                  },
                 ),
               ],
             ),

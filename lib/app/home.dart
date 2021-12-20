@@ -3,6 +3,7 @@ import 'package:airplane/controllers/planepage_controllers.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/model/plane.dart';
 import 'package:airplane/routes/airplane_watchlist.dart';
+import 'package:airplane/services/auth.dart';
 import 'package:airplane/widgets/loading_spinner.dart';
 import 'package:airplane/widgets/show_airplane_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,8 +17,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer3<PlaneControllers, TypoGraphyOfApp, ColorManager>(
-      builder: (context, data, fonts, colors, _) {
+    return Consumer4<PlaneControllers, TypoGraphyOfApp, ColorManager, Auth>(
+      builder: (context, data, fonts, colors, user, _) {
         print(data.flight.length);
         return Scaffold(
           backgroundColor: colors.colorofScaffold(),
@@ -199,7 +200,8 @@ class Home extends StatelessWidget {
                     )
                   : SliverList(
                       delegate: SliverChildBuilderDelegate(
-                        (context, index) => ChangeNotifierProvider<FlightData>.value(
+                        (context, index) =>
+                            ChangeNotifierProvider<FlightData>.value(
                           value: data.flight[index],
                           child: const ShowAirPlaneCards(),
                         ),

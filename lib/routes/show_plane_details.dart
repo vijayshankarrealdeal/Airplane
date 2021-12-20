@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/model/plane.dart';
+import 'package:airplane/routes/bookticket.dart';
 import 'package:airplane/routes/login.dart';
 import 'package:airplane/services/auth.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -168,7 +169,16 @@ class ShowPlaneDetails extends StatelessWidget {
                   builder: (context) => const SignIn(),
                 ),
               );
-            } else {}
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BookTicket(
+                    data: data,
+                  ),
+                ),
+              );
+            }
           },
         ),
       ),

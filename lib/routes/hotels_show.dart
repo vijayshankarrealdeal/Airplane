@@ -203,15 +203,19 @@ class HotelShow extends StatelessWidget {
       builder: (context) {
         return Consumer<AccountControllers>(
           builder: (ctx, data, _) {
-            return SizedBox(
+            return Container(
+              color: color.appBarColorroute(),
               height: MediaQuery.of(context).size.height * 0.5,
               child: ListView(
                 children: [
                   Container(width: double.infinity),
-                  IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: const Icon(
-                      CupertinoIcons.clear,
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(
+                        CupertinoIcons.clear,
+                      ),
                     ),
                   ),
                   ListTile(
