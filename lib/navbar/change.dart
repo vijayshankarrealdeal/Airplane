@@ -20,7 +20,7 @@ class ChangeofPage extends ChangeNotifier {
   Map<int, bool> acti = {
     0: true,
     1: false,
-    2: false,
-  //  3: false,
+    //2: false,
+    //  3: false,
   };
 }

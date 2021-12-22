@@ -3,6 +3,7 @@ import 'package:airplane/controllers/movie_controllers.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/widgets/loading_spinner.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -41,49 +42,57 @@ class ShoppingShowAll extends StatelessWidget {
                   itemCount: data.resultshop.length,
                   itemBuilder: (context, index) {
                     var national = data.resultshop;
-                    return Container(
-                      color: color.appBarColor(),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.35,
-                            width: double.infinity,
-                            child: Image.network(
-                              national[index].img,
-                              fit: BoxFit.cover,
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: color.appBarColor(),
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: color.interestTab(),
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: CachedNetworkImageProvider(
+                                          national[index].img)),
+                                  borderRadius: BorderRadius.circular(15)),
+                              height: MediaQuery.of(context).size.height * 0.35,
+                              width: double.infinity,
                             ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                fonts.heading4(
-                                    national[index].title, color.textColor()),
-                                const SizedBox(height: 10),
-                                AutoSizeText(
-                                  national[index].content,
-                                  style: GoogleFonts.sourceSansPro(
-                                      color: color.textColor(),
-                                      fontSize: 15,
-                                      decoration: TextDecoration.none,
-                                      fontWeight: FontWeight.w400,
-                                      letterSpacing: 0.5),
-                                ),
-                                fonts.button(
-                                    national[index].opening, color.textColor()),
-                                fonts.caption(national[index].contanctDetails,
-                                    color.textColor()),
-                                fonts.caption(national[index].location,
-                                    color.textColor()),
-                              ],
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  fonts.heading4(
+                                      national[index].title, color.textColor()),
+                                  const SizedBox(height: 10),
+                                  AutoSizeText(
+                                    national[index].content,
+                                    style: GoogleFonts.sourceSansPro(
+                                        color: color.textColor(),
+                                        fontSize: 15,
+                                        decoration: TextDecoration.none,
+                                        fontWeight: FontWeight.w400,
+                                        letterSpacing: 0.5),
+                                  ),
+                                  fonts.button(national[index].opening,
+                                      color.textColor()),
+                                  fonts.caption(national[index].contanctDetails,
+                                      color.textColor()),
+                                  fonts.caption(national[index].location,
+                                      color.textColor()),
+                                ],
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 10),
-                        ],
+                            const SizedBox(height: 10),
+                          ],
+                        ),
                       ),
                     );
                   },

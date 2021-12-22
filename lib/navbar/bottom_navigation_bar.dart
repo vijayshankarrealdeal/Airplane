@@ -24,31 +24,28 @@ class MaterialBottomNavigationBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Transform.rotate(
-                  angle: -0.55,
-                  child: IconButton(
-                      icon: Icon(
-                        CupertinoIcons.airplane,
-                        size: nav.size,
-                        color: nav.acti[0]!
-                            ? color.bottomnavBaractieIcons()
-                            : color.bottomnavBarInactieIcons(),
-                      ),
-                      onPressed: () {
-                        nav.kCallback(0);
-                      }),
-                ),
                 IconButton(
                     icon: Icon(
                       CupertinoIcons.app,
                       size: nav.size,
-                      color: nav.acti[1]!
+                      color: nav.acti[0]!
                           ? color.bottomnavBaractieIcons()
                           : color.bottomnavBarInactieIcons(),
                     ),
                     onPressed: () {
-                      nav.kCallback(1);
+                      nav.kCallback(0);
                     }),
+                // IconButton(
+                //     icon: Icon(
+                //       CupertinoIcons.add_circled,
+                //       size: nav.size,
+                //       color: nav.acti[1]!
+                //           ? color.bottomnavBaractieIcons()
+                //           : color.bottomnavBarInactieIcons(),
+                //     ),
+                //     onPressed: () {
+                //       nav.kCallback(1);
+                //     }),
                 Transform.rotate(
                   angle: 0.5,
                   child: IconButton(

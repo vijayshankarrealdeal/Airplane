@@ -14,7 +14,7 @@ import 'change.dart';
 class MaterialHomePage extends StatelessWidget {
   final List<Widget> children = [
     const Home(),
-    const ListenPage(),
+    // const ListenPage(),
     const Account(),
     //  const AddStatusQuestions()
   ];
@@ -34,7 +34,7 @@ class MaterialHomePage extends StatelessWidget {
     ));
     return SafeArea(
       child: Scaffold(
-        endDrawer: const GetDrawer(),
+        drawer: const GetDrawer(),
         key: _scaffoldKey,
         backgroundColor: color.colorofScaffold(),
         body: children[nav.pageIndex],

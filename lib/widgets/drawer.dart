@@ -77,7 +77,6 @@ class GetDrawer extends StatelessWidget {
                       builder: (context) => const CheckList(),
                     ),
                   ),
-
                 ),
               ],
             ),
