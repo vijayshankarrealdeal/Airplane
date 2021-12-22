@@ -1,5 +1,6 @@
 import 'package:airplane/controllers/account_controller.dart';
 import 'package:airplane/controllers/colormager.dart';
+import 'package:airplane/controllers/movie_controllers.dart';
 import 'package:airplane/controllers/planepage_controllers.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/navbar/change.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
             create: (context) => AccountControllers()),
         ChangeNotifierProvider<PlaneControllers>(
             create: (context) => PlaneControllers()),
+        ChangeNotifierProvider(create: (context) => MovieController()),
         ChangeNotifierProvider<Auth>(create: (context) => Auth()),
       ],
       child: MaterialApp(
