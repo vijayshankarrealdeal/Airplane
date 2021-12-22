@@ -1,7 +1,9 @@
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
+import 'package:airplane/routes/checklist_show.dart';
 import 'package:airplane/routes/dark_mode.dart';
 import 'package:airplane/routes/hotels_show.dart';
+import 'package:airplane/routes/login.dart';
 import 'package:airplane/services/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +67,18 @@ class GetDrawer extends StatelessWidget {
                   title: fonts.body1('Another Servies', color.textColor()),
                   onTap: () {},
                 ),
+                ListTile(
+                  leading: Icon(CupertinoIcons.app_badge_fill,
+                      color: color.bottomnavBarInactieIcons()),
+                  title: fonts.body1('Check List', color.textColor()),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CheckList(),
+                    ),
+                  ),
+
+                ),
               ],
             ),
             Column(
@@ -80,15 +94,30 @@ class GetDrawer extends StatelessWidget {
                     ),
                   ),
                 ),
-                ListTile(
-                  leading: Icon(Icons.exit_to_app_rounded,
-                      color: color.bottomnavBarInactieIcons()),
-                  title: fonts.body1('Log out', color.textColor()),
-                  onTap: () {
-                    auht.logout();
-                    Navigator.pop(context);
-                  },
-                ),
+                auht.token.isEmpty
+                    ? ListTile(
+                        leading: Icon(Icons.exit_to_app_rounded,
+                            color: color.bottomnavBarInactieIcons()),
+                        title:
+                            fonts.body1('Sign in/Sign up', color.textColor()),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SignIn(),
+                            ),
+                          );
+                        },
+                      )
+                    : ListTile(
+                        leading: Icon(Icons.exit_to_app_rounded,
+                            color: color.bottomnavBarInactieIcons()),
+                        title: fonts.body1('Log out', color.textColor()),
+                        onTap: () {
+                          auht.logout();
+                          Navigator.pop(context);
+                        },
+                      ),
               ],
             ),
           ],
