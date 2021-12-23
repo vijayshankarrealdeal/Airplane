@@ -12,6 +12,7 @@ import 'package:airplane/routes/serach_for_airplances.dart';
 import 'package:airplane/services/auth.dart';
 import 'package:airplane/widgets/drawer.dart';
 import 'package:airplane/widgets/loading_spinner.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,8 @@ class Home extends StatelessWidget {
       "Flight-Status",
       "Deals-Offer",
       "Travel-Checklist",
-      "Your Trips"
+      "Your Trips",
+      "Support & Help"
     ];
     final font = Provider.of<TypoGraphyOfApp>(context);
     final auth = Provider.of<Auth>(context);
@@ -42,7 +44,8 @@ class Home extends StatelessWidget {
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
-                // flexibleSpace: Container(
+                title: font.heading5("FlyCrew", color.textColor()),
+                // fltexibleSpace: Container(
                 //   width: double.infinity,
                 //   decoration: const BoxDecoration(
                 //       image: DecorationImage(
@@ -60,7 +63,7 @@ class Home extends StatelessWidget {
                 actions: [
                   auth.token.isEmpty
                       ? CupertinoButton(
-                          child: font.button("Sign In", color.buttonInside()),
+                          child: font.button("Sign In", color.textColor()),
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -293,10 +296,20 @@ class Home extends StatelessWidget {
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.26,
-                          child: ListView.builder(
+                          child: CarouselSlider.builder(
+                            options: CarouselOptions(
+                                aspectRatio: 3 / 4,
+                                initialPage: 0,
+                                enableInfiniteScroll: true,
+                                reverse: false,
+                                autoPlay: true,
+                                autoPlayInterval: const Duration(seconds: 5),
+                                scrollDirection: Axis.horizontal,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.65),
                             itemCount: movie.resultshop.length - 10,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (ctx, index) {
+                            itemBuilder: (BuildContext context, int itemIndex,
+                                int pageViewIndex) {
                               return Padding(
                                 padding: const EdgeInsets.all(12.0),
                                 child: Container(
@@ -315,7 +328,7 @@ class Home extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         fonts.heading5(
-                                            movie.resultshop[index].title,
+                                            movie.resultshop[itemIndex].title,
                                             color.textColor()),
 
                                         Column(
@@ -325,15 +338,16 @@ class Home extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             fonts.button(
-                                                movie.resultshop[index].opening,
+                                                movie.resultshop[itemIndex]
+                                                    .opening,
                                                 color.textColor()),
                                             fonts.caption(
-                                                movie.resultshop[index]
+                                                movie.resultshop[itemIndex]
                                                     .contanctDetails,
                                                 color.textColor()),
                                             fonts.caption(
-                                                movie
-                                                    .resultshop[index].location,
+                                                movie.resultshop[itemIndex]
+                                                    .location,
                                                 color.textColor()),
                                           ],
                                         ),

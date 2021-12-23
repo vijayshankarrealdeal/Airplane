@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:airplane/controllers/account_controller.dart';
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
@@ -25,15 +23,23 @@ class HotelShow extends StatelessWidget {
           return CustomScrollView(
             slivers: [
               SliverAppBar(
+                centerTitle: true,
+                title: fonts.heading5("Hotel", color.textColor()),
                 iconTheme: IconThemeData(
                   color: color.backButton(), //change your color here
                 ),
                 backgroundColor: color.appBarColorroute(),
                 actions: [
-                  CupertinoButton(
-                    child: const Icon(CupertinoIcons.arrow_up_arrow_down),
-                    onPressed: () => showPopModelSheet(context, fonts, color),
-                  ),
+                  data.hoteldetails.isNotEmpty
+                      ? CupertinoButton(
+                          child: Icon(
+                            Icons.sort,
+                            color: color.backButton(),
+                          ),
+                          onPressed: () =>
+                              showPopModelSheet(context, fonts, color),
+                        )
+                      : const SizedBox(),
                 ],
               ),
               SliverList(
@@ -64,7 +70,13 @@ class HotelShow extends StatelessWidget {
                       ),
                       data.load
                           ? CupertinoButton(
-                              child: fonts.button("Search", color.textColor()),
+                              child: Row(
+                                children: [
+                                  Icon(CupertinoIcons.search,
+                                      color: color.orange()),
+                                  fonts.button("Search", color.textColor()),
+                                ],
+                              ),
                               onPressed: () =>
                                   data.hotelcall(data.pickedDate, data.endate),
                             )
@@ -181,11 +193,11 @@ class HotelShow extends StatelessWidget {
                     )
                   : SliverFillRemaining(
                       child: Center(
-                        child: fonts.heading3(
+                        child: fonts.heading4(
                           data.load
-                              ? "Search For Hotel"
-                              : "Looking For Best Fit",
-                          color.textColor(),
+                              ? "Plan your next staycation"
+                              : "Looking for your stay",
+                          color.formPlaceholder(),
                         ),
                       ),
                     )

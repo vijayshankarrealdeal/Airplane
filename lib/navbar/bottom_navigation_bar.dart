@@ -48,17 +48,31 @@ class MaterialBottomNavigationBar extends StatelessWidget {
                 //     }),
                 Transform.rotate(
                   angle: 0.5,
-                  child: IconButton(
-                      icon: Icon(
-                        CupertinoIcons.bell,
-                        size: nav.size,
-                        color: nav.acti[1]!
-                            ? color.bottomnavBaractieIcons()
-                            : color.bottomnavBarInactieIcons(),
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        left: 2,
+                        bottom: 4,
+                        child: 1 == 2
+                            ? CircleAvatar(
+                                radius: 5,
+                                backgroundColor: color.interestTab(),
+                              )
+                            : const SizedBox(),
                       ),
-                      onPressed: () {
-                        nav.kCallback(1);
-                      }),
+                      IconButton(
+                          icon: Icon(
+                            CupertinoIcons.bell,
+                            size: nav.size,
+                            color: nav.acti[1]!
+                                ? color.bottomnavBaractieIcons()
+                                : color.bottomnavBarInactieIcons(),
+                          ),
+                          onPressed: () {
+                            nav.kCallback(1);
+                          }),
+                    ],
+                  ),
                 ),
                 // IconButton(
                 //     icon: Icon(
