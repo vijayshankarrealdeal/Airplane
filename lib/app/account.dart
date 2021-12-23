@@ -23,7 +23,6 @@ class Account extends StatelessWidget {
       child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: color.colorofScaffold(),
-          endDrawer: const GetDrawer(),
           body: Consumer<AccountControllers>(
             builder: (context, dataFlow, _) {
               return CustomScrollView(
@@ -32,20 +31,20 @@ class Account extends StatelessWidget {
                     iconTheme: IconThemeData(
                       color: color.textColor(), //change your color here
                     ),
-                    actions: [
-                      CupertinoButton(
-                        child: Icon(
-                          CupertinoIcons.cube,
-                          color: color.iconColor(),
-                        ),
-                        onPressed: () =>
-                            _scaffoldKey.currentState!.openEndDrawer(),
-                      )
-                    ],
+                    //   actions: [
+                    // CupertinoButton(
+                    //   child: Icon(
+                    //     CupertinoIcons.cube,
+                    //     color: color.iconColor(),
+                    //   ),
+                    //   onPressed: () =>
+                    //       _scaffoldKey.currentState!.openEndDrawer(),
+                    // )
+                    //    ],
                     shadowColor: Colors.white,
                     backgroundColor: color.appBarColor(),
                     elevation: 0,
-                    title: fonts.heading5("Account", color.textColor()),
+                    title: fonts.heading5("Board", color.textColor()),
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate([

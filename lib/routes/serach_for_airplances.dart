@@ -24,6 +24,11 @@ class SearchForAirplanes extends StatelessWidget {
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
+                centerTitle: true,
+                title: fonts.heading5("Flights", colors.textColor()),
+                iconTheme: IconThemeData(
+                  color: colors.backButton(), //change your color here
+                ),
                 elevation: 0,
                 actions: [
                   Stack(
@@ -50,7 +55,7 @@ class SearchForAirplanes extends StatelessWidget {
                               ),
                           icon: Icon(
                             CupertinoIcons.bag,
-                            color: colors.iconColor(),
+                            color: colors.textColor(),
                             size: 35,
                           )),
                     ],
@@ -59,7 +64,8 @@ class SearchForAirplanes extends StatelessWidget {
                 backgroundColor: colors.appBarColor(),
               ),
               SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 sliver: SliverList(
                     delegate: SliverChildListDelegate([
                   Theme(
@@ -72,6 +78,12 @@ class SearchForAirplanes extends StatelessWidget {
                             elevation: 2, color: colors.appBarColor()),
                         textFieldConfiguration: TextFieldConfiguration(
                             decoration: InputDecoration(
+                              prefix: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 7.0, vertical: 2),
+                                child: Icon(CupertinoIcons.location_fill,
+                                    color: colors.iconColor(), size: 15),
+                              ),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide:
                                     BorderSide(color: colors.textColor()),
@@ -102,6 +114,21 @@ class SearchForAirplanes extends StatelessWidget {
                           data.onsuggestionselect(suggestion.toString());
                         }),
                   ),
+                  const SizedBox(height: 25),
+                  SizedBox(
+                    child: GestureDetector(
+                      onTap: () => data.changethelines(),
+                      child: CircleAvatar(
+                        backgroundColor:
+                            colors.colorofScaffoldroute().withOpacity(0.8),
+                        radius: 12,
+                        child: Icon(
+                          CupertinoIcons.arrow_up_arrow_down,
+                          color: colors.textColor(),
+                        ),
+                      ),
+                    ),
+                  ),
                   Theme(
                     data: ThemeData(
                         brightness: colors.darkmode
@@ -112,6 +139,12 @@ class SearchForAirplanes extends StatelessWidget {
                             elevation: 2, color: colors.appBarColor()),
                         textFieldConfiguration: TextFieldConfiguration(
                             decoration: InputDecoration(
+                              prefix: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 7.0, vertical: 2),
+                                child: Icon(CupertinoIcons.location,
+                                    color: colors.iconColor(), size: 15),
+                              ),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide:
                                     BorderSide(color: colors.textColor()),
@@ -164,6 +197,8 @@ class SearchForAirplanes extends StatelessWidget {
                       ),
                       data.load
                           ? CupertinoButton(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 4),
                               color: colors.buttonOutside(),
                               onPressed: () => data.call(
                                   data.originfrom.text.toLowerCase(),
@@ -172,12 +207,21 @@ class SearchForAirplanes extends StatelessWidget {
                                   1,
                                   0,
                                   0),
-                              child: fonts.subTitle1(
-                                  "Search", colors.buttonInside()),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(CupertinoIcons.search,
+                                      color: colors.orange()),
+                                  fonts.subTitle1(
+                                      "Search", colors.buttonInside()),
+                                ],
+                              ),
                             )
                           : const LoadingSpinner(
                               addText: false,
-                            )
+                            ),
                     ],
                   ),
                 ])),
@@ -186,14 +230,15 @@ class SearchForAirplanes extends StatelessWidget {
                   ? SliverFillRemaining(
                       child: Center(
                         child: data.load
-                            ? fonts.heading1("Welcome", colors.textColor())
-                            : fonts.heading1(
+                            ? fonts.heading4("Let the journey begin",
+                                colors.formPlaceholder())
+                            : fonts.heading4(
                                 data.error.isNotEmpty
                                     ? data.error
                                     : data.searchdone
                                         ? "No Flights"
                                         : "Searching",
-                                colors.textColor(),
+                                colors.formPlaceholder(),
                               ),
                       ),
                     )

@@ -3,8 +3,12 @@ import 'dart:ui';
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/movie_controllers.dart';
 import 'package:airplane/controllers/typography.dart';
+import 'package:airplane/routes/all_moive_route.dart';
 import 'package:airplane/routes/all_shop_route.dart';
+import 'package:airplane/routes/checklist_show.dart';
+import 'package:airplane/routes/hotels_show.dart';
 import 'package:airplane/routes/login.dart';
+import 'package:airplane/routes/serach_for_airplances.dart';
 import 'package:airplane/services/auth.dart';
 import 'package:airplane/widgets/drawer.dart';
 import 'package:airplane/widgets/loading_spinner.dart';
@@ -19,11 +23,11 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> pp = ["Flight", "Hotels", "Transport", "Shopping"];
-    List<String> px = ["Res", "Enmt", "Serv ", "Infp"];
+    List<String> px = ["Restaurants", "Entertainment", "Services ", "Info"];
     List<String> tx = [
-      "flight - status",
-      "deals -offer",
-      "travel-checklist ",
+      "Flight-Status",
+      "Deals-Offer",
+      "Travel-Checklist",
       "Your Trips"
     ];
     final font = Provider.of<TypoGraphyOfApp>(context);
@@ -48,7 +52,7 @@ class Home extends StatelessWidget {
                 // ),
                 backgroundColor: color.appBarColor(),
                 leading: IconButton(
-                  icon: Icon(CupertinoIcons.hammer),
+                  icon: Icon(CupertinoIcons.app, color: color.textColor()),
                   onPressed: () {
                     _scaffoldKey.currentState!.openDrawer();
                   },
@@ -56,7 +60,6 @@ class Home extends StatelessWidget {
                 actions: [
                   auth.token.isEmpty
                       ? CupertinoButton(
-                          color: color.buttonOutside(),
                           child: font.button("Sign In", color.buttonInside()),
                           onPressed: () {
                             Navigator.push(
@@ -77,10 +80,11 @@ class Home extends StatelessWidget {
                               ],
                             ),
                             const SizedBox(width: 10),
-                            const SizedBox(
+                            SizedBox(
                               height: 40,
                               width: 40,
-                              child: Icon(Icons.payment),
+                              child:
+                                  Icon(Icons.payment, color: color.textColor()),
                             ),
                           ],
                         ),
@@ -107,9 +111,45 @@ class Home extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  CircleAvatar(
-                                    radius: 40,
-                                    backgroundColor: color.interestTab(),
+                                  GestureDetector(
+                                    onTap: () {
+                                      if (e == "Flight") {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SearchForAirplanes(),
+                                          ),
+                                        );
+                                      }
+                                      if (e == "Shopping") {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ChangeNotifierProvider<
+                                                    MovieController>.value(
+                                              value: movie,
+                                              child: const ShoppingShowAll(),
+                                            ),
+                                          ),
+                                        );
+                                      }
+
+                                      if (e == 'Hotels') {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const HotelShow(),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    child: CircleAvatar(
+                                      radius: 40,
+                                      backgroundColor: color.interestTab(),
+                                    ),
                                   ),
                                   font.subTitle1(
                                     e,
@@ -143,9 +183,27 @@ class Home extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  CircleAvatar(
-                                    radius: 40,
-                                    backgroundColor: color.interestTab(),
+                                  GestureDetector(
+                                    onTap: () {
+                                      if (e == 'Entertainment') {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ChangeNotifierProvider<
+                                                    MovieController>(
+                                              create: (xtc) =>
+                                                  MovieController(),
+                                              child: const MoreMovies(),
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    child: CircleAvatar(
+                                      radius: 40,
+                                      backgroundColor: color.interestTab(),
+                                    ),
                                   ),
                                   font.subTitle1(
                                     e,
@@ -173,16 +231,29 @@ class Home extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         children: tx
                             .map(
-                              (e) => Padding(
-                                padding: const EdgeInsets.all(1.0),
-                                child: Container(
-                                  width: 140,
-                                  decoration: BoxDecoration(
-                                    color: color.appBarColorroute(),
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: Center(
-                                    child: font.heading6(e, color.textColor()),
+                              (e) => GestureDetector(
+                                onTap: () {
+                                  if (e == "Travel-Checklist") {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const CheckList(),
+                                      ),
+                                    );
+                                  }
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(1.0),
+                                  child: Container(
+                                    width: 140,
+                                    decoration: BoxDecoration(
+                                      color: color.appBarColorroute(),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: Center(
+                                      child:
+                                          font.heading6(e, color.textColor()),
+                                    ),
                                   ),
                                 ),
                               ),

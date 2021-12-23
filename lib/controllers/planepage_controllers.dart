@@ -35,6 +35,14 @@ class PlaneControllers extends ChangeNotifier {
 
   TextEditingController originfrom = TextEditingController();
   TextEditingController destto = TextEditingController();
+
+  void changethelines() {
+    String tmp = originfrom.text;
+    originfrom.text = destto.text;
+    destto.text = tmp;
+    notifyListeners();
+  }
+
   void onsuggestionselect(String suggestion) {
     originfrom.text = suggestion;
     notifyListeners();

@@ -26,7 +26,7 @@ class MaterialBottomNavigationBar extends StatelessWidget {
               children: [
                 IconButton(
                     icon: Icon(
-                      CupertinoIcons.app,
+                      CupertinoIcons.home,
                       size: nav.size,
                       color: nav.acti[0]!
                           ? color.bottomnavBaractieIcons()
@@ -52,12 +52,12 @@ class MaterialBottomNavigationBar extends StatelessWidget {
                       icon: Icon(
                         CupertinoIcons.bell,
                         size: nav.size,
-                        color: nav.acti[2]!
+                        color: nav.acti[1]!
                             ? color.bottomnavBaractieIcons()
                             : color.bottomnavBarInactieIcons(),
                       ),
                       onPressed: () {
-                        nav.kCallback(2);
+                        nav.kCallback(1);
                       }),
                 ),
                 // IconButton(

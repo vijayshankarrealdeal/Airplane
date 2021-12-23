@@ -35,7 +35,8 @@ class ShowAirPlaneCards extends StatelessWidget {
                 children: [
                   Align(
                     alignment: Alignment.centerRight,
-                    child: IconButton(
+                    child: CupertinoButton(
+                      padding: EdgeInsets.zero,
                       onPressed: () {
                         if (e.isselected) {
                           logicBoard.removeWatchList(e);
@@ -43,7 +44,7 @@ class ShowAirPlaneCards extends StatelessWidget {
                           logicBoard.addToWatchList(e);
                         }
                       },
-                      icon: Icon(
+                      child: Icon(
                         e.isselected
                             ? CupertinoIcons.heart_fill
                             : CupertinoIcons.heart,
