@@ -1,4 +1,5 @@
 import 'package:airplane/controllers/colormager.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -15,12 +16,14 @@ class FormForApp extends StatelessWidget {
   final int minLines;
   final bool addWordCount;
   final Widget? prefix;
+  final Widget? suffix;
 
   const FormForApp(
       {Key? key,
       this.addWordCount = true,
       this.maxLength = 100,
       this.prefix,
+      this.suffix,
       this.minLines = 1,
       this.change,
       this.maxLines = 1,
@@ -42,6 +45,7 @@ class FormForApp extends StatelessWidget {
         obscureText: hideText,
         style: TextStyle(color: colorX.textColor()),
         decoration: InputDecoration(
+          suffix: suffix,
           counterText: addWordCount ? null : "",
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: colorX.textColor()),

@@ -23,8 +23,10 @@ class LoadingSpinner extends StatelessWidget {
                         color.darkmode ? Brightness.dark : Brightness.light),
                 child: const CupertinoActivityIndicator(),
               ),
-             addText? font.heading6("Loading", color.textColor())
-  :const SizedBox()          ],
+              addText
+                  ? font.heading6("Loading", color.textColor())
+                  : const SizedBox()
+            ],
           ),
         );
       },

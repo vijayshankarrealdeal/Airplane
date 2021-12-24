@@ -11,6 +11,7 @@ import 'package:airplane/routes/hotels_show.dart';
 import 'package:airplane/routes/login.dart';
 import 'package:airplane/routes/qr_code.dart';
 import 'package:airplane/routes/serach_for_airplances.dart';
+import 'package:airplane/routes/support_help.dart';
 import 'package:airplane/services/auth.dart';
 import 'package:airplane/widgets/drawer.dart';
 import 'package:airplane/widgets/loading_spinner.dart';
@@ -96,7 +97,7 @@ class Home extends StatelessWidget {
                                   //   context,
                                   //   MaterialPageRoute(
                                   //     builder: (context) =>
-                                  //         const QRViewExample(),
+                                  //         const SupportAndHelp(),
                                   //   ),
                                   // );
                                 },
@@ -267,6 +268,15 @@ class Home extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => const CheckList(),
+                                      ),
+                                    );
+                                  }
+                                  if (e.contains("Support & Help")) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SupportAndHelp(),
                                       ),
                                     );
                                   }
