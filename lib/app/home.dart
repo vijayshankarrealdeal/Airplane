@@ -6,6 +6,7 @@ import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/routes/all_moive_route.dart';
 import 'package:airplane/routes/all_shop_route.dart';
 import 'package:airplane/routes/checklist_show.dart';
+import 'package:airplane/routes/food_pre_post.dart';
 import 'package:airplane/routes/hotels_show.dart';
 import 'package:airplane/routes/login.dart';
 import 'package:airplane/routes/serach_for_airplances.dart';
@@ -202,6 +203,19 @@ class Home extends StatelessWidget {
                                           ),
                                         );
                                       }
+                                      if (e.contains("Restaurants")) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ChangeNotifierProvider<
+                                                    MovieController>.value(
+                                              value: movie,
+                                              child: const FoodPrePost(),
+                                            ),
+                                          ),
+                                        );
+                                      }
                                     },
                                     child: CircleAvatar(
                                       radius: 40,
@@ -330,7 +344,6 @@ class Home extends StatelessWidget {
                                         fonts.heading5(
                                             movie.resultshop[itemIndex].title,
                                             color.textColor()),
-
                                         Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
@@ -351,8 +364,118 @@ class Home extends StatelessWidget {
                                                 color.textColor()),
                                           ],
                                         ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 12.0, bottom: 8.0, top: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              fonts.heading4("Food", color.textColor()),
+                              CupertinoButton(
+                                child: fonts.button("More", color.warning()),
+                                onPressed: () => {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ChangeNotifierProvider<
+                                              MovieController>.value(
+                                        value: movie,
+                                        child: const FoodPrePost(),
+                                      ),
+                                    ),
+                                  )
+                                },
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.26,
+                          child: CarouselSlider.builder(
+                            options: CarouselOptions(
+                                aspectRatio: 3 / 4,
+                                initialPage: 0,
+                                enableInfiniteScroll: true,
+                                reverse: false,
+                                autoPlay: true,
+                                autoPlayInterval: const Duration(seconds: 5),
+                                scrollDirection: Axis.horizontal,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.65),
+                            itemCount: movie.resultfood.length - 5,
+                            itemBuilder: (BuildContext context, int itemIndex,
+                                int pageViewIndex) {
+                              return Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: color.appBarColor(),
+                                      borderRadius: BorderRadius.circular(25)),
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.86,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 13.0, vertical: 3),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        fonts.heading5(
+                                            movie.resultfood[itemIndex].title,
+                                            color.textColor()),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            fonts.button(
+                                                movie.resultfood[itemIndex]
+                                                    .opening,
+                                                color.textColor()),
+                                            fonts.caption(
+                                                movie.resultfood[itemIndex]
+                                                    .contanctDetails,
+                                                color.textColor()),
+                                            fonts.caption(
+                                                movie.resultfood[itemIndex]
+                                                    .location,
+                                                color.textColor()),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        )
+                      ]),
+                    )
+                  : const SliverFillRemaining(child: LoadingSpinner())
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
 
-                                        // SizedBox(
+
+
+// SizedBox(
                                         //   width: MediaQuery.of(context)
                                         //           .size
                                         //           .width *
@@ -397,15 +520,12 @@ class Home extends StatelessWidget {
                                         //     ),
                                         //   ),
                                         // ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        )
-                        // Padding(
+
+
+
+
+
+ // Padding(
                         //   padding:
                         //       const EdgeInsets.only(left: 2.0, bottom: 8.0),
                         //   child: Row(
@@ -487,13 +607,3 @@ class Home extends StatelessWidget {
                         //       height:
                         //           MediaQuery.of(context).size.height * 0.65),
                         // ),
-                      ]),
-                    )
-                  : const SliverFillRemaining(child: LoadingSpinner())
-            ],
-          ),
-        );
-      },
-    );
-  }
-}

@@ -11,6 +11,8 @@ class MovieController extends ChangeNotifier {
     call();
     shopCalling();
     runInternational();
+    preCalling();
+    postCalling();
   }
   List<Results> _results = [];
   List<Results> get result => _results;
@@ -19,6 +21,14 @@ class MovieController extends ChangeNotifier {
   List<ShopData> get resultshop => _shop;
   List<ShopData> _shopInter = [];
   List<ShopData> get resultshopInter => _shopInter;
+/////
+  List<ShopData> _food = [];
+  List<ShopData> get resultfood => _food;
+  List<ShopData> _postfood = [];
+  List<ShopData> get resultpost => _postfood;
+
+  ///
+
   bool load = false;
   void call() async {
     String host = "https://airlinefly.azurewebsites.net/api/getmovies";
@@ -38,10 +48,36 @@ class MovieController extends ChangeNotifier {
   void shopCalling() async {
     String host = "https://airlinefly.azurewebsites.net";
     try {
-      final _response = await http.get(Uri.parse('$host/api/shop/n'));
+      final _response = await http.get(Uri.parse('$host/api/shop/n]'));
       Map<String, dynamic> _daa = json.decode(_response.body);
       ShoppingModel shoppingModel = ShoppingModel.fromJson(_daa);
       _shop = shoppingModel.data;
+      notifyListeners();
+    } catch (e) {
+      notifyListeners();
+    }
+  }
+
+  void preCalling() async {
+    String host = "https://airlinefly.azurewebsites.net";
+    try {
+      final _response = await http.get(Uri.parse('$host/api/food/pre'));
+      Map<String, dynamic> _daa = json.decode(_response.body);
+      ShoppingModel shoppingModel = ShoppingModel.fromJson(_daa);
+      _food = shoppingModel.data;
+      notifyListeners();
+    } catch (e) {
+      notifyListeners();
+    }
+  }
+
+  void postCalling() async {
+    String host = "https://airlinefly.azurewebsites.net";
+    try {
+      final _response = await http.get(Uri.parse('$host/api/food/post'));
+      Map<String, dynamic> _daa = json.decode(_response.body);
+      ShoppingModel shoppingModel = ShoppingModel.fromJson(_daa);
+      _postfood = shoppingModel.data;
       notifyListeners();
     } catch (e) {
       notifyListeners();
