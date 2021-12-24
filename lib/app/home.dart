@@ -9,6 +9,7 @@ import 'package:airplane/routes/checklist_show.dart';
 import 'package:airplane/routes/food_pre_post.dart';
 import 'package:airplane/routes/hotels_show.dart';
 import 'package:airplane/routes/login.dart';
+import 'package:airplane/routes/qr_code.dart';
 import 'package:airplane/routes/serach_for_airplances.dart';
 import 'package:airplane/services/auth.dart';
 import 'package:airplane/widgets/drawer.dart';
@@ -87,8 +88,19 @@ class Home extends StatelessWidget {
                             SizedBox(
                               height: 40,
                               width: 40,
-                              child:
-                                  Icon(Icons.payment, color: color.textColor()),
+                              child: IconButton(
+                                icon: Icon(Icons.payment,
+                                    color: color.textColor()),
+                                onPressed: () {
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) =>
+                                  //         const QRViewExample(),
+                                  //   ),
+                                  // );
+                                },
+                              ),
                             ),
                           ],
                         ),

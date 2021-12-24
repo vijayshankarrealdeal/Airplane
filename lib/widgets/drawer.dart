@@ -1,5 +1,6 @@
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
+import 'package:airplane/routes/another_services.dart';
 import 'package:airplane/routes/checklist_show.dart';
 import 'package:airplane/routes/dark_mode.dart';
 import 'package:airplane/routes/hotels_show.dart';
@@ -44,30 +45,6 @@ class GetDrawer extends StatelessWidget {
                   onTap: () {},
                 ),
                 ListTile(
-                  leading: Icon(CupertinoIcons.time,
-                      color: color.bottomnavBarInactieIcons()),
-                  title: fonts.body1('Hotels', color.textColor()),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HotelShow(),
-                      ),
-                    );
-                  },
-                ),
-                ListTile(
-                    leading: Icon(CupertinoIcons.car,
-                        color: color.bottomnavBarInactieIcons()),
-                    title: fonts.body1('Parking', color.textColor()),
-                    onTap: () => print('todo')),
-                ListTile(
-                  leading: Icon(CupertinoIcons.app_badge_fill,
-                      color: color.bottomnavBarInactieIcons()),
-                  title: fonts.body1('Another Servies', color.textColor()),
-                  onTap: () {},
-                ),
-                ListTile(
                   leading: Icon(CupertinoIcons.app_badge_fill,
                       color: color.bottomnavBarInactieIcons()),
                   title: fonts.body1('Check List', color.textColor()),
@@ -78,10 +55,37 @@ class GetDrawer extends StatelessWidget {
                     ),
                   ),
                 ),
+                ListTile(
+                    leading: Icon(CupertinoIcons.chat_bubble_2,
+                        color: color.bottomnavBarInactieIcons()),
+                    title: fonts.body1('Customer Support', color.textColor()),
+                    onTap: () => print('todo')),
               ],
             ),
             Column(
               children: [
+                ListTile(
+                  leading: Icon(CupertinoIcons.info,
+                      color: color.bottomnavBarInactieIcons()),
+                  title: fonts.body1('About Us', color.textColor()),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AnotherServices(),
+                    ),
+                  ),
+                ),
+                ListTile(
+                  leading: Icon(CupertinoIcons.phone,
+                      color: color.bottomnavBarInactieIcons()),
+                  title: fonts.body1('Contact Us', color.textColor()),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AnotherServices(),
+                    ),
+                  ),
+                ),
                 ListTile(
                   leading: Icon(CupertinoIcons.settings_solid,
                       color: color.bottomnavBarInactieIcons()),
