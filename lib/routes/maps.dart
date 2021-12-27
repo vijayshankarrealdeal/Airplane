@@ -1,8 +1,11 @@
 import 'package:airplane/controllers/colormager.dart';
+import 'package:airplane/controllers/location_controller.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/model/direction_model.dart';
 import 'package:airplane/model/direction_repo.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -14,15 +17,72 @@ class MapsAndLocation extends StatefulWidget {
 }
 
 class _MapsAndLocationState extends State<MapsAndLocation> {
-  static const _initialCameraPosition = CameraPosition(
-    target: LatLng(13.1986, 77.7066),
-    zoom: 11.5,
-  );
-
   GoogleMapController? _googleMapController;
   Marker? _origin;
   Marker? _destination;
   Directions? _info;
+  List<String> address = [];
+  double latitude = 0.0;
+  double longitude = 0.0;
+
+  Future<void> _getGeoLocationPosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      try {
+        await Geolocator.openLocationSettings();
+      } catch (e) {
+        throw 'Location services are disabled.';
+      }
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      try {
+        permission = await Geolocator.requestPermission();
+      } catch (e) {
+        throw 'Location permissions are denied';
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      try {
+        await Geolocator.openAppSettings();
+      } catch (e) {
+        throw 'Location permissions are permanently denied,open app settings and add permission';
+      }
+    }
+
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    Placemark place = placemarks[0];
+
+    setState(() {
+      latitude = position.latitude;
+      longitude = position.longitude;
+      address = [
+        place.street.toString(),
+        place.subLocality.toString(),
+        place.locality.toString(),
+        place.postalCode.toString(),
+        place.country.toString(),
+        place.administrativeArea.toString(),
+      ];
+    });
+  }
+
+  static const _initialCameraPosition = CameraPosition(
+    target: LatLng(13.1986, 77.7066),
+    zoom: 11.5,
+  );
+  @override
+  void initState() {
+    _getGeoLocationPosition();
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -34,6 +94,7 @@ class _MapsAndLocationState extends State<MapsAndLocation> {
   Widget build(BuildContext context) {
     final color = Provider.of<ColorManager>(context);
     final fonts = Provider.of<TypoGraphyOfApp>(context);
+    final location = Provider.of<LocationTaker>(context);
     return Scaffold(
       backgroundColor: color.colorofScaffoldroute(),
       appBar: AppBar(
@@ -80,68 +141,77 @@ class _MapsAndLocationState extends State<MapsAndLocation> {
             )
         ],
       ),
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          GoogleMap(
-            myLocationButtonEnabled: false,
-            zoomControlsEnabled: false,
-            initialCameraPosition: _initialCameraPosition,
-            onMapCreated: (controller) => _googleMapController = controller,
-            markers: {
-              if (_origin != null) _origin!,
-              if (_destination != null) _destination!,
-            },
-            polylines: {
-              if (_info != null)
-                Polyline(
-                  polylineId: const PolylineId('overview_polyline'),
-                  color: Colors.red,
-                  width: 5,
-                  points: _info!.polylinePoints!
-                      .map((e) => LatLng(e.latitude, e.longitude))
-                      .toList(),
+      body: !location.locationenable
+          ? Center(
+              child: fonts.heading4("Location are disable", color.textColor()))
+          : Stack(
+              alignment: Alignment.center,
+              children: [
+                GoogleMap(
+                  myLocationButtonEnabled: false,
+                  zoomControlsEnabled: false,
+                  initialCameraPosition: _initialCameraPosition,
+                  onMapCreated: (controller) =>
+                      _googleMapController = controller,
+                  markers: {
+                    if (_origin != null) _origin!,
+                    if (_destination != null) _destination!,
+                  },
+                  polylines: {
+                    if (_info != null)
+                      Polyline(
+                        polylineId: const PolylineId('overview_polyline'),
+                        color: Colors.red,
+                        width: 5,
+                        points: _info!.polylinePoints!
+                            .map((e) => LatLng(e.latitude, e.longitude))
+                            .toList(),
+                      ),
+                  },
+                  onLongPress: _addMarker,
                 ),
-            },
-            onLongPress: _addMarker,
-          ),
-          if (_info != null)
-            Positioned(
-              top: 20.0,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 6.0,
-                  horizontal: 12.0,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.yellowAccent,
-                  borderRadius: BorderRadius.circular(20.0),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black26,
-                      offset: Offset(0, 2),
-                      blurRadius: 6.0,
-                    )
-                  ],
-                ),
-                child: Text(
-                  '${_info?.totalDistance}, ${_info?.totalDuration}',
-                  style: const TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w600,
+                if (_info != null)
+                  Positioned(
+                    top: 20.0,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 6.0,
+                        horizontal: 12.0,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.yellowAccent,
+                        borderRadius: BorderRadius.circular(20.0),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black26,
+                            offset: Offset(0, 2),
+                            blurRadius: 6.0,
+                          )
+                        ],
+                      ),
+                      child: Text(
+                        '${_info?.totalDistance}, ${_info?.totalDuration}',
+                        style: const TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
+              ],
             ),
-        ],
-      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.black,
         onPressed: () => _googleMapController?.animateCamera(
           _info != null
               ? CameraUpdate.newLatLngBounds(_info!.bounds!, 100.0)
-              : CameraUpdate.newCameraPosition(_initialCameraPosition),
+              : CameraUpdate.newCameraPosition(
+                  CameraPosition(
+                    target: LatLng(latitude, longitude),
+                    zoom: 11.5,
+                  ),
+                ),
         ),
         child: const Icon(Icons.center_focus_strong),
       ),

@@ -1,4 +1,5 @@
 import 'package:airplane/controllers/colormager.dart';
+import 'package:airplane/controllers/location_controller.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/services/auth.dart';
 import 'package:airplane/widgets/form.dart';
@@ -58,7 +59,7 @@ class Settings extends StatelessWidget {
                         placeholder: "Confirm Password",
                       ),
                       auth.load
-                          ? const LoadingSpinner()
+                          ? const CupertinoActivityIndicator()
                           : CupertinoButton(
                               padding: const EdgeInsets.all(4),
                               child: fonts.button("Submit", color.textColor()),
@@ -82,32 +83,40 @@ class Settings extends StatelessWidget {
                           "Other Settings", color.bottomnavBarInactieIcons()),
                       SizedBox(
                         height: 50,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            fonts.body1("Notifications", color.textColor()),
-                            CupertinoSwitch(
-                              value: color.darkmode,
-                              onChanged: (value) {
-                                color.applyMode();
-                              },
-                            ),
-                          ],
+                        child: Consumer<LocationTaker>(
+                          builder: (context, toggle, _) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                fonts.body1("Notifications", color.textColor()),
+                                CupertinoSwitch(
+                                  value: toggle.notification,
+                                  onChanged: (value) {
+                                    toggle.tooglenotification();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
                         ),
                       ),
                       SizedBox(
                         height: 50,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            fonts.body1("Location", color.textColor()),
-                            CupertinoSwitch(
-                              value: color.darkmode,
-                              onChanged: (value) {
-                                color.applyMode();
-                              },
-                            ),
-                          ],
+                        child: Consumer<LocationTaker>(
+                          builder: (context, toggle, _) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                fonts.body1("Location", color.textColor()),
+                                CupertinoSwitch(
+                                  value: toggle.locationenable,
+                                  onChanged: (value) {
+                                    toggle.toggle();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
                         ),
                       ),
                       SizedBox(

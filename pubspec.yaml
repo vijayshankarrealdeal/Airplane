@@ -41,7 +41,10 @@ dependencies:
   dio: ^4.0.4
   flutter_polyline_points: ^1.0.0
   google_maps_flutter: ^2.1.1
-  #qr_code_scanner: ^0.6.1
+  geolocator: ^7.7.1
+  geocoding: ^2.0.1
+  qr_flutter: ^4.0.0
+  qr_code_scanner:
 
 
   # The following adds the Cupertino Icons font to your application.
