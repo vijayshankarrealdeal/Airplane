@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/movie_controllers.dart';
 import 'package:airplane/controllers/typography.dart';
@@ -11,7 +9,6 @@ import 'package:airplane/routes/food_pre_post.dart';
 import 'package:airplane/routes/hotels_show.dart';
 import 'package:airplane/routes/login.dart';
 import 'package:airplane/routes/qr.dart';
-import 'package:airplane/routes/qr_code.dart';
 import 'package:airplane/routes/serach_for_airplances.dart';
 import 'package:airplane/routes/support_help.dart';
 import 'package:airplane/services/auth.dart';

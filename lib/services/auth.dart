@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -82,6 +83,7 @@ class Auth extends ChangeNotifier {
         "https://airlinefly.azurewebsites.net/api/login/$email/$password";
     try {
       final _respond = await http.get(Uri.parse(url));
+      log(_respond.body);
       final _data = Map.from(json.decode(_respond.body));
       token = _data['token'];
       uid = _data['uid'];

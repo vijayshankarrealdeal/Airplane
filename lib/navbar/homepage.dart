@@ -34,6 +34,7 @@ class MaterialHomePage extends StatelessWidget {
     ));
     return SafeArea(
       child: Scaffold(
+        
         drawer: const GetDrawer(),
         key: _scaffoldKey,
         backgroundColor: color.colorofScaffold(),
