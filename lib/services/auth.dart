@@ -10,6 +10,7 @@ class Auth extends ChangeNotifier {
   }
   String token = '';
   String uid = '';
+  bool load = false;
 
   Future<void> getToken() async {
     final _oflineref = await SharedPreferences.getInstance();
@@ -37,6 +38,23 @@ class Auth extends ChangeNotifier {
     _oflineref.setString("token", '');
     _oflineref.setString("uid", '');
     notifyListeners();
+  }
+
+  Future<void> newpassword(String currpassword, String newpassword) async {
+    final _oflineref = await SharedPreferences.getInstance();
+
+    final url =
+        "https://airlinefly.azurewebsites.net/api/userforgotpass/$uid/$currpassword/$newpassword";
+    try {
+      load = true;
+      notifyListeners();
+      final _respond = await http.get(Uri.parse(url));
+      print(_respond.body);
+      load = false;
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> register(String email, String password) async {

@@ -1,6 +1,8 @@
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
+import 'package:airplane/services/auth.dart';
 import 'package:airplane/widgets/form.dart';
+import 'package:airplane/widgets/loading_spinner.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +12,11 @@ class Settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _newpass = TextEditingController();
+    TextEditingController _confpass = TextEditingController();
+    TextEditingController _currpassword = TextEditingController();
+
+    final auth = Provider.of<Auth>(context);
     final color = Provider.of<ColorManager>(context);
     final fonts = Provider.of<TypoGraphyOfApp>(context);
     return SafeArea(
@@ -27,9 +34,7 @@ class Settings extends StatelessWidget {
           builder: (context, color, _) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: ListView(
                 children: [
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,19 +42,33 @@ class Settings extends StatelessWidget {
                     children: [
                       fonts.subTitle1("Change Your Password",
                           color.bottomnavBarInactieIcons()),
-                      const FormForApp(
+                      FormForApp(
+                        email: _currpassword,
+                        hideText: true,
                         placeholder: "Current Password",
                       ),
-                      const FormForApp(
+                      FormForApp(
+                        email: _newpass,
+                        hideText: true,
                         placeholder: "New Password",
                       ),
-                      const FormForApp(
+                      FormForApp(
+                        hideText: true,
+                        email: _confpass,
                         placeholder: "Confirm Password",
                       ),
-                      CupertinoButton(
-                          padding: const EdgeInsets.all(4),
-                          child: fonts.button("Submit", color.textColor()),
-                          onPressed: () {})
+                      auth.load
+                          ? const LoadingSpinner()
+                          : CupertinoButton(
+                              padding: const EdgeInsets.all(4),
+                              child: fonts.button("Submit", color.textColor()),
+                              onPressed: () {
+                                if (_newpass.text == _confpass.text) {
+                                  auth.newpassword(
+                                      _currpassword.text, _newpass.text);
+                                }
+                              },
+                            )
                     ],
                   ),
                   SizedBox(

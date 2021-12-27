@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:airplane/controllers/account_controller.dart';
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
-import 'package:airplane/widgets/drawer.dart';
 import 'package:airplane/widgets/form.dart';
 import 'package:airplane/widgets/loading_spinner.dart';
 import 'package:auto_size_text/auto_size_text.dart';

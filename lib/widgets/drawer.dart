@@ -2,8 +2,8 @@ import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/routes/another_services.dart';
 import 'package:airplane/routes/checklist_show.dart';
-import 'package:airplane/routes/dark_mode.dart';
-import 'package:airplane/routes/hotels_show.dart';
+import 'package:airplane/routes/maps.dart';
+import 'package:airplane/routes/settings.dart';
 import 'package:airplane/routes/login.dart';
 import 'package:airplane/services/auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,11 +38,16 @@ class GetDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(
-                    CupertinoIcons.bookmark,
+                    CupertinoIcons.location_fill,
                     color: color.bottomnavBarInactieIcons(),
                   ),
-                  title: fonts.body1('Your Trips', color.textColor()),
-                  onTap: () {},
+                  title: fonts.body1('Navigations', color.textColor()),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MapsAndLocation(),
+                    ),
+                  ),
                 ),
                 ListTile(
                   leading: Icon(CupertinoIcons.app_badge_fill,
