@@ -22,7 +22,7 @@ class Auth extends ChangeNotifier {
       final _data = Map.from(json.decode(_respond.body));
       if (_data['token'] != 'error') {
         token = _data['token'];
-        uid = _data['userId'];
+        uid = _data['uid'];
         notifyListeners();
       }
       return;
@@ -49,7 +49,7 @@ class Auth extends ChangeNotifier {
       final _respond = await http.get(Uri.parse(url));
       final _data = json.decode(_respond.body);
       token = _data['token'];
-      uid = _data['userId'];
+      uid = _data['uid'];
       _oflineref.setString("token", token);
       _oflineref.setString("uid", uid);
       notifyListeners();
@@ -66,7 +66,7 @@ class Auth extends ChangeNotifier {
       final _respond = await http.get(Uri.parse(url));
       final _data = Map.from(json.decode(_respond.body));
       token = _data['token'];
-      uid = _data['userId'];
+      uid = _data['uid'];
       _oflineref.setString("token", token);
       _oflineref.setString("uid", uid);
       notifyListeners();

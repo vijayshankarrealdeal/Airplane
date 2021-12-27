@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:airplane/controllers/account_controller.dart';
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
@@ -131,18 +133,35 @@ class Account extends StatelessWidget {
                                           ),
                                         ],
                                       ),
-                                      Row(
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          fonts.heading6(
-                                            _data.status,
-                                            color.textColor(),
+                                          Row(
+                                            children: [
+                                              fonts.heading6(
+                                                _data.status,
+                                                color.textColor(),
+                                              ),
+                                              const SizedBox(width: 5),
+                                              CircleAvatar(
+                                                radius: 5,
+                                                backgroundColor: _getcolor(
+                                                    _data.status, color),
+                                              ),
+                                            ],
                                           ),
-                                          const SizedBox(width: 5),
-                                          CircleAvatar(
-                                            radius: 5,
-                                            backgroundColor:
-                                                _getcolor(_data.status, color),
-                                          ),
+                                          _data.isDeparture
+                                              ? Icon(
+                                                  Icons.flight_takeoff,
+                                                  color: color.backButton(),
+                                                )
+                                              : Icon(
+                                                  Icons.flight_land,
+                                                  color: color.nowarning(),
+                                                ),
                                         ],
                                       ),
                                     ],

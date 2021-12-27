@@ -23,6 +23,7 @@ class FlightDashboardData {
     required this.departure,
     required this.flight,
     required this.infoUrl,
+    required this.isDeparture,
     required this.status,
     required this.time,
   });
@@ -30,6 +31,7 @@ class FlightDashboardData {
   late final String departure;
   late final String flight;
   late final String infoUrl;
+  late final bool isDeparture;
   late final String status;
   late final String time;
 
@@ -38,6 +40,7 @@ class FlightDashboardData {
     departure = json['departure'];
     flight = json['flight'];
     infoUrl = json['info_url'];
+    isDeparture = json['is_departure'];
     status = json['status'];
     time = json['time'];
   }
@@ -48,6 +51,7 @@ class FlightDashboardData {
     _data['departure'] = departure;
     _data['flight'] = flight;
     _data['info_url'] = infoUrl;
+    _data['is_departure'] = isDeparture;
     _data['status'] = status;
     _data['time'] = time;
     return _data;

@@ -6,6 +6,7 @@ import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/routes/all_moive_route.dart';
 import 'package:airplane/routes/all_shop_route.dart';
 import 'package:airplane/routes/checklist_show.dart';
+import 'package:airplane/routes/flightchecklist.dart';
 import 'package:airplane/routes/food_pre_post.dart';
 import 'package:airplane/routes/hotels_show.dart';
 import 'package:airplane/routes/login.dart';
@@ -263,6 +264,14 @@ class Home extends StatelessWidget {
                             .map(
                               (e) => GestureDetector(
                                 onTap: () {
+                                  if (e.contains("Flight-Status")) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const FlightCheckList(),
+                                      ),
+                                    );
+                                  }
                                   if (e == "Travel-Checklist") {
                                     Navigator.push(
                                       context,
