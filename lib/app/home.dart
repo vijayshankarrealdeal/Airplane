@@ -64,7 +64,7 @@ class Home extends StatelessWidget {
                   },
                 ),
                 actions: [
-                  auth.token.isEmpty
+                  auth.accesstoken.isEmpty
                       ? CupertinoButton(
                           child: font.button("Sign In", color.textColor()),
                           onPressed: () {

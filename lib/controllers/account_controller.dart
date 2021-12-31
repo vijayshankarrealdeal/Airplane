@@ -25,7 +25,7 @@ class AccountControllers extends ChangeNotifier {
 
   bool load = true;
   void call() async {
-    String host = "https://airlinefly.azurewebsites.net/api/getflightstatus";
+    String host = "https://serverxx.azurewebsites.net/api/flightstauts/";
     try {
       final _response = await http.get(Uri.parse(host));
       Map<String, dynamic> _daa = json.decode(_response.body);

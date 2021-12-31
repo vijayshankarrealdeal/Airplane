@@ -11,11 +11,13 @@ class Auth extends ChangeNotifier {
   }
   String accesstoken = '';
   String refreshtoken = '';
+  String email = '';
   bool load = false;
   void getToken() async {
     final _oflineref = await SharedPreferences.getInstance();
     accesstoken = _oflineref.getString('access_token') ?? '';
     refreshtoken = _oflineref.getString('refresh_token') ?? '';
+    email = _oflineref.getString('username') ?? '';
     notifyListeners();
   }
 
@@ -23,8 +25,10 @@ class Auth extends ChangeNotifier {
     final _oflineref = await SharedPreferences.getInstance();
     accesstoken = '';
     refreshtoken = '';
+    email = '';
     _oflineref.setString("access_token", '');
     _oflineref.setString("refresh_token", '');
+    _oflineref.setString('username', '');
     notifyListeners();
   }
 
@@ -57,6 +61,8 @@ class Auth extends ChangeNotifier {
       final _data = Map.from(json.decode(_respond.body));
       accesstoken = _data['access'];
       refreshtoken = _data['refresh'];
+      email = _data['username'];
+      _oflineref.setString("username", email);
       _oflineref.setString("access_token", accesstoken);
       _oflineref.setString("refresh_token", refreshtoken);
       notifyListeners();
@@ -75,6 +81,9 @@ class Auth extends ChangeNotifier {
       final _data = Map.from(json.decode(_respond.body));
       accesstoken = _data['access'];
       refreshtoken = _data['refresh'];
+      email = _data['username'];
+      _oflineref.setString("username", email);
+
       _oflineref.setString("access_token", accesstoken);
       _oflineref.setString("refresh_token", refreshtoken);
       notifyListeners();
