@@ -45,6 +45,7 @@ class Account extends StatelessWidget {
                     shadowColor: Colors.white,
                     backgroundColor: color.appBarColor(),
                     elevation: 0,
+                    centerTitle: true,
                     title: fonts.heading5("Board", color.textColor()),
                   ),
                   SliverList(

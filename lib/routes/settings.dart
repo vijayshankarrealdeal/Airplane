@@ -24,7 +24,8 @@ class Settings extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: fonts.heading6("Settings", color.textColor()),
+          centerTitle: true,
+          title: fonts.heading5("Settings", color.textColor()),
           iconTheme: IconThemeData(
             color: color.backButton(), //change your color here
           ),
@@ -37,44 +38,49 @@ class Settings extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: ListView(
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      fonts.subTitle1("Change Your Password",
-                          color.bottomnavBarInactieIcons()),
-                      FormForApp(
-                        email: _currpassword,
-                        hideText: true,
-                        placeholder: "Current Password",
-                      ),
-                      FormForApp(
-                        email: _newpass,
-                        hideText: true,
-                        placeholder: "New Password",
-                      ),
-                      FormForApp(
-                        hideText: true,
-                        email: _confpass,
-                        placeholder: "Confirm Password",
-                      ),
-                      auth.load
-                          ? const CupertinoActivityIndicator()
-                          : CupertinoButton(
-                              padding: const EdgeInsets.all(4),
-                              child: fonts.button("Submit", color.textColor()),
-                              onPressed: () {
-                                if (_newpass.text == _confpass.text) {
-                                  auth.newpassword(
-                                      _currpassword.text, _newpass.text);
-                                }
-                              },
-                            )
-                    ],
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.06,
-                  ),
+                  auth.token.isNotEmpty
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            fonts.subTitle1("Change Your Password",
+                                color.bottomnavBarInactieIcons()),
+                            FormForApp(
+                              email: _currpassword,
+                              hideText: true,
+                              placeholder: "Current Password",
+                            ),
+                            FormForApp(
+                              email: _newpass,
+                              hideText: true,
+                              placeholder: "New Password",
+                            ),
+                            FormForApp(
+                              hideText: true,
+                              email: _confpass,
+                              placeholder: "Confirm Password",
+                            ),
+                            auth.load
+                                ? const CupertinoActivityIndicator()
+                                : CupertinoButton(
+                                    padding: const EdgeInsets.all(4),
+                                    child: fonts.button(
+                                        "Submit", color.textColor()),
+                                    onPressed: () {
+                                      if (_newpass.text == _confpass.text) {
+                                        auth.newpassword(
+                                            _currpassword.text, _newpass.text);
+                                      }
+                                    },
+                                  )
+                          ],
+                        )
+                      : const SizedBox(),
+                  auth.token.isNotEmpty
+                      ? SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.06,
+                        )
+                      : const SizedBox(),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,

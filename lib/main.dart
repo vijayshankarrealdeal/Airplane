@@ -25,6 +25,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final color = Provider.of<ColorManager>(context);
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AccountControllers>(
@@ -39,7 +41,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.teal,
+          primaryColor: color.interestTab(),
+          brightness: color.darkmode ? Brightness.dark : Brightness.light,
         ),
         home: MaterialHomePage(),
       ),

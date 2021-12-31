@@ -46,7 +46,8 @@ class Home extends StatelessWidget {
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
-                title: font.heading5("FlyCrew", color.textColor()),
+                centerTitle: true,
+                title: font.heading5("Flight +", color.textColor()),
                 // fltexibleSpace: Container(
                 //   width: double.infinity,
                 //   decoration: const BoxDecoration(

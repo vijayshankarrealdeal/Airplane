@@ -103,7 +103,8 @@ class _MapsAndLocationState extends State<MapsAndLocation> {
         iconTheme: IconThemeData(
           color: color.backButton(), //change your color here
         ),
-        title: fonts.heading6("Navigation", color.textColor()),
+
+        title: fonts.heading5("Navigation", color.textColor()),
         actions: [
           if (_origin != null)
             TextButton(

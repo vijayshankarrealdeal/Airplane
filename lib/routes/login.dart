@@ -46,7 +46,7 @@ class _SignInState extends State<SignIn> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          fonts.heading1("FlyCrew", color.textColor()),
+          fonts.heading1("Flight +", color.textColor()),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.001,
           ),
