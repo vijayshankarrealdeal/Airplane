@@ -38,7 +38,7 @@ class Settings extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: ListView(
                 children: [
-                  auth.token.isNotEmpty
+                  auth.accesstoken.isNotEmpty
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,15 +68,15 @@ class Settings extends StatelessWidget {
                                         "Submit", color.textColor()),
                                     onPressed: () {
                                       if (_newpass.text == _confpass.text) {
-                                        auth.newpassword(
-                                            _currpassword.text, _newpass.text);
+                                        // auth.newpassword(
+                                        //     _currpassword.text, _newpass.text);
                                       }
                                     },
                                   )
                           ],
                         )
                       : const SizedBox(),
-                  auth.token.isNotEmpty
+                  auth.accesstoken.isNotEmpty
                       ? SizedBox(
                           height: MediaQuery.of(context).size.height * 0.06,
                         )

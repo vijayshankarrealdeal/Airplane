@@ -162,7 +162,7 @@ class ShowPlaneDetails extends StatelessWidget {
           color: color.interestTab(),
           child: fonts.button("Book", color.buttonInside()),
           onPressed: () {
-            if (auth.token.isEmpty) {
+            if (auth.accesstoken.isEmpty) {
               Navigator.push(
                 context,
                 MaterialPageRoute(

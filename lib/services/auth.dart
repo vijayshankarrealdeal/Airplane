@@ -9,68 +9,56 @@ class Auth extends ChangeNotifier {
   Auth() {
     getToken();
   }
-  String token = '';
-  String uid = '';
+  String accesstoken = '';
+  String refreshtoken = '';
   bool load = false;
-
-  Future<void> getToken() async {
+  void getToken() async {
     final _oflineref = await SharedPreferences.getInstance();
-    token = _oflineref.getString('token') ?? '';
-    uid = _oflineref.getString('uid') ?? '';
-    final url =
-        'https://airlinefly.azurewebsites.net/api/refresh_token/$token/$uid';
-    final _respond = await http.get(Uri.parse(url));
-    if (_respond.statusCode == 200) {
-      final _data = Map.from(json.decode(_respond.body));
-      if (_data['token'] != 'error') {
-        token = _data['token'];
-        uid = _data['uid'];
-        notifyListeners();
-      }
-      return;
-    }
+    accesstoken = _oflineref.getString('access_token') ?? '';
+    refreshtoken = _oflineref.getString('refresh_token') ?? '';
     notifyListeners();
   }
 
   Future<void> logout() async {
     final _oflineref = await SharedPreferences.getInstance();
-    token = '';
-    uid = '';
-    _oflineref.setString("token", '');
-    _oflineref.setString("uid", '');
+    accesstoken = '';
+    refreshtoken = '';
+    _oflineref.setString("access_token", '');
+    _oflineref.setString("refresh_token", '');
     notifyListeners();
   }
 
-  Future<void> newpassword(String currpassword, String newpassword) async {
-    final _oflineref = await SharedPreferences.getInstance();
+  // Future<void> newpassword(String currpassword, String newpassword) async {
+  //   final _oflineref = await SharedPreferences.getInstance();
 
-    final url =
-        "https://airlinefly.azurewebsites.net/api/userforgotpass/$uid/$currpassword/$newpassword";
-    try {
-      load = true;
-      notifyListeners();
-      final _respond = await http.get(Uri.parse(url));
-      print(_respond.body);
-      load = false;
-      notifyListeners();
-    } catch (e) {
-      print(e);
-    }
-  }
+  //   final url =
+  //       "https://airlinefly.azurewebsites.net/api/userforgotpass/$uid/$currpassword/$newpassword";
+  //   try {
+  //     load = true;
+  //     notifyListeners();
+  //     final _respond = await http.get(Uri.parse(url));
+  //     log(_respond.body);
+  //     load = false;
+  //     notifyListeners();
+  //   } catch (e) {
+  //     log(e.toString());
+  //   }
+  // }
 
   Future<void> register(String email, String password) async {
     final _oflineref = await SharedPreferences.getInstance();
 
-    final url =
-        "https://airlinefly.azurewebsites.net/api/userreg/$email/$password";
+    const url = "https://serverxx.azurewebsites.net/api/user/register";
 
     try {
-      final _respond = await http.get(Uri.parse(url));
-      final _data = json.decode(_respond.body);
-      token = _data['token'];
-      uid = _data['uid'];
-      _oflineref.setString("token", token);
-      _oflineref.setString("uid", uid);
+      final _respond = await http.post(Uri.parse(url),
+          body: {'username': email, 'password': password});
+      log(_respond.body);
+      final _data = Map.from(json.decode(_respond.body));
+      accesstoken = _data['access'];
+      refreshtoken = _data['refresh'];
+      _oflineref.setString("access_token", accesstoken);
+      _oflineref.setString("refresh_token", refreshtoken);
       notifyListeners();
     } catch (e) {
       print(e);
@@ -79,16 +67,16 @@ class Auth extends ChangeNotifier {
 
   Future<void> login(String email, String password) async {
     final _oflineref = await SharedPreferences.getInstance();
-    final url =
-        "https://airlinefly.azurewebsites.net/api/login/$email/$password";
+    const url = "https://serverxx.azurewebsites.net/api/user/login";
     try {
-      final _respond = await http.get(Uri.parse(url));
+      final _respond = await http.post(Uri.parse(url),
+          body: {'username': email, 'password': password});
       log(_respond.body);
       final _data = Map.from(json.decode(_respond.body));
-      token = _data['token'];
-      uid = _data['uid'];
-      _oflineref.setString("token", token);
-      _oflineref.setString("uid", uid);
+      accesstoken = _data['access'];
+      refreshtoken = _data['refresh'];
+      _oflineref.setString("access_token", accesstoken);
+      _oflineref.setString("refresh_token", refreshtoken);
       notifyListeners();
     } catch (e) {
       print(e);

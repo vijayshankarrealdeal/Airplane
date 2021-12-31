@@ -102,7 +102,7 @@ class GetDrawer extends StatelessWidget {
                     ),
                   ),
                 ),
-                auht.token.isEmpty
+                auht.accesstoken.isEmpty
                     ? ListTile(
                         leading: Icon(Icons.exit_to_app_rounded,
                             color: color.bottomnavBarInactieIcons()),
