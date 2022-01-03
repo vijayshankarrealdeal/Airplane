@@ -230,38 +230,36 @@ class HotelShow extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // ListTile(
-                  //   title: fonts.body1(
-                  //       "Sort By High to Low Amount", color.textColor()),
-                  //   onTap: () {
-                  //     data.sortbylowtohighamount();
-                  //     Navigator.pop(context);
-                  //   },
-                  // ),
-                  // ListTile(
-                  //   title: fonts.body1(
-                  //       "Sort By Low to Hogh Amount", color.textColor()),
-                  //   onTap: () {
-                  //     data.sortbyhightolowamount();
-                  //     Navigator.pop(context);
-                  //   },
-                  // ),
-                  // ListTile(
-                  //   title:
-                  //       fonts.body1("Sort By Far Distance", color.textColor()),
-                  //   onTap: () {
-                  //     data.sortbydistance();
-                  //     Navigator.pop(context);
-                  //   },
-                  // ),
-                  // ListTile(
-                  //   title:
-                  //       fonts.body1("Sort By Near Distance", color.textColor()),
-                  //   onTap: () {
-                  //     data.sortbylowdistance();
-                  //     Navigator.pop(context);
-                  //   },
-                  // ),
+                  ListTile(
+                    title: fonts.body1("Our Recommendation", color.textColor()),
+                    onTap: () {
+                      data.sortbyhightolowamount();
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: fonts.body1("Low to high", color.textColor()),
+                    onTap: () {
+                      data.sortbylowtohighamount();
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title:
+                        fonts.body1("Sort By Far Distance", color.textColor()),
+                    onTap: () {
+                      data.sortbydistance();
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title:
+                        fonts.body1("Sort By Near Distance", color.textColor()),
+                    onTap: () {
+                      data.sortbylowdistance();
+                      Navigator.pop(context);
+                    },
+                  ),
                 ],
               ),
             );

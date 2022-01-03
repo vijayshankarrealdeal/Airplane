@@ -46,25 +46,25 @@ class AccountControllers extends ChangeNotifier {
     notifyListeners();
   }
 
-  // void sortbydistance() {
-  //   _hotellist.sort((a, b) => b.distanceM.compareTo(a.distanceM));
-  //   notifyListeners();
-  // }
+  void sortbydistance() {
+    _hotellist.sort((a, b) => b.distance.compareTo(a.distance));
+    notifyListeners();
+  }
 
-  // void sortbylowdistance() {
-  //   _hotellist.sort((a, b) => a.distanceM.compareTo(b.distanceM));
-  //   notifyListeners();
-  // }
+  void sortbylowdistance() {
+    _hotellist.sort((a, b) => a.distance.compareTo(b.distance));
+    notifyListeners();
+  }
 
-  // void sortbylowtohighamount() {
-  //   _hotellist.sort((a, b) => b.moneyNum.compareTo(a.moneyNum));
-  //   notifyListeners();
-  // }
+  void sortbylowtohighamount() {
+    _hotellist.sort((a, b) => b.price.compareTo(a.price));
+    notifyListeners();
+  }
 
-  // void sortbyhightolowamount() {
-  //   _hotellist.sort((a, b) => a.moneyNum.compareTo(b.moneyNum));
-  //   notifyListeners();
-  // }
+  void sortbyhightolowamount() {
+    _hotellist.sort((a, b) => a.price.compareTo(b.price));
+    notifyListeners();
+  }
 
   void hotelcall(String checkin, String checkout) async {
     _hotellist.clear();
