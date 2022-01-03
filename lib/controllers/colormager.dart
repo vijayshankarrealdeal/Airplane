@@ -43,7 +43,7 @@ class ColorManager extends ChangeNotifier {
     }
   }
 
-    Color colorofScaffoldroute() {
+  Color colorofScaffoldroute() {
     if (!darkmode) {
       return const Color.fromRGBO(255, 255, 255, 1);
     } else {
@@ -199,7 +199,7 @@ class ColorManager extends ChangeNotifier {
     if (!darkmode) {
       return const Color.fromRGBO(255, 255, 255, 1);
     } else {
-      return const Color(0xffFF3B30);
+      return const Color(0xff212121);
     }
   }
 

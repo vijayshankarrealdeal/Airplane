@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/services/auth.dart';
+import 'package:airplane/widgets/dialog.dart';
 import 'package:airplane/widgets/form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -155,27 +156,35 @@ class _SignInState extends State<SignIn> {
         setState(() {
           isSpin = true;
         });
-        //  dialog(context, e.toString(), color);
+        showAlertDialog(context, e.toString());
       }
     } else {
-      if (password == confirmPassword) {
-        try {
-          setState(() {
-            isSpin = false;
-          });
-          await auth.register(email, password);
+      try {
+        setState(() {
+          isSpin = false;
+        });
+        if (password == confirmPassword &&
+            validateStructure(password) &&
+            password.length > 6) {
+          await auth.register(email, password, context);
           Navigator.pop(context);
-        } catch (e) {
-          setState(() {
-            isSpin = true;
-          });
+        } else {
+          throw "Password Not Match or\nor Password must be greater than 7 \nmake Strong Password For example Vignesh@123";
         }
-      } else {
+      } catch (e) {
         setState(() {
           isSpin = true;
         });
+        showAlertDialog(context, e.toString());
       }
     }
+  }
+
+  bool validateStructure(String value) {
+    String pattern =
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    RegExp regExp = RegExp(pattern);
+    return regExp.hasMatch(value);
   }
 
   void forgetPass(BuildContext context, Auth auth, TypoGraphyOfApp typo,

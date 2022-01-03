@@ -114,7 +114,7 @@ class HotelShow extends StatelessWidget {
                                           image: DecorationImage(
                                             fit: BoxFit.cover,
                                             image: CachedNetworkImageProvider(
-                                              _hotels.mediaImg,
+                                              _hotels.img,
                                             ),
                                           ),
                                           borderRadius:
@@ -172,7 +172,7 @@ class HotelShow extends StatelessWidget {
                                                           .height *
                                                       0.002),
                                               fonts.heading6(
-                                                _hotels.money,
+                                                _hotels.price,
                                                 color.textColor(),
                                               ),
                                               fonts.caption(_hotels.tax,
@@ -230,38 +230,38 @@ class HotelShow extends StatelessWidget {
                       ),
                     ),
                   ),
-                  ListTile(
-                    title: fonts.body1(
-                        "Sort By High to Low Amount", color.textColor()),
-                    onTap: () {
-                      data.sortbylowtohighamount();
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    title: fonts.body1(
-                        "Sort By Low to Hogh Amount", color.textColor()),
-                    onTap: () {
-                      data.sortbyhightolowamount();
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    title:
-                        fonts.body1("Sort By Far Distance", color.textColor()),
-                    onTap: () {
-                      data.sortbydistance();
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    title:
-                        fonts.body1("Sort By Near Distance", color.textColor()),
-                    onTap: () {
-                      data.sortbylowdistance();
-                      Navigator.pop(context);
-                    },
-                  ),
+                  // ListTile(
+                  //   title: fonts.body1(
+                  //       "Sort By High to Low Amount", color.textColor()),
+                  //   onTap: () {
+                  //     data.sortbylowtohighamount();
+                  //     Navigator.pop(context);
+                  //   },
+                  // ),
+                  // ListTile(
+                  //   title: fonts.body1(
+                  //       "Sort By Low to Hogh Amount", color.textColor()),
+                  //   onTap: () {
+                  //     data.sortbyhightolowamount();
+                  //     Navigator.pop(context);
+                  //   },
+                  // ),
+                  // ListTile(
+                  //   title:
+                  //       fonts.body1("Sort By Far Distance", color.textColor()),
+                  //   onTap: () {
+                  //     data.sortbydistance();
+                  //     Navigator.pop(context);
+                  //   },
+                  // ),
+                  // ListTile(
+                  //   title:
+                  //       fonts.body1("Sort By Near Distance", color.textColor()),
+                  //   onTap: () {
+                  //     data.sortbylowdistance();
+                  //     Navigator.pop(context);
+                  //   },
+                  // ),
                 ],
               ),
             );

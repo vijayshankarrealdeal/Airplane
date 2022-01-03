@@ -33,124 +33,100 @@ class ShowPlaneDetails extends StatelessWidget {
                 color: color.backButton(), //change your color here
               ),
               backgroundColor: color.appBarColorroute()),
-          SliverPersistentHeader(
-            pinned: false,
-            delegate: PlaneHeaderDelgate(
-              height: MediaQuery.of(context).size.height * 0.4,
-              fonts: fonts,
-              color: color,
-              userd: data,
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                fonts.heading2(
-                  data.fightName,
-                  color.textColor(),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    fonts.heading4(
-                      data.originPlace,
-                      color.textColor(),
-                    ),
-                    fonts.heading4(
-                      data.destinationPlace,
-                      color.textColor(),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    fonts.heading6(
-                      data.originTime,
-                      color.textColor(),
-                    ),
-                    fonts.heading6(
-                      data.originTime,
-                      color.textColor(),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    fonts.heading6(
-                      data.originTime,
-                      color.textColor(),
-                    ),
-                    fonts.heading6(
-                      data.destinationTime,
-                      color.textColor(),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        fonts.heading4(
-                          data.originPlace,
-                          color.textColor(),
-                        ),
-                        fonts.heading4(
-                          data.destinationPlace,
-                          color.textColor(),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        fonts.heading2(
-                          '\u{20B9} ' + data.price.toString(),
-                          color.textColor(),
-                        ),
-                        fonts.body1(
-                          data.refund,
-                          color.warning(),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                fonts.heading6(
-                  "Services",
-                  color.textColor(),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ServicesIconPlane(
-                      color: color,
-                      fonts: fonts,
-                      servieType: "Wifi",
-                      icon: CupertinoIcons.wifi,
-                    ),
-                    ServicesIconPlane(
-                      color: color,
-                      fonts: fonts,
-                      servieType: "Food",
-                      icon: CupertinoIcons.wand_rays,
-                    ),
-                    ServicesIconPlane(
+          SliverPadding(
+            padding: const EdgeInsets.all(8),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundImage:
+                            CachedNetworkImageProvider(data.flightImage),
+                      ),
+                      fonts.heading4(
+                        data.fightName,
+                        color.textColor(),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      fonts.heading5(
+                        data.originPlace,
+                        color.textColor(),
+                      ),
+                      fonts.heading5(
+                        data.destinationPlace,
+                        color.textColor(),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      fonts.heading6(
+                        data.originTime,
+                        color.textColor(),
+                      ),
+                      fonts.heading6(
+                        data.destinationTime,
+                        color.textColor(),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 50),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      fonts.heading3(
+                        data.price.toString(),
+                        color.textColor(),
+                      ),
+                      fonts.body1(
+                        data.refund,
+                        color.warning(),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 50),
+                  fonts.heading6(
+                    "Services",
+                    color.textColor(),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ServicesIconPlane(
                         color: color,
                         fonts: fonts,
-                        servieType: "Entertainment",
-                        icon: CupertinoIcons.video_camera),
-                  ],
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-              ],
+                        servieType: "Wifi",
+                        icon: CupertinoIcons.wifi,
+                      ),
+                      ServicesIconPlane(
+                        color: color,
+                        fonts: fonts,
+                        servieType: "Food",
+                        icon: CupertinoIcons.wand_rays,
+                      ),
+                      ServicesIconPlane(
+                          color: color,
+                          fonts: fonts,
+                          servieType: "Entertainment",
+                          icon: CupertinoIcons.video_camera),
+                    ],
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+                ],
+              ),
             ),
           ),
         ],
@@ -216,75 +192,75 @@ class ServicesIconPlane extends StatelessWidget {
   }
 }
 
-class PlaneHeaderDelgate extends SliverPersistentHeaderDelegate {
-  final double height;
-  final TypoGraphyOfApp fonts;
-  final ColorManager color;
-  final FlightData userd;
+// class PlaneHeaderDelgate extends SliverPersistentHeaderDelegate {
+//   final double height;
+//   final TypoGraphyOfApp fonts;
+//   final ColorManager color;
+//   final FlightData userd;
 
-  PlaneHeaderDelgate(
-      {required this.height,
-      required this.fonts,
-      required this.color,
-      required this.userd});
+//   PlaneHeaderDelgate(
+//       {required this.height,
+//       required this.fonts,
+//       required this.color,
+//       required this.userd});
 
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: CachedNetworkImageProvider(userd.flightImage),
-            ),
-            gradient: const LinearGradient(
-              colors: [Colors.transparent, Colors.black54],
-              stops: [0.5, 1.0],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              tileMode: TileMode.repeated,
-            ),
-          ),
-          // child: BackdropFilter(
-          //   filter: ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
-          //   child: Container(
-          //     decoration: BoxDecoration(
-          //       color: color.colorofScaffold().withOpacity(
-          //             0.35,
-          //           ),
-          //     ),
-          //   ),
-          // ),
-        ),
-        Positioned(
-          left: 16.0,
-          right: 16.0,
-          bottom: 16.0,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [],
-          ),
-        ),
-      ],
-    );
-  }
+//   @override
+//   Widget build(
+//       BuildContext context, double shrinkOffset, bool overlapsContent) {
+//     return Stack(
+//       fit: StackFit.expand,
+//       children: [
+//         Container(
+//           decoration: BoxDecoration(
+//             image: DecorationImage(
+//               fit: BoxFit.cover,
+//               image: CachedNetworkImageProvider(userd.flightImage),
+//             ),
+//             gradient: const LinearGradient(
+//               colors: [Colors.transparent, Colors.black54],
+//               stops: [0.5, 1.0],
+//               begin: Alignment.topCenter,
+//               end: Alignment.bottomCenter,
+//               tileMode: TileMode.repeated,
+//             ),
+//           ),
+//           // child: BackdropFilter(
+//           //   filter: ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
+//           //   child: Container(
+//           //     decoration: BoxDecoration(
+//           //       color: color.colorofScaffold().withOpacity(
+//           //             0.35,
+//           //           ),
+//           //     ),
+//           //   ),
+//           // ),
+//         ),
+//         Positioned(
+//           left: 16.0,
+//           right: 16.0,
+//           bottom: 16.0,
+//           child: Column(
+//             mainAxisAlignment: MainAxisAlignment.spaceAround,
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: const [],
+//           ),
+//         ),
+//       ],
+//     );
+//   }
 
-  @override
-  double get maxExtent => height;
+//   @override
+//   double get maxExtent => height;
 
-  @override
-  double get minExtent => height;
+//   @override
+//   double get minExtent => height;
 
-  double titleOpactiy(double shrinkOffset) {
-    return 1.0 - max(0.0, shrinkOffset) / maxExtent;
-  }
+//   double titleOpactiy(double shrinkOffset) {
+//     return 1.0 - max(0.0, shrinkOffset) / maxExtent;
+//   }
 
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    return true;
-  }
-}
+//   @override
+//   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+//     return true;
+//   }
+// }

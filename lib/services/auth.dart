@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:airplane/widgets/dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,25 +50,28 @@ class Auth extends ChangeNotifier {
   //   }
   // }
 
-  Future<void> register(String email, String password) async {
+  Future<void> register(
+      String email, String password, BuildContext context) async {
     final _oflineref = await SharedPreferences.getInstance();
 
     const url = "https://serverxx.azurewebsites.net/api/user/register";
 
     try {
-      final _respond = await http.post(Uri.parse(url),
-          body: {'username': email, 'password': password});
-      log(_respond.body);
+      final _respond = await http
+          .post(Uri.parse(url), body: {'email': email, 'password': password});
       final _data = Map.from(json.decode(_respond.body));
+      if (_data['detail'] == "User with this exits'email'") {
+        throw "User with email exits";
+      }
       accesstoken = _data['access'];
-      refreshtoken = _data['refresh'];
+      refreshtoken = _data['access'];
       email = _data['username'];
       _oflineref.setString("username", email);
       _oflineref.setString("access_token", accesstoken);
       _oflineref.setString("refresh_token", refreshtoken);
       notifyListeners();
     } catch (e) {
-      print(e);
+      rethrow;
     }
   }
 

@@ -46,35 +46,43 @@ class AccountControllers extends ChangeNotifier {
     notifyListeners();
   }
 
-  void sortbydistance() {
-    _hotellist.sort((a, b) => b.distanceM.compareTo(a.distanceM));
-    notifyListeners();
-  }
+  // void sortbydistance() {
+  //   _hotellist.sort((a, b) => b.distanceM.compareTo(a.distanceM));
+  //   notifyListeners();
+  // }
 
-  void sortbylowdistance() {
-    _hotellist.sort((a, b) => a.distanceM.compareTo(b.distanceM));
-    notifyListeners();
-  }
+  // void sortbylowdistance() {
+  //   _hotellist.sort((a, b) => a.distanceM.compareTo(b.distanceM));
+  //   notifyListeners();
+  // }
 
-  void sortbylowtohighamount() {
-    _hotellist.sort((a, b) => b.moneyNum.compareTo(a.moneyNum));
-    notifyListeners();
-  }
+  // void sortbylowtohighamount() {
+  //   _hotellist.sort((a, b) => b.moneyNum.compareTo(a.moneyNum));
+  //   notifyListeners();
+  // }
 
-  void sortbyhightolowamount() {
-    _hotellist.sort((a, b) => a.moneyNum.compareTo(b.moneyNum));
-    notifyListeners();
-  }
+  // void sortbyhightolowamount() {
+  //   _hotellist.sort((a, b) => a.moneyNum.compareTo(b.moneyNum));
+  //   notifyListeners();
+  // }
 
   void hotelcall(String checkin, String checkout) async {
     _hotellist.clear();
     try {
       load = false;
       notifyListeners();
-      final url =
-          "https://airlinefly.azurewebsites.net/api/hotels/$checkin/$checkout";
-      final _response = await http.get(Uri.parse(url));
-      //  "gethotel/$checkinday/$checkinmonth/$checkinyr/$checkoutday/$checkoutmonth/$checkoutyr"
+
+      final _response = await http.post(
+        Uri.parse(
+            'https://serverxxfun.azurewebsites.net/api/HttpTrigger?code=qh1AR0D0VV84OrVQPLaoe68O3SaRyJTtD/Jlti6TLUf9z2FSa7oHrw=='),
+        body: json.encode(
+          {
+            "hotel": true,
+            "checkin": checkin.toString(),
+            "checkout": checkout.toString()
+          },
+        ),
+      );
       Map<String, dynamic> _daa = json.decode(_response.body);
       Hotels _data = Hotels.fromJson(_daa);
       _hotellist = _data.data;

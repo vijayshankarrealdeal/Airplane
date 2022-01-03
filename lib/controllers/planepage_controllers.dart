@@ -83,6 +83,7 @@ class PlaneControllers extends ChangeNotifier {
             'https://serverxxfun.azurewebsites.net/api/HttpTrigger?code=qh1AR0D0VV84OrVQPLaoe68O3SaRyJTtD/Jlti6TLUf9z2FSa7oHrw=='),
         body: json.encode(
           {
+            "hotel": false,
             "origin_code": _codeX[from].toString(),
             "orginName": from,
             "destination_code": _codeX[where].toString(),
