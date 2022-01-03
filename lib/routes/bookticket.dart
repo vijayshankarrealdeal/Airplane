@@ -42,7 +42,7 @@ class BookTicket extends StatelessWidget {
                         radius: 50,
                         backgroundColor: color.colorofScaffoldroute(),
                         child: CachedNetworkImage(
-                          imageUrl: data.fightImg,
+                          imageUrl: data.flightImage,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -56,24 +56,11 @@ class BookTicket extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       fonts.heading6(
-                        data.orginCity,
+                        data.originPlace,
                         color.textColor(),
                       ),
                       fonts.heading6(
-                        data.destCity,
-                        color.textColor(),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      fonts.heading6(
-                        data.orginDate,
-                        color.textColor(),
-                      ),
-                      fonts.heading6(
-                        data.orginDate,
+                        data.destinationPlace,
                         color.textColor(),
                       ),
                     ],
@@ -82,11 +69,24 @@ class BookTicket extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       fonts.heading6(
-                        data.orginTime,
+                        data.originTime,
                         color.textColor(),
                       ),
                       fonts.heading6(
-                        data.destTime,
+                        data.originTime,
+                        color.textColor(),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      fonts.heading6(
+                        data.originTime,
+                        color.textColor(),
+                      ),
+                      fonts.heading6(
+                        data.destinationTime,
                         color.textColor(),
                       ),
                     ],
@@ -97,11 +97,11 @@ class BookTicket extends StatelessWidget {
                       Column(
                         children: [
                           fonts.heading6(
-                            data.orginCode,
+                            data.originPlace,
                             color.textColor(),
                           ),
                           fonts.heading6(
-                            data.destCode,
+                            data.destinationPlace,
                             color.textColor(),
                           ),
                         ],
@@ -111,11 +111,11 @@ class BookTicket extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           fonts.heading3(
-                            '\u{20B9} ' + data.flightPrice.toString(),
+                            '\u{20B9} ' + data.price.toString(),
                             color.textColor(),
                           ),
                           fonts.body1(
-                            data.discountCredit,
+                            data.refund,
                             color.warning(),
                           ),
                         ],

@@ -11,7 +11,6 @@ class AccountControllers extends ChangeNotifier {
   }
 
   TextEditingController controller = TextEditingController();
-
   List<FlightDashboardData> _dashBoard = [];
   List<FlightDashboardData> get flightdetails => _dashBoard;
   List<FlightDashboardData> searchyourf = [];
@@ -30,7 +29,7 @@ class AccountControllers extends ChangeNotifier {
       final _response = await http.get(Uri.parse(host));
       Map<String, dynamic> _daa = json.decode(_response.body);
       AirportDashBoard _data = AirportDashBoard.fromJson(_daa);
-      _dashBoard = _data.data;
+      _dashBoard = _data.data..sort((a, b) => a.time.compareTo(b.time));
       notifyListeners();
     } catch (e) {
       notifyListeners();

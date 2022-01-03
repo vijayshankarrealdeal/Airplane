@@ -62,66 +62,80 @@ class ShowAirPlaneCards extends StatelessWidget {
                             height: 65,
                             width: 65,
                             child: Image.network(
-                              e.fightImg,
+                              e.flightImage,
                               scale: 1,
                               fit: BoxFit.fitHeight,
                             ),
                           ),
-                          fonts.heading6(e.fightName, color.textColor())
+                          fonts.heading6(e.fightName, color.textColor()),
                         ],
                       ),
+                      Column(
+                        children: [
+                          fonts.heading3(e.price.toString(), color.textColor()),
+                          fonts.body1(e.refund, color.textColor()),
+                        ],
+                      ),
+                    ],
+                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Row(
+                  //       children: [
+                  //         fonts.heading5(
+                  //             e.originPlace
+                  //                     .split('(')[1]
+                  //                     .substring(
+                  //                         0,
+                  //                         e.originPlace.split('(')[1].length -
+                  //                             1)
+                  //                     .toString() +
+                  //                 ' - ',
+                  //             color.textColor()),
+                  //         fonts.heading5(
+                  //             e.destinationPlace
+                  //                 .split('(')[1]
+                  //                 .substring(
+                  //                     0,
+                  //                     e.destinationPlace.split('(')[1].length -
+                  //                         1)
+                  //                 .toString(),
+                  //             color.textColor()),
+                  //       ],
+                  //     ),
+                  //   ],
+                  // ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          fonts.body2(e.orginCode, color.textColor()),
-                          fonts.body2(e.orginTime, color.textColor()),
-                          fonts.body2(e.orginDate, color.textColor()),
+                          fonts.body1(e.originPlace, color.textColor()),
+                          fonts.body1(e.originTime, color.textColor()),
                         ],
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          fonts.subTitle1(
-                              e.durationOfFlight, color.iconColor()),
+                          fonts.subTitle1(e.durationStop, color.iconColor()),
                           Container(
                             height: 2.0,
                             width: 50,
                             color: Colors.grey,
                           ),
-                          fonts.body1(e.durationStops, color.textColor())
+                          fonts.body1(e.noStops, color.textColor())
                         ],
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          fonts.body2(e.destCode, color.textColor()),
-                          fonts.body2(e.destTime, color.textColor()),
-                          fonts.body2(e.destDate, color.textColor()),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          fonts.heading5(e.orginCity.toString() + ' - ',
-                              color.textColor()),
-                          fonts.heading5(
-                              e.destCity.toString(), color.textColor()),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          fonts.heading3('\u{20B9}' + e.flightPrice.toString(),
-                              color.textColor()),
-                          fonts.body1(
-                              e.discountCredit.substring(0, 4) + ' App credit.',
-                              color.warning()),
+                          fonts.body1(e.destinationPlace, color.textColor()),
+                          fonts.body1(e.destinationTime, color.textColor()),
                         ],
                       ),
                     ],

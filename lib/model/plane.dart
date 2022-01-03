@@ -19,71 +19,59 @@ class FlightDetails {
 
 class FlightData extends ChangeNotifier {
   FlightData({
-    required this.destCity,
-    required this.destCode,
-    required this.destDate,
-    required this.destTime,
-    required this.discountCredit,
-    required this.durationOfFlight,
-    required this.durationStops,
-    required this.fightImg,
+    required this.flightImage,
     required this.fightName,
-    required this.flightPrice,
-    required this.orginCity,
-    required this.orginCode,
-    required this.orginDate,
-    required this.orginTime,
+    required this.flightNo,
+    required this.originTime,
+    required this.originPlace,
+    required this.destinationTime,
+    required this.destinationPlace,
+    required this.durationStop,
+    required this.noStops,
+    required this.price,
+    required this.refund,
     this.isselected = false,
   });
-  late final String destCity;
-  late final String destCode;
-  late final String destDate;
-  late final String destTime;
-  late final String discountCredit;
-  late final String durationOfFlight;
-  late final String durationStops;
-  late final String fightImg;
+  late final String flightImage;
   late final String fightName;
-  late final int flightPrice;
-  late final String orginCity;
-  late final String orginCode;
-  late final String orginDate;
-  late final String orginTime;
+  late final String flightNo;
+  late final String originTime;
+  late final String originPlace;
+  late final String destinationTime;
+  late final String destinationPlace;
+  late final String durationStop;
+  late final String noStops;
+  late final String price;
+  late final String refund;
   bool isselected = false;
 
   FlightData.fromJson(Map<String, dynamic> json) {
-    destCity = json['dest_city'];
-    destCode = json['dest_code'];
-    destDate = json['dest_date'];
-    destTime = json['dest_time'];
-    discountCredit = json['discount_credit'];
-    durationOfFlight = json['duration_of_flight'];
-    durationStops = json['duration_stops'];
-    fightImg = json['fight_img'];
+    flightImage = json['flight_image'];
     fightName = json['fight_name'];
-    flightPrice = json['flight_price'];
-    orginCity = json['orgin_city'];
-    orginCode = json['orgin_code'];
-    orginDate = json['orgin_date'];
-    orginTime = json['orgin_time'];
+    flightNo = json['flight_no'];
+    originTime = json['origin_time'];
+    originPlace = json['origin_place'];
+    destinationTime = json['destination_time'];
+    destinationPlace = json['destination_place'];
+    durationStop = json['duration_stop'];
+    noStops = json['no_stops'];
+    price = json['price'];
+    refund = json['refund'];
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['dest_city'] = destCity;
-    _data['dest_code'] = destCode;
-    _data['dest_date'] = destDate;
-    _data['dest_time'] = destTime;
-    _data['discount_credit'] = discountCredit;
-    _data['duration_of_flight'] = durationOfFlight;
-    _data['duration_stops'] = durationStops;
-    _data['fight_img'] = fightImg;
+    _data['flight_image'] = flightImage;
     _data['fight_name'] = fightName;
-    _data['flight_price'] = flightPrice;
-    _data['orgin_city'] = orginCity;
-    _data['orgin_code'] = orginCode;
-    _data['orgin_date'] = orginDate;
-    _data['orgin_time'] = orginTime;
+    _data['flight_no'] = flightNo;
+    _data['origin_time'] = originTime;
+    _data['origin_place'] = originPlace;
+    _data['destination_time'] = destinationTime;
+    _data['destination_place'] = destinationPlace;
+    _data['duration_stop'] = durationStop;
+    _data['no_stops'] = noStops;
+    _data['price'] = price;
+    _data['refund'] = refund;
     return _data;
   }
 }

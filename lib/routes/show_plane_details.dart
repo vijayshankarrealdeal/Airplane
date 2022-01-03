@@ -54,11 +54,11 @@ class ShowPlaneDetails extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     fonts.heading4(
-                      data.orginCity,
+                      data.originPlace,
                       color.textColor(),
                     ),
                     fonts.heading4(
-                      data.destCity,
+                      data.destinationPlace,
                       color.textColor(),
                     ),
                   ],
@@ -67,11 +67,11 @@ class ShowPlaneDetails extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     fonts.heading6(
-                      data.orginDate,
+                      data.originTime,
                       color.textColor(),
                     ),
                     fonts.heading6(
-                      data.orginDate,
+                      data.originTime,
                       color.textColor(),
                     ),
                   ],
@@ -80,11 +80,11 @@ class ShowPlaneDetails extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     fonts.heading6(
-                      data.orginTime,
+                      data.originTime,
                       color.textColor(),
                     ),
                     fonts.heading6(
-                      data.destTime,
+                      data.destinationTime,
                       color.textColor(),
                     ),
                   ],
@@ -96,11 +96,11 @@ class ShowPlaneDetails extends StatelessWidget {
                     Column(
                       children: [
                         fonts.heading4(
-                          data.orginCode,
+                          data.originPlace,
                           color.textColor(),
                         ),
                         fonts.heading4(
-                          data.destCode,
+                          data.destinationPlace,
                           color.textColor(),
                         ),
                       ],
@@ -110,11 +110,11 @@ class ShowPlaneDetails extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         fonts.heading2(
-                          '\u{20B9} ' + data.flightPrice.toString(),
+                          '\u{20B9} ' + data.price.toString(),
                           color.textColor(),
                         ),
                         fonts.body1(
-                          data.discountCredit,
+                          data.refund,
                           color.warning(),
                         ),
                       ],
@@ -238,7 +238,7 @@ class PlaneHeaderDelgate extends SliverPersistentHeaderDelegate {
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: CachedNetworkImageProvider(userd.fightImg),
+              image: CachedNetworkImageProvider(userd.flightImage),
             ),
             gradient: const LinearGradient(
               colors: [Colors.transparent, Colors.black54],

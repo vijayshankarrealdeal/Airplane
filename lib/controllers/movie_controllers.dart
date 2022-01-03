@@ -31,9 +31,9 @@ class MovieController extends ChangeNotifier {
 
   bool load = false;
   void call() async {
-    String host = "https://airlinefly.azurewebsites.net/api/getmovies";
     try {
-      final _response = await http.get(Uri.parse(host));
+      final _response = await http
+          .get(Uri.parse('https://serverxx.azurewebsites.net/api/movies'));
       Map<String, dynamic> _daa = json.decode(_response.body);
       MovieLatest movieLatest = MovieLatest.fromJson(_daa);
       _results = movieLatest.results ?? [];
@@ -59,9 +59,9 @@ class MovieController extends ChangeNotifier {
   }
 
   void preCalling() async {
-    String host = "https://airlinefly.azurewebsites.net";
     try {
-      final _response = await http.get(Uri.parse('$host/api/food/pre'));
+      final _response = await http
+          .get(Uri.parse('https://serverxx.azurewebsites.net/api/perfood'));
       Map<String, dynamic> _daa = json.decode(_response.body);
       ShoppingModel shoppingModel = ShoppingModel.fromJson(_daa);
       _food = shoppingModel.data;
@@ -72,9 +72,9 @@ class MovieController extends ChangeNotifier {
   }
 
   void postCalling() async {
-    String host = "https://airlinefly.azurewebsites.net";
     try {
-      final _response = await http.get(Uri.parse('$host/api/food/post'));
+      final _response = await http
+          .get(Uri.parse('https://serverxx.azurewebsites.net/api/postfood'));
       Map<String, dynamic> _daa = json.decode(_response.body);
       ShoppingModel shoppingModel = ShoppingModel.fromJson(_daa);
       _postfood = shoppingModel.data;

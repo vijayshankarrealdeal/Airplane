@@ -25,8 +25,21 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> ppImage = [
+      "assets/images/tk.png",
+      "assets/images/hto.png",
+      "assets/images/flight.png",
+      "assets/images/shop.jpg",
+    ];
     List<String> pp = ["Flight", "Hotels", "Transport", "Shopping"];
     List<String> px = ["Restaurants", "Entertainment", "Services ", "Info"];
+
+    List<String> pxImage = [
+      "assets/images/food.jpg",
+      "assets/images/music.jpg",
+      "assets/images/service.png",
+      "assets/images/info.png",
+    ];
     List<String> tx = [
       "Flight-Status",
       "Deals-Offer",
@@ -81,8 +94,12 @@ class Home extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                font.body1("Username", color.textColor()),
-                                font.body1("BlrCoin", color.textColor()),
+                                font.body1(
+                                    auth.email.length > 5
+                                        ? auth.email.substring(0, 5) + ' ..'
+                                        : auth.email,
+                                    color.textColor()),
+                                font.body1("BlrCoin 6", color.textColor()),
                               ],
                             ),
                             const SizedBox(width: 10),
@@ -90,7 +107,7 @@ class Home extends StatelessWidget {
                               height: 40,
                               width: 40,
                               child: IconButton(
-                                icon: Icon(Icons.payment,
+                                icon: Icon(Icons.qr_code,
                                     color: color.textColor()),
                                 onPressed: () {
                                   Navigator.push(
@@ -164,8 +181,10 @@ class Home extends StatelessWidget {
                                       }
                                     },
                                     child: CircleAvatar(
+                                      backgroundImage:
+                                          AssetImage(ppImage[pp.indexOf(e)]),
                                       radius: 40,
-                                      backgroundColor: color.interestTab(),
+                                      backgroundColor: color.buttonInside(),
                                     ),
                                   ),
                                   font.subTitle1(
@@ -231,8 +250,10 @@ class Home extends StatelessWidget {
                                       }
                                     },
                                     child: CircleAvatar(
+                                      backgroundImage:
+                                          AssetImage(pxImage[px.indexOf(e)]),
                                       radius: 40,
-                                      backgroundColor: color.interestTab(),
+                                      backgroundColor: color.buttonInside(),
                                     ),
                                   ),
                                   font.subTitle1(
