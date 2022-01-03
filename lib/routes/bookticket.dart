@@ -1,159 +1,318 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/model/plane.dart';
-import 'package:airplane/widgets/form.dart';
+import 'package:airplane/payment/input_formatters.dart';
+import 'package:airplane/payment/my_strings.dart';
+import 'package:airplane/payment/payment_card.dart';
+import 'package:airplane/widgets/dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-class BookTicket extends StatelessWidget {
+class BookTicket extends StatefulWidget {
   final FlightData data;
-
   const BookTicket({Key? key, required this.data}) : super(key: key);
+  @override
+  _BookTicketState createState() => _BookTicketState();
+}
+
+class _BookTicketState extends State<BookTicket> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _formKey = GlobalKey<FormState>();
+  final numberController = TextEditingController();
+  final _paymentCard = PaymentCard();
+  var _autoValidateMode = AutovalidateMode.disabled;
+  final _card = PaymentCard();
+
+  @override
+  void initState() {
+    super.initState();
+    _paymentCard.type = CardType.Others;
+    numberController.addListener(_getCardTypeFrmNumber);
+  }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _name = TextEditingController();
     final color = Provider.of<ColorManager>(context);
     final fonts = Provider.of<TypoGraphyOfApp>(context);
     return Scaffold(
-      backgroundColor: color.colorofScaffoldroute(),
-      appBar: AppBar(
-        elevation: 0,
-        iconTheme: IconThemeData(
-          color: color.backButton(), //change your color here
+        backgroundColor: color.colorofScaffoldroute(),
+        key: _scaffoldKey,
+        appBar: AppBar(
+          backgroundColor: color.appBarColorroute(),
         ),
-        backgroundColor: color.appBarColorroute(),
-      ),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundColor: color.colorofScaffoldroute(),
-                        child: CachedNetworkImage(
-                          imageUrl: data.flightImage,
-                          fit: BoxFit.cover,
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Form(
+              key: _formKey,
+              autovalidateMode: _autoValidateMode,
+              child: ListView(
+                children: <Widget>[
+                  SizedBox(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CircleAvatar(
+                              radius: 35,
+                              backgroundColor: color.colorofScaffoldroute(),
+                              child: CachedNetworkImage(
+                                imageUrl: widget.data.flightImage,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            fonts.heading4(
+                              widget.data.fightName,
+                              color.textColor(),
+                            ),
+                          ],
                         ),
-                      ),
-                      fonts.heading4(
-                        data.fightName,
-                        color.textColor(),
-                      ),
-                    ],
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            fonts.subTitle1(
+                              widget.data.originPlace,
+                              color.textColor(),
+                            ),
+                            fonts.subTitle1(
+                              widget.data.destinationPlace,
+                              color.textColor(),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            fonts.subTitle1(
+                              widget.data.originTime,
+                              color.textColor(),
+                            ),
+                            fonts.subTitle1(
+                              widget.data.destinationTime,
+                              color.textColor(),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            fonts.heading4(
+                              widget.data.price.toString(),
+                              color.textColor(),
+                            ),
+                            fonts.body1(
+                              '+ 500 Tax and GST',
+                              color.bottomnavBarInactieIcons(),
+                            ),
+                            fonts.body1(
+                              widget.data.refund,
+                              color.warning(),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      fonts.heading6(
-                        data.originPlace,
-                        color.textColor(),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      border: const UnderlineInputBorder(),
+                      filled: false,
+                      icon: Icon(
+                        Icons.person,
+                        color: color.iconColor(),
                       ),
-                      fonts.heading6(
-                        data.destinationPlace,
-                        color.textColor(),
-                      ),
-                    ],
+                      hintText: 'What name is written on card?',
+                      labelText: 'Card Name',
+                    ),
+                    onSaved: (String? value) {
+                      _card.name = value;
+                    },
+                    keyboardType: TextInputType.text,
+                    validator: (String? value) =>
+                        value!.isEmpty ? Strings.fieldReq : null,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      fonts.heading6(
-                        data.originTime,
-                        color.textColor(),
-                      ),
-                      fonts.heading6(
-                        data.originTime,
-                        color.textColor(),
-                      ),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(19),
+                      CardNumberInputFormatter()
                     ],
+                    controller: numberController,
+                    decoration: InputDecoration(
+                      border: const UnderlineInputBorder(),
+                      filled: false,
+                      icon: CardUtils.getCardIcon(_paymentCard.type, color),
+                      hintText: 'What number is written on card?',
+                      labelText: 'Number',
+                    ),
+                    onSaved: (String? value) {
+                      _paymentCard.number = CardUtils.getCleanedNumber(value!);
+                    },
+                    validator: CardUtils.validateCardNum,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      fonts.heading6(
-                        data.originTime,
-                        color.textColor(),
-                      ),
-                      fonts.heading6(
-                        data.destinationTime,
-                        color.textColor(),
-                      ),
+                  TextFormField(
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(4),
                     ],
+                    decoration: InputDecoration(
+                      border: const UnderlineInputBorder(),
+                      filled: false,
+                      icon: Image.asset(
+                        'assets/images/card_cvv.png',
+                        width: 25.0,
+                        color: color.iconColor(),
+                      ),
+                      hintText: 'Number behind the card',
+                      labelText: 'CVV',
+                    ),
+                    validator: CardUtils.validateCVV,
+                    keyboardType: TextInputType.number,
+                    onSaved: (value) {
+                      _paymentCard.cvv = int.parse(value!);
+                    },
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
-                          fonts.heading6(
-                            data.originPlace,
-                            color.textColor(),
-                          ),
-                          fonts.heading6(
-                            data.destinationPlace,
-                            color.textColor(),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          fonts.heading3(
-                            '\u{20B9} ' + data.price.toString(),
-                            color.textColor(),
-                          ),
-                          fonts.body1(
-                            data.refund,
-                            color.warning(),
-                          ),
-                        ],
-                      ),
+                  TextFormField(
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(4),
+                      CardMonthInputFormatter()
                     ],
+                    decoration: InputDecoration(
+                      border: const UnderlineInputBorder(),
+                      filled: false,
+                      icon: Image.asset(
+                        'assets/images/calender.png',
+                        width: 25.0,
+                        color: color.iconColor(),
+                      ),
+                      hintText: 'MM/YY',
+                      labelText: 'Expiry Date',
+                    ),
+                    validator: CardUtils.validateDate,
+                    keyboardType: TextInputType.number,
+                    onSaved: (value) {
+                      List<int> expiryDate = CardUtils.getExpiryDate(value!);
+                      _paymentCard.month = expiryDate[0];
+                      _paymentCard.year = expiryDate[1];
+                    },
                   ),
+                  const SizedBox(
+                    height: 30.0,
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    child: CupertinoButton(
+                        onPressed: () {
+                          try {
+                            _validateInputs();
+                            showPayDialog(context);
+                          } catch (e) {
+                            showAlertDialog(context, e.toString());
+                          }
+                        },
+                        child: fonts.button(Strings.pay, color.textColor())),
+                  )
                 ],
-              ),
+              )),
+        ));
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is removed from the Widget tree
+    numberController.removeListener(_getCardTypeFrmNumber);
+    numberController.dispose();
+    super.dispose();
+  }
+
+  void _getCardTypeFrmNumber() {
+    String input = CardUtils.getCleanedNumber(numberController.text);
+    CardType cardType = CardUtils.getCardTypeFrmNumber(input);
+    setState(() {
+      _paymentCard.type = cardType;
+    });
+  }
+
+  void _validateInputs() {
+    final FormState form = _formKey.currentState!;
+    if (!form.validate()) {
+      setState(() {
+        _autoValidateMode =
+            AutovalidateMode.always; // Start validating on every change.
+      });
+      throw 'Please fix the errors in red before submitting.';
+    }
+  }
+
+  Future<void> showPayDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          final FormState form = _formKey.currentState!;
+          final fonts = Provider.of<TypoGraphyOfApp>(context);
+          final colors = Provider.of<ColorManager>(context);
+          return Theme(
+            data: ThemeData(
+                brightness:
+                    colors.darkmode ? Brightness.dark : Brightness.light),
+            child: CupertinoAlertDialog(
+              title: fonts.heading4(
+                  'Pay \u{20B9}' +
+                      (int.parse(widget.data.price.split(' ')[1].toString()) +
+                              500)
+                          .toString(),
+                  colors.textColor()),
+              actions: [
+                CupertinoButton(
+                    child: fonts.button("Pay", colors.textColor()),
+                    onPressed: () async {
+                      Map<String, dynamic> x = {
+                        "cardNumber": _paymentCard.number,
+                        "cardMonth": _paymentCard.month,
+                        "cardYear": _paymentCard.year,
+                        "cardType": _paymentCard.type.toString(),
+                        "cardCvv": _paymentCard.cvv,
+                        "cardholdername": _paymentCard.name.toString(),
+                        'total_price': (int.parse(widget.data.price
+                                    .split(' ')[1]
+                                    .toString()) +
+                                500)
+                            .toString()
+                      };
+
+                      var thirdMap = {};
+                      thirdMap.addAll(x);
+                      thirdMap.addAll(widget.data.toJson());
+                      final _res = await http.post(
+                          Uri.parse(
+                              'https://serverxx.azurewebsites.net/api/booktickets/'),
+                          body: json.encode(thirdMap));
+                      log(_res.body);
+                      form.save();
+                      Navigator.pop(context);
+                    }),
+                CupertinoButton(
+                    child: fonts.button("Cancel", colors.warning()),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }),
+              ],
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-            child: FormForApp(
-              change: (s) {},
-              addWordCount: false,
-              email: _name,
-              placeholder: 'Name',
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-            child: FormForApp(
-              change: (s) {},
-              addWordCount: false,
-              email: _name,
-              placeholder: 'Card Number',
-            ),
-          ),
-          const SizedBox(height: 20),
-          CupertinoButton(
-            color: color.buttonOutside(),
-            child: fonts.button("Confirm", color.buttonInside()),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          )
-        ],
-      ),
-    );
+          );
+        });
   }
 }

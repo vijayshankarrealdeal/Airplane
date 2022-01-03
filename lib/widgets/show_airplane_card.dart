@@ -54,8 +54,10 @@ class ShowAirPlaneCards extends StatelessWidget {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
@@ -78,36 +80,10 @@ class ShowAirPlaneCards extends StatelessWidget {
                       ),
                     ],
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     Row(
-                  //       children: [
-                  //         fonts.heading5(
-                  //             e.originPlace
-                  //                     .split('(')[1]
-                  //                     .substring(
-                  //                         0,
-                  //                         e.originPlace.split('(')[1].length -
-                  //                             1)
-                  //                     .toString() +
-                  //                 ' - ',
-                  //             color.textColor()),
-                  //         fonts.heading5(
-                  //             e.destinationPlace
-                  //                 .split('(')[1]
-                  //                 .substring(
-                  //                     0,
-                  //                     e.destinationPlace.split('(')[1].length -
-                  //                         1)
-                  //                 .toString(),
-                  //             color.textColor()),
-                  //       ],
-                  //     ),
-                  //   ],
-                  // ),
+                  const SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
