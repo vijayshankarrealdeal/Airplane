@@ -7,6 +7,7 @@ import 'package:airplane/model/plane.dart';
 import 'package:airplane/payment/input_formatters.dart';
 import 'package:airplane/payment/my_strings.dart';
 import 'package:airplane/payment/payment_card.dart';
+import 'package:airplane/services/auth.dart';
 import 'package:airplane/widgets/dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -280,7 +281,9 @@ class _BookTicketState extends State<BookTicket> {
                 CupertinoButton(
                     child: fonts.button("Pay", colors.textColor()),
                     onPressed: () async {
+                      final auth = Provider.of<Auth>(context);
                       Map<String, dynamic> x = {
+                        "email": auth.email,
                         "cardNumber": _paymentCard.number,
                         "cardMonth": _paymentCard.month,
                         "cardYear": _paymentCard.year,
