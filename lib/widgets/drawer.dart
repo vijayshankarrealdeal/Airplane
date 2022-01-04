@@ -3,9 +3,15 @@ import 'package:airplane/controllers/tikect_controller.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/routes/another_services.dart';
 import 'package:airplane/routes/checklist_show.dart';
+import 'package:airplane/routes/contact_us.dart';
+import 'package:airplane/routes/covid.dart';
 import 'package:airplane/routes/maps.dart';
+import 'package:airplane/routes/medical.dart';
+import 'package:airplane/routes/parking.dart';
+import 'package:airplane/routes/services.dart';
 import 'package:airplane/routes/settings.dart';
 import 'package:airplane/routes/login.dart';
+import 'package:airplane/routes/support_help.dart';
 import 'package:airplane/services/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -69,11 +75,55 @@ class GetDrawer extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 ListTile(
                     leading: Icon(CupertinoIcons.chat_bubble_2,
                         color: color.bottomnavBarInactieIcons()),
                     title: fonts.body1('Customer Support', color.textColor()),
-                    onTap: () => print('todo')),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                        const SupportAndHelp(),
+                      ),
+                    )
+                ),
+                ListTile(
+                    leading: Icon(CupertinoIcons.chat_bubble_2,
+                        color: color.bottomnavBarInactieIcons()),
+                    title: fonts.body1('Parking', color.textColor()),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                        const Parking(),
+                      ),
+                    )
+                ),
+                ListTile(
+                    leading: Icon(CupertinoIcons.chat_bubble_2,
+                        color: color.bottomnavBarInactieIcons()),
+                    title: fonts.body1('Medical Services', color.textColor()),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                        const Medical(),
+                      ),
+                    )
+                ),
+                ListTile(
+                    leading: Icon(CupertinoIcons.chat_bubble_2,
+                        color: color.bottomnavBarInactieIcons()),
+                    title: fonts.body1('Covid 19', color.textColor()),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                        const Covid(),
+                      ),
+                    )
+                ),
               ],
             ),
             Column(
@@ -96,7 +146,7 @@ class GetDrawer extends StatelessWidget {
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const AnotherServices(),
+                      builder: (context) => const ContactUs(),
                     ),
                   ),
                 ),

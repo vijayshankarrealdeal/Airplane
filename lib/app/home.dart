@@ -1,16 +1,18 @@
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/movie_controllers.dart';
-import 'package:airplane/controllers/tikect_controller.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/routes/all_moive_route.dart';
 import 'package:airplane/routes/all_shop_route.dart';
+import 'package:airplane/routes/buses.dart';
 import 'package:airplane/routes/checklist_show.dart';
 import 'package:airplane/routes/flightchecklist.dart';
 import 'package:airplane/routes/food_pre_post.dart';
 import 'package:airplane/routes/hotels_show.dart';
+import 'package:airplane/routes/infos.dart';
 import 'package:airplane/routes/login.dart';
 import 'package:airplane/routes/qr.dart';
 import 'package:airplane/routes/serach_for_airplances.dart';
+import 'package:airplane/routes/services.dart';
 import 'package:airplane/routes/support_help.dart';
 import 'package:airplane/routes/your_trips.dart';
 import 'package:airplane/services/auth.dart';
@@ -169,6 +171,15 @@ class Home extends StatelessWidget {
                                           ),
                                         );
                                       }
+                                      if (e.contains('Transport')) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                            const BuList(),
+                                          ),
+                                        );
+                                      }
                                     },
                                     child: CircleAvatar(
                                       backgroundImage:
@@ -235,6 +246,24 @@ class Home extends StatelessWidget {
                                               value: movie,
                                               child: const FoodPrePost(),
                                             ),
+                                          ),
+                                        );
+                                      }
+                                      if (e.contains('Services')) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                            const ServiceList(),
+                                          ),
+                                        );
+                                      }
+                                      if (e.contains('Info')) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                            const InfoList(),
                                           ),
                                         );
                                       }

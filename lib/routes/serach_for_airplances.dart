@@ -120,7 +120,7 @@ class SearchForAirplanes extends StatelessWidget {
                       onTap: () => data.changethelines(),
                       child: CircleAvatar(
                         backgroundColor:
-                            colors.colorofScaffoldroute().withOpacity(0.8),
+                            colors.colorofScaffoldroute().withOpacity(0.2),
                         radius: 12,
                         child: Icon(
                           CupertinoIcons.arrow_up_arrow_down,
