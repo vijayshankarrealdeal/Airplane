@@ -3,6 +3,7 @@ import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/location_controller.dart';
 import 'package:airplane/controllers/movie_controllers.dart';
 import 'package:airplane/controllers/planepage_controllers.dart';
+import 'package:airplane/controllers/tikect_controller.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/navbar/change.dart';
 import 'package:airplane/navbar/homepage.dart';
@@ -31,18 +32,20 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<AccountControllers>(
             create: (context) => AccountControllers()),
+        ChangeNotifierProvider<Auth>(create: (context) => Auth()),
         ChangeNotifierProvider<PlaneControllers>(
             create: (context) => PlaneControllers()),
         ChangeNotifierProvider(create: (context) => MovieController()),
-        ChangeNotifierProvider<Auth>(create: (context) => Auth()),
         ChangeNotifierProvider<LocationTaker>(
             create: (context) => LocationTaker()),
+        ChangeNotifierProvider<TicketsAndMore>(
+            create: (context) => TicketsAndMore(context)),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: color.interestTab(),
           brightness: color.darkmode ? Brightness.dark : Brightness.light,
+          primaryColor: Colors.blue.shade800,
         ),
         home: MaterialHomePage(),
       ),

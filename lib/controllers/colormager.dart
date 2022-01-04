@@ -179,6 +179,14 @@ class ColorManager extends ChangeNotifier {
     }
   }
 
+  Color buttonoutside() {
+    if (!darkmode) {
+      return const Color.fromRGBO(0, 122, 255, 1);
+    } else {
+      return Colors.blue.shade900;
+    }
+  }
+
   Color interestTab() {
     if (!darkmode) {
       return Colors.red.shade700;

@@ -90,11 +90,8 @@ class HotelShow extends StatelessWidget {
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
                           var _hotels = data.hoteldetails[index];
-                          var _hotelname = _hotels.hotelName
-                              .substring(1, _hotels.hotelName.length - 1)
-                              .split(',')[0];
-                          var _name =
-                              _hotelname.substring(1, _hotelname.length - 1);
+                          var _hotelname = _hotels.hotelName;
+                          var _name = _hotelname;
                           return Card(
                             color: color.colorofCardShowing(),
                             child: Padding(

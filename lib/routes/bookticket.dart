@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:airplane/controllers/colormager.dart';
+import 'package:airplane/controllers/tikect_controller.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/model/plane.dart';
 import 'package:airplane/payment/input_formatters.dart';
@@ -42,10 +43,13 @@ class _BookTicketState extends State<BookTicket> {
   Widget build(BuildContext context) {
     final color = Provider.of<ColorManager>(context);
     final fonts = Provider.of<TypoGraphyOfApp>(context);
+    final coins = Provider.of<TicketsAndMore>(context);
+
     return Scaffold(
         backgroundColor: color.colorofScaffoldroute(),
         key: _scaffoldKey,
         appBar: AppBar(
+          actions: [fonts.body1("BLRCoin ${coins.coins}", color.textColor())],
           backgroundColor: color.appBarColorroute(),
         ),
         body: Padding(
@@ -263,59 +267,85 @@ class _BookTicketState extends State<BookTicket> {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
+          bool load = false;
           final FormState form = _formKey.currentState!;
           final fonts = Provider.of<TypoGraphyOfApp>(context);
           final colors = Provider.of<ColorManager>(context);
-          return Theme(
-            data: ThemeData(
-                brightness:
-                    colors.darkmode ? Brightness.dark : Brightness.light),
-            child: CupertinoAlertDialog(
-              title: fonts.heading4(
-                  'Pay \u{20B9}' +
-                      (int.parse(widget.data.price.split(' ')[1].toString()) +
-                              500)
-                          .toString(),
-                  colors.textColor()),
-              actions: [
-                CupertinoButton(
-                    child: fonts.button("Pay", colors.textColor()),
-                    onPressed: () async {
-                      final auth = Provider.of<Auth>(context);
-                      Map<String, dynamic> x = {
-                        "email": auth.email,
-                        "cardNumber": _paymentCard.number,
-                        "cardMonth": _paymentCard.month,
-                        "cardYear": _paymentCard.year,
-                        "cardType": _paymentCard.type.toString(),
-                        "cardCvv": _paymentCard.cvv,
-                        "cardholdername": _paymentCard.name.toString(),
-                        'total_price': (int.parse(widget.data.price
-                                    .split(' ')[1]
-                                    .toString()) +
-                                500)
-                            .toString()
-                      };
+          final coins = Provider.of<TicketsAndMore>(context);
 
-                      var thirdMap = {};
-                      thirdMap.addAll(x);
-                      thirdMap.addAll(widget.data.toJson());
-                      final _res = await http.post(
-                          Uri.parse(
-                              'https://serverxx.azurewebsites.net/api/booktickets/'),
-                          body: json.encode(thirdMap));
-                      log(_res.body);
-                      form.save();
-                      Navigator.pop(context);
-                    }),
-                CupertinoButton(
-                    child: fonts.button("Cancel", colors.warning()),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    }),
-              ],
-            ),
-          );
+          return Theme(
+              data: ThemeData(
+                  brightness:
+                      colors.darkmode ? Brightness.dark : Brightness.light),
+              child: StatefulBuilder(builder: (context, setState) {
+                return CupertinoAlertDialog(
+                  title: fonts.heading6(
+                      load == false
+                          ? 'Pay \u{20B9}' +
+                              (int.parse(widget.data.price
+                                          .split(' ')[1]
+                                          .toString()) +
+                                      500)
+                                  .toString() +
+                              " after Blr Credit"
+                          : "Donot Close this Window ",
+                      colors.textColor()),
+                  actions: [
+                    load == false
+                        ? CupertinoButton(
+                            child: fonts.button("Pay", colors.textColor()),
+                            onPressed: () async {
+                              setState(() {
+                                load = true;
+                              });
+                              form.save();
+                              final auth =
+                                  Provider.of<Auth>(context, listen: false);
+                              Map<String, dynamic> x = {
+                                "email": auth.email,
+                                "cardNumber": _paymentCard.number.toString(),
+                                "cardMonth": _paymentCard.month.toString(),
+                                "cardYear": _paymentCard.year.toString(),
+                                "cardType": _paymentCard.type.toString(),
+                                "cardCvv": _paymentCard.cvv.toString(),
+                                "cardholdername": _paymentCard.name.toString(),
+                                'total_price': int.parse(widget.data.price
+                                        .split(' ')[1]
+                                        .toString()) +
+                                    500
+                              };
+//https://serverxx.azurewebsites.net/api/booktickets/
+                              var thirdMap = {};
+                              thirdMap.addAll(x);
+                              thirdMap.addAll(widget.data.toJson());
+                              final _res = await http.post(
+                                  Uri.parse(
+                                      'https://serverxx.azurewebsites.net/api/booktickets/'),
+                                  headers: {
+                                    "Content-Type":
+                                        "application/json; charset=UTF-8"
+                                  },
+                                  body: json.encode(thirdMap));
+                              log(_res.body);
+                              setState(() {
+                                load = false;
+                              });
+                              form.dispose();
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                            })
+                        : const CupertinoActivityIndicator(),
+                    load == false
+                        ? CupertinoButton(
+                            child: fonts.button("Cancel", colors.warning()),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            })
+                        : const SizedBox(),
+                  ],
+                );
+              }));
         });
   }
 }

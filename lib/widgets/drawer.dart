@@ -1,4 +1,5 @@
 import 'package:airplane/controllers/colormager.dart';
+import 'package:airplane/controllers/tikect_controller.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/routes/another_services.dart';
 import 'package:airplane/routes/checklist_show.dart';
@@ -18,6 +19,7 @@ class GetDrawer extends StatelessWidget {
     final color = Provider.of<ColorManager>(context);
     final fonts = Provider.of<TypoGraphyOfApp>(context);
     final auht = Provider.of<Auth>(context);
+    final coins = Provider.of<TicketsAndMore>(context);
 
     return Drawer(
       elevation: 6,
@@ -36,6 +38,13 @@ class GetDrawer extends StatelessWidget {
                     onPressed: () => Navigator.pop(context),
                   ),
                 ),
+                Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: fonts.body1(
+                          'BlrCoin ${coins.coins}', color.textColor()),
+                    )),
                 ListTile(
                   leading: Icon(
                     CupertinoIcons.location_fill,

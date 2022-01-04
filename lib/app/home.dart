@@ -1,5 +1,6 @@
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/movie_controllers.dart';
+import 'package:airplane/controllers/tikect_controller.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/routes/all_moive_route.dart';
 import 'package:airplane/routes/all_shop_route.dart';
@@ -11,6 +12,7 @@ import 'package:airplane/routes/login.dart';
 import 'package:airplane/routes/qr.dart';
 import 'package:airplane/routes/serach_for_airplances.dart';
 import 'package:airplane/routes/support_help.dart';
+import 'package:airplane/routes/your_trips.dart';
 import 'package:airplane/services/auth.dart';
 import 'package:airplane/widgets/drawer.dart';
 import 'package:airplane/widgets/loading_spinner.dart';
@@ -29,13 +31,13 @@ class Home extends StatelessWidget {
       "assets/images/tk.png",
       "assets/images/hto.png",
       "assets/images/flight.png",
-      "assets/images/shop.jpg",
+      "assets/images/shop.png",
     ];
     List<String> pp = ["Flight", "Hotels", "Transport", "Shopping"];
     List<String> px = ["Restaurants", "Entertainment", "Services ", "Info"];
 
     List<String> pxImage = [
-      "assets/images/food.jpg",
+      "assets/images/food.png",
       "assets/images/music.jpg",
       "assets/images/service.png",
       "assets/images/info.png",
@@ -90,18 +92,6 @@ class Home extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                font.body1(
-                                    auth.email.length > 5
-                                        ? auth.email.substring(0, 5) + ' ..'
-                                        : auth.email,
-                                    color.textColor()),
-                                font.body1("BlrCoin 6", color.textColor()),
-                              ],
-                            ),
                             const SizedBox(width: 10),
                             SizedBox(
                               height: 40,
@@ -184,7 +174,7 @@ class Home extends StatelessWidget {
                                       backgroundImage:
                                           AssetImage(ppImage[pp.indexOf(e)]),
                                       radius: 40,
-                                      backgroundColor: color.buttonInside(),
+                                      backgroundColor: color.buttonoutside(),
                                     ),
                                   ),
                                   font.subTitle1(
@@ -298,6 +288,15 @@ class Home extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => const CheckList(),
+                                      ),
+                                    );
+                                  }
+
+                                  if (e.contains("Your Trips")) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const YourTrips(),
                                       ),
                                     );
                                   }
