@@ -31,6 +31,7 @@ class FlightDataT {
     required this.refund,
     required this.totalPay,
     this.cancel = false,
+    this.checklistcreated = false,
   });
   late final int id;
   late final String flightImage;
@@ -46,6 +47,7 @@ class FlightDataT {
   late final String refund;
   late final int totalPay;
   bool cancel = false;
+  bool checklistcreated = false;
 
   FlightDataT.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -62,6 +64,7 @@ class FlightDataT {
     refund = json['refund'];
     totalPay = json['total_pay'];
     cancel = json['cancel'];
+    checklistcreated = json['checklistcreated'];
   }
 
   Map<String, dynamic> toJson() {

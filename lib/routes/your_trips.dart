@@ -192,7 +192,9 @@ class YourTrips extends StatelessWidget {
                                                         context,
                                                         MaterialPageRoute(
                                                           builder: (context) =>
-                                                              const CheckList(),
+                                                              CheckList(
+                                                                  pk: e.id
+                                                                      .toString()),
                                                         ),
                                                       );
                                                     }),
@@ -278,6 +280,7 @@ class YourTrips extends StatelessWidget {
         builder: (context) {
           final fonts = Provider.of<TypoGraphyOfApp>(context);
           final colors = Provider.of<ColorManager>(context);
+
           return Theme(
             data: ThemeData(
                 brightness:

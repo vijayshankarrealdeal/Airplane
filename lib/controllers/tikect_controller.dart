@@ -32,6 +32,7 @@ class TicketsAndMore extends ChangeNotifier {
   String error = '';
 
   Future<void> cancelTicket(Auth auth, int id, int index) async {
+    load = true;
     notifyListeners();
     final _response = await http.get(
         Uri.parse('https://serverxx.azurewebsites.net/api/cancel_ticket/$id'),
@@ -39,14 +40,14 @@ class TicketsAndMore extends ChangeNotifier {
     final _daa = json.decode(_response.body);
     if (_daa['data'] == "Success") {
       data[index].cancel = true;
-
+      load = false;
       notifyListeners();
     }
   }
 
   void functionRin(BuildContext context) async {
     final auth = Provider.of<Auth>(context, listen: false);
-
+//
     try {
       final _response = await http.get(
           Uri.parse('https://serverxx.azurewebsites.net/api/mytrips/'),
