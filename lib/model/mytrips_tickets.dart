@@ -1,11 +1,11 @@
-class TicketsBooks {
-  TicketsBooks({
+class TicketBooks {
+  TicketBooks({
     required this.data,
   });
-  late final List<DataXTT> data;
+  late final List<FlightDataT> data;
 
-  TicketsBooks.fromJson(Map<String, dynamic> json) {
-    data = List.from(json['data']).map((e) => DataXTT.fromJson(e)).toList();
+  TicketBooks.fromJson(Map<String, dynamic> json) {
+    data = List.from(json['data']).map((e) => FlightDataT.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -15,25 +15,8 @@ class TicketsBooks {
   }
 }
 
-class DataXTT {
-  DataXTT({
-    required this.flight,
-  });
-  late final FlightDetails flight;
-
-  DataXTT.fromJson(Map<String, dynamic> json) {
-    flight = FlightDetails.fromJson(json['flight']);
-  }
-
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['flight'] = flight.toJson();
-    return _data;
-  }
-}
-
-class FlightDetails {
-  FlightDetails({
+class FlightDataT {
+  FlightDataT({
     required this.id,
     required this.flightImage,
     required this.fightName,
@@ -47,6 +30,7 @@ class FlightDetails {
     required this.price,
     required this.refund,
     required this.totalPay,
+    this.cancel = false,
   });
   late final int id;
   late final String flightImage;
@@ -61,8 +45,9 @@ class FlightDetails {
   late final String price;
   late final String refund;
   late final int totalPay;
+  bool cancel = false;
 
-  FlightDetails.fromJson(Map<String, dynamic> json) {
+  FlightDataT.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     flightImage = json['flight_image'];
     fightName = json['fight_name'];
@@ -76,6 +61,7 @@ class FlightDetails {
     price = json['price'];
     refund = json['refund'];
     totalPay = json['total_pay'];
+    cancel = json['cancel'];
   }
 
   Map<String, dynamic> toJson() {
@@ -93,6 +79,7 @@ class FlightDetails {
     _data['price'] = price;
     _data['refund'] = refund;
     _data['total_pay'] = totalPay;
+    _data['cancel'] = cancel;
     return _data;
   }
 }

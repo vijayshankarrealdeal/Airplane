@@ -8,7 +8,6 @@ import 'package:airplane/routes/covid.dart';
 import 'package:airplane/routes/maps.dart';
 import 'package:airplane/routes/medical.dart';
 import 'package:airplane/routes/parking.dart';
-import 'package:airplane/routes/services.dart';
 import 'package:airplane/routes/settings.dart';
 import 'package:airplane/routes/login.dart';
 import 'package:airplane/routes/support_help.dart';
@@ -37,20 +36,27 @@ class GetDrawer extends StatelessWidget {
           children: [
             Column(
               children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_back, color: color.iconColor()),
-                    onPressed: () => Navigator.pop(context),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.arrow_back, color: color.iconColor()),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          fonts.body1(auht.email, color.textColor()),
+                          fonts.body1(
+                              'BlrCoin ${coins.coins}', color.textColor()),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: fonts.body1(
-                          'BlrCoin ${coins.coins}', color.textColor()),
-                    )),
                 ListTile(
                   leading: Icon(
                     CupertinoIcons.location_fill,
@@ -75,55 +81,46 @@ class GetDrawer extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 ListTile(
                     leading: Icon(CupertinoIcons.chat_bubble_2,
                         color: color.bottomnavBarInactieIcons()),
                     title: fonts.body1('Customer Support', color.textColor()),
                     onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                        const SupportAndHelp(),
-                      ),
-                    )
-                ),
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SupportAndHelp(),
+                          ),
+                        )),
                 ListTile(
                     leading: Icon(CupertinoIcons.chat_bubble_2,
                         color: color.bottomnavBarInactieIcons()),
                     title: fonts.body1('Parking', color.textColor()),
                     onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                        const Parking(),
-                      ),
-                    )
-                ),
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Parking(),
+                          ),
+                        )),
                 ListTile(
                     leading: Icon(CupertinoIcons.chat_bubble_2,
                         color: color.bottomnavBarInactieIcons()),
                     title: fonts.body1('Medical Services', color.textColor()),
                     onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                        const Medical(),
-                      ),
-                    )
-                ),
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Medical(),
+                          ),
+                        )),
                 ListTile(
                     leading: Icon(CupertinoIcons.chat_bubble_2,
                         color: color.bottomnavBarInactieIcons()),
                     title: fonts.body1('Covid 19', color.textColor()),
                     onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                        const Covid(),
-                      ),
-                    )
-                ),
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Covid(),
+                          ),
+                        )),
               ],
             ),
             Column(

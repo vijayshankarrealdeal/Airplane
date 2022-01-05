@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:airplane/widgets/dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,24 +10,23 @@ class Auth extends ChangeNotifier {
     getToken();
   }
   String accesstoken = '';
-  String refreshtoken = '';
   String email = '';
+  Map<String, dynamic> data = {};
   bool load = false;
   void getToken() async {
     final _oflineref = await SharedPreferences.getInstance();
     accesstoken = _oflineref.getString('access_token') ?? '';
-    refreshtoken = _oflineref.getString('refresh_token') ?? '';
     email = _oflineref.getString('username') ?? '';
+    data['email'] = email;
     notifyListeners();
   }
 
   Future<void> logout() async {
     final _oflineref = await SharedPreferences.getInstance();
     accesstoken = '';
-    refreshtoken = '';
     email = '';
+    data = {};
     _oflineref.setString("access_token", '');
-    _oflineref.setString("refresh_token", '');
     _oflineref.setString('username', '');
     notifyListeners();
   }
@@ -53,25 +51,26 @@ class Auth extends ChangeNotifier {
   Future<void> register(
       String email, String password, BuildContext context) async {
     final _oflineref = await SharedPreferences.getInstance();
-
-    const url = "https://serverxx.azurewebsites.net/api/user/register";
-
     try {
-      final _respond = await http
-          .post(Uri.parse(url), body: {'email': email, 'password': password});
+      final _respond = await http.post(
+          Uri.parse("https://serverxx.azurewebsites.net/api/user/register"),
+          body: {'email': email, 'password': password});
       final _data = Map.from(json.decode(_respond.body));
+
+      log(_respond.body);
       if (_data['detail'] == "User with this exits'email'") {
         throw "User with email exits";
       }
+      _data.forEach((key, value) {
+        data[key] = value;
+      });
       accesstoken = _data['access'];
-      refreshtoken = _data['access'];
-      email = _data['username'];
+      email = _data['email'];
       _oflineref.setString("username", email);
       _oflineref.setString("access_token", accesstoken);
-      _oflineref.setString("refresh_token", refreshtoken);
       notifyListeners();
     } catch (e) {
-      rethrow;
+      throw "There is something wrong use another email";
     }
   }
 
@@ -83,13 +82,13 @@ class Auth extends ChangeNotifier {
           body: {'username': email, 'password': password});
       log(_respond.body);
       final _data = Map.from(json.decode(_respond.body));
-      accesstoken = _data['access'];
-      refreshtoken = _data['refresh'];
-      email = _data['username'];
+      _data.forEach((key, value) {
+        data[key] = value;
+      });
       _oflineref.setString("username", email);
-
       _oflineref.setString("access_token", accesstoken);
-      _oflineref.setString("refresh_token", refreshtoken);
+      accesstoken = _data['access'];
+      email = _data['username'];
       notifyListeners();
     } catch (e) {
       print(e);

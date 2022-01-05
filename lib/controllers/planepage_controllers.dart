@@ -94,8 +94,7 @@ class PlaneControllers extends ChangeNotifier {
             "infant": 0
           },
         ));
-    log(_response.statusCode.toString());
-    log(_response.body);
+  
 
     Map<String, dynamic> _daa = json.decode(_response.body);
     List<dynamic> data = _daa['data'] ?? [];

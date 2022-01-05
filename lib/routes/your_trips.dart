@@ -1,6 +1,7 @@
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/tikect_controller.dart';
 import 'package:airplane/controllers/typography.dart';
+import 'package:airplane/model/mytrips_tickets.dart';
 import 'package:airplane/routes/checklist_show.dart';
 import 'package:airplane/routes/hotels_show.dart';
 import 'package:airplane/routes/serach_for_airplances.dart';
@@ -20,27 +21,27 @@ class YourTrips extends StatelessWidget {
     final auth = Provider.of<Auth>(context);
 
     return Scaffold(
-        backgroundColor: color.colorofScaffoldroute(),
-        appBar: AppBar(
-          elevation: 0,
-          centerTitle: true,
-          title: fonts.heading5("Your Trips", color.textColor()),
-          iconTheme: IconThemeData(
-            color: color.backButton(), //change your color here
-          ),
-          backgroundColor: color.appBarColorroute(),
+      backgroundColor: color.colorofScaffoldroute(),
+      appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
+        title: fonts.heading5("Your Trips", color.textColor()),
+        iconTheme: IconThemeData(
+          color: color.backButton(), //change your color here
         ),
-        body: auth.accesstoken.isEmpty
-            ? Center(
-                child: fonts.heading6(
-                  "You are sign in",
-                  color.textColor(),
-                ),
-              )
-            : ChangeNotifierProvider<TicketsAndMore>(
-                create: (context) => TicketsAndMore(context),
-                child:
-                    Consumer<TicketsAndMore>(builder: (context, controller, _) {
+        backgroundColor: color.appBarColorroute(),
+      ),
+      body: auth.accesstoken.isEmpty
+          ? Center(
+              child: fonts.heading6(
+                "You are sign in",
+                color.textColor(),
+              ),
+            )
+          : ChangeNotifierProvider<TicketsAndMore>(
+              create: (context) => TicketsAndMore(context),
+              child: Consumer<TicketsAndMore>(
+                builder: (context, controller, _) {
                   return controller.load
                       ? controller.data.isEmpty
                           ? Center(
@@ -72,7 +73,7 @@ class YourTrips extends StatelessWidget {
                           : ListView.builder(
                               itemCount: controller.data.length,
                               itemBuilder: (context, index) {
-                                var e = controller.data[index].flight;
+                                var e = controller.data[index];
                                 return Card(
                                   color: color.planeCardColorHome(),
                                   shape: RoundedRectangleBorder(
@@ -175,42 +176,46 @@ class YourTrips extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            CupertinoButton(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
+                                            e.cancel
+                                                ? const SizedBox()
+                                                : CupertinoButton(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
                                                         vertical: 13,
                                                         horizontal: 28),
-                                                color: color.interestTab(),
-                                                child: fonts.button(
-                                                    "Create Checklist",
-                                                    color.textColor()),
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const CheckList(),
-                                                    ),
-                                                  );
-                                                }),
-                                            CupertinoButton(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
+                                                    color: color.interestTab(),
+                                                    child: fonts.button(
+                                                        "Create Checklist",
+                                                        color.textColor()),
+                                                    onPressed: () {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const CheckList(),
+                                                        ),
+                                                      );
+                                                    }),
+                                            e.cancel
+                                                ? const SizedBox()
+                                                : CupertinoButton(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
                                                         vertical: 13,
                                                         horizontal: 28),
-                                                color: color.interestTab(),
-                                                child: fonts.button(
-                                                    "Book Hotels",
-                                                    color.textColor()),
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const HotelShow(),
-                                                    ),
-                                                  );
-                                                }),
+                                                    color: color.interestTab(),
+                                                    child: fonts.button(
+                                                        "Book Hotels",
+                                                        color.textColor()),
+                                                    onPressed: () {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const HotelShow(),
+                                                        ),
+                                                      );
+                                                    }),
                                           ],
                                         ),
                                         const SizedBox(
@@ -219,19 +224,40 @@ class YourTrips extends StatelessWidget {
                                         SizedBox(
                                           width: double.infinity,
                                           child: CupertinoButton(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 13, horizontal: 28),
+                                            color: color.warning(),
+                                            child: fonts.button(
+                                                e.cancel
+                                                    ? "Ticket Canceled"
+                                                    : "Cancel Flight",
+                                                color.textColor()),
+                                            onPressed: e.cancel == true
+                                                ? null
+                                                : () => _showDialog(context,
+                                                    controller, auth, e),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        e.cancel
+                                            ? SizedBox(
+                                                width: double.infinity,
+                                                child: CupertinoButton(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
                                                       vertical: 13,
                                                       horizontal: 28),
-                                              color: color.warning(),
-                                              child: fonts.button(
-                                                  "Cancel Flight",
-                                                  color.textColor()),
-                                              onPressed: () {
-                                                controller.remove(
-                                                    controller.data[index]);
-                                              }),
-                                        ),
+                                                  color: color.warning(),
+                                                  child: fonts.button(
+                                                      "Remove From Here",
+                                                      color.textColor()),
+                                                  onPressed: () => controller
+                                                      .removeitem(e, auth),
+                                                ),
+                                              )
+                                            : const SizedBox(),
                                       ],
                                     ),
                                   ),
@@ -239,7 +265,41 @@ class YourTrips extends StatelessWidget {
                               },
                             )
                       : const LoadingSpinner();
-                }),
-              ));
+                },
+              ),
+            ),
+    );
+  }
+
+  void _showDialog(BuildContext context, TicketsAndMore functin, Auth auth,
+      FlightDataT e) async {
+    await showCupertinoDialog(
+        context: context,
+        builder: (context) {
+          final fonts = Provider.of<TypoGraphyOfApp>(context);
+          final colors = Provider.of<ColorManager>(context);
+          return Theme(
+            data: ThemeData(
+                brightness:
+                    colors.darkmode ? Brightness.dark : Brightness.light),
+            child: CupertinoAlertDialog(
+              title: fonts.body1(
+                  "Do you want to cancel ticket", colors.textColor()),
+              content: fonts.body1(
+                  "Cancel once cannot be revert", colors.textColor()),
+              actions: [
+                CupertinoButton(
+                    child: fonts.button("Agree", colors.warning()),
+                    onPressed: () {
+                      functin.cancelTicket(auth, e.id, functin.data.indexOf(e));
+                      Navigator.pop(context);
+                    }),
+                CupertinoButton(
+                    child: fonts.button("Cancel", colors.warning()),
+                    onPressed: () => Navigator.pop(context)),
+              ],
+            ),
+          );
+        });
   }
 }

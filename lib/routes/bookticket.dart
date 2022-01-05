@@ -8,6 +8,7 @@ import 'package:airplane/model/plane.dart';
 import 'package:airplane/payment/input_formatters.dart';
 import 'package:airplane/payment/my_strings.dart';
 import 'package:airplane/payment/payment_card.dart';
+import 'package:airplane/routes/your_trips.dart';
 import 'package:airplane/services/auth.dart';
 import 'package:airplane/widgets/dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -44,7 +45,7 @@ class _BookTicketState extends State<BookTicket> {
     final color = Provider.of<ColorManager>(context);
     final fonts = Provider.of<TypoGraphyOfApp>(context);
     final coins = Provider.of<TicketsAndMore>(context);
-
+    final auth = Provider.of<Auth>(context);
     return Scaffold(
         backgroundColor: color.colorofScaffoldroute(),
         key: _scaffoldKey,
@@ -224,7 +225,7 @@ class _BookTicketState extends State<BookTicket> {
                         onPressed: () {
                           try {
                             _validateInputs();
-                            showPayDialog(context);
+                            showPayDialog(context, auth);
                           } catch (e) {
                             showAlertDialog(context, e.toString());
                           }
@@ -263,7 +264,7 @@ class _BookTicketState extends State<BookTicket> {
     }
   }
 
-  Future<void> showPayDialog(BuildContext context) {
+  Future<void> showPayDialog(BuildContext context, Auth auth) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -271,7 +272,6 @@ class _BookTicketState extends State<BookTicket> {
           final FormState form = _formKey.currentState!;
           final fonts = Provider.of<TypoGraphyOfApp>(context);
           final colors = Provider.of<ColorManager>(context);
-          final coins = Provider.of<TicketsAndMore>(context);
 
           return Theme(
               data: ThemeData(
@@ -299,10 +299,9 @@ class _BookTicketState extends State<BookTicket> {
                                 load = true;
                               });
                               form.save();
-                              final auth =
-                                  Provider.of<Auth>(context, listen: false);
+
                               Map<String, dynamic> x = {
-                                "email": auth.email,
+                                "email": auth.data['email'].toString(),
                                 "cardNumber": _paymentCard.number.toString(),
                                 "cardMonth": _paymentCard.month.toString(),
                                 "cardYear": _paymentCard.year.toString(),
@@ -332,8 +331,10 @@ class _BookTicketState extends State<BookTicket> {
                               });
                               form.dispose();
                               Navigator.pop(context);
-                              Navigator.pop(context);
-                              Navigator.pop(context);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const YourTrips()));
                             })
                         : const CupertinoActivityIndicator(),
                     load == false

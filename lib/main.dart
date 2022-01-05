@@ -17,6 +17,7 @@ void main() {
     Provider<TypoGraphyOfApp>(create: (context) => TypoGraphyOfApp()),
     ChangeNotifierProvider(create: (context) => ColorManager()),
     ChangeNotifierProvider(create: (context) => ChangeofPage()),
+    ChangeNotifierProvider<Auth>(create: (context) => Auth()),
   ], child: const MyApp()));
 }
 
@@ -32,7 +33,6 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<AccountControllers>(
             create: (context) => AccountControllers()),
-        ChangeNotifierProvider<Auth>(create: (context) => Auth()),
         ChangeNotifierProvider<PlaneControllers>(
             create: (context) => PlaneControllers()),
         ChangeNotifierProvider(create: (context) => MovieController()),
@@ -42,13 +42,12 @@ class MyApp extends StatelessWidget {
             create: (context) => TicketsAndMore(context)),
       ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          brightness: color.darkmode ? Brightness.dark : Brightness.light,
-          primaryColor: Colors.blue.shade800,
-        ),
-        home: MaterialHomePage(),
-      ),
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            brightness: color.darkmode ? Brightness.dark : Brightness.light,
+            primaryColor: Colors.blue.shade800,
+          ),
+          home: MaterialHomePage()),
     );
   }
 }

@@ -11,26 +11,49 @@ class TicketsAndMore extends ChangeNotifier {
   TicketsAndMore(BuildContext context) {
     functionRin(context);
   }
-  List<DataXTT> data = [];
-
-  void remove(DataXTT value) {
+  List<FlightDataT> data = [];
+  void removeitem(FlightDataT value, Auth auth) async {
     data.remove(value);
     notifyListeners();
+    // /api/mytrips/
+    final _response = await http.get(
+        Uri.parse(
+            'https://serverxx.azurewebsites.net/api/delete_ticket/${value.id}'),
+        headers: {"Authorization": 'Bearer ${auth.accesstoken}'});
+    notifyListeners();
+
+    if (_response.statusCode != 200) {
+      data.add(value);
+    }
   }
 
   bool load = false;
   int coins = 0;
   String error = '';
+
+  Future<void> cancelTicket(Auth auth, int id, int index) async {
+    notifyListeners();
+    final _response = await http.get(
+        Uri.parse('https://serverxx.azurewebsites.net/api/cancel_ticket/$id'),
+        headers: {"Authorization": 'Bearer ${auth.accesstoken}'});
+    final _daa = json.decode(_response.body);
+    if (_daa['data'] == "Success") {
+      data[index].cancel = true;
+
+      notifyListeners();
+    }
+  }
+
   void functionRin(BuildContext context) async {
     final auth = Provider.of<Auth>(context, listen: false);
+
     try {
-      log('iran');
       final _response = await http.get(
           Uri.parse('https://serverxx.azurewebsites.net/api/mytrips/'),
           headers: {"Authorization": 'Bearer ${auth.accesstoken}'});
       final _daa = json.decode(_response.body);
-      TicketsBooks _books = TicketsBooks.fromJson(_daa);
-      data = _books.data;
+      TicketBooks _books = TicketBooks.fromJson(_daa);
+      data = _books.data..sort((a, b) => b.id.compareTo(a.id));
       coins = _books.data.length * 50;
       load = true;
       notifyListeners();
