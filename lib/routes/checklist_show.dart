@@ -35,7 +35,8 @@ class CheckList extends StatelessWidget {
                 datacontrol.load
                     ? const CupertinoActivityIndicator()
                     : CupertinoButton(
-                        child: font.button("Save", color.textColor()),
+                        child: font.button(datacontrol.startload ? "" : "Save",
+                            color.textColor()),
                         onPressed: () {
                           pk!.isNotEmpty
                               ? datacontrol.addListtodb(pk!, auth)

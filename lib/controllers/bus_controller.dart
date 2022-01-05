@@ -1,5 +1,4 @@
 import 'package:airplane/model/bus_model.dart';
-import 'package:airplane/widgets/bus.dart';
 import 'package:flutter/cupertino.dart';
 
 class BusController extends ChangeNotifier {

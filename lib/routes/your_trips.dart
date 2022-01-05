@@ -185,7 +185,7 @@ class YourTrips extends StatelessWidget {
                                                         horizontal: 28),
                                                     color: color.interestTab(),
                                                     child: fonts.button(
-                                                        "Create Checklist",
+                                                        "Create/View Checklist",
                                                         color.textColor()),
                                                     onPressed: () {
                                                       Navigator.push(
