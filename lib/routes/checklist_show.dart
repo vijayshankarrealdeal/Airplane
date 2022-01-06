@@ -33,15 +33,23 @@ class CheckList extends StatelessWidget {
               backgroundColor: color.appBarColorroute(),
               actions: [
                 datacontrol.load
-                    ? const CupertinoActivityIndicator()
-                    : CupertinoButton(
-                        child: font.button(datacontrol.startload ? "" : "Save",
-                            color.textColor()),
-                        onPressed: () {
-                          pk!.isNotEmpty
-                              ? datacontrol.addListtodb(pk!, auth)
-                              : null;
-                        })
+                    ? const Padding(
+                        padding: EdgeInsets.all(18.0),
+                        child: CupertinoActivityIndicator(),
+                      )
+                    : Padding(
+                        padding:
+                            EdgeInsets.all(datacontrol.startload ? 18.0 : 1.0),
+                        child: CupertinoButton(
+                            child: font.button(
+                                datacontrol.startload ? "" : "Save",
+                                color.textColor()),
+                            onPressed: () {
+                              pk!.isNotEmpty
+                                  ? datacontrol.addListtodb(pk!, auth)
+                                  : null;
+                            }),
+                      )
               ],
             ),
             body: datacontrol.startload
@@ -60,7 +68,7 @@ class CheckList extends StatelessWidget {
                                 duration: const Duration(milliseconds: 200),
                                 elevationCurve: Curves.decelerate,
                                 turnsCurve: Curves.decelerate,
-                                title: font.heading4(
+                                title: font.heading5(
                                   xt.keys.first,
                                   color.textColor(),
                                 ),

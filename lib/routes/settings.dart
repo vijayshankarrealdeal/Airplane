@@ -3,7 +3,6 @@ import 'package:airplane/controllers/location_controller.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/services/auth.dart';
 import 'package:airplane/widgets/form.dart';
-import 'package:airplane/widgets/loading_spinner.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

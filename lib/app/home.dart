@@ -4,7 +4,6 @@ import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/routes/all_moive_route.dart';
 import 'package:airplane/routes/all_shop_route.dart';
 import 'package:airplane/routes/buses.dart';
-import 'package:airplane/routes/checklist_show.dart';
 import 'package:airplane/routes/flightchecklist.dart';
 import 'package:airplane/routes/food_pre_post.dart';
 import 'package:airplane/routes/hotels_show.dart';
@@ -36,7 +35,12 @@ class Home extends StatelessWidget {
       "assets/images/shop.png",
     ];
     List<String> pp = ["Flight", "Hotels", "Transport", "Shopping"];
-    List<String> px = ["Restaurants", "Entertainment", "Your Trips", "Info"];
+    List<String> px = [
+      "Restaurants",
+      "Entertainment",
+      " Your Trips ",
+      "   Info   "
+    ];
 
     List<String> pxImage = [
       "assets/images/food.png",
@@ -47,7 +51,7 @@ class Home extends StatelessWidget {
     List<String> tx = [
       "Flight-Status",
       "Deals-Offer",
-      "Travel-Checklist",
+      // "Travel-Checklist",
       "Services ",
       "Support & Help"
     ];
@@ -312,14 +316,14 @@ class Home extends StatelessWidget {
                                       ),
                                     );
                                   }
-                                  if (e == "Travel-Checklist") {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const CheckList(),
-                                      ),
-                                    );
-                                  }
+                                  // if (e == "Travel-Checklist") {
+                                  //   Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //       builder: (context) => const CheckList(),
+                                  //     ),
+                                  //   );
+                                  // }
 
                                   if (e.contains('Services')) {
                                     Navigator.push(

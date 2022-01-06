@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/movie_controllers.dart';
 import 'package:airplane/controllers/typography.dart';

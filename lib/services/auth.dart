@@ -91,7 +91,7 @@ class Auth extends ChangeNotifier {
       email = _data['username'];
       notifyListeners();
     } catch (e) {
-      print(e);
+      log(e.toString());
     }
   }
 }

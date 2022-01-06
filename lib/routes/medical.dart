@@ -42,18 +42,24 @@ class Medical extends StatelessWidget {
           SliverPadding(
             padding: const EdgeInsets.all(8.0),
             sliver: SliverList(
-                delegate: SliverChildListDelegate(_data.map((e) {
-              if (e.contains('h@')) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: fonts.heading6(e.substring(3), color.textColor()),
-                );
-              } else if (e.contains('b@')) {
-                return bulletPoint(e.substring(3), color);
-              } else {
-                return fonts.body1(e, color.textColor());
-              }
-            }).toList())),
+              delegate: SliverChildListDelegate(
+                _data.map(
+                  (e) {
+                    if (e.contains('h@')) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child:
+                            fonts.heading6(e.substring(3), color.textColor()),
+                      );
+                    } else if (e.contains('b@')) {
+                      return bulletPoint(e.substring(3), color);
+                    } else {
+                      return fonts.body1(e, color.textColor());
+                    }
+                  },
+                ).toList(),
+              ),
+            ),
           ),
         ],
       ),

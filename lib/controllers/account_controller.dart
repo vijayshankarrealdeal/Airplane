@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:airplane/model/flight_board.dart';
 import 'package:airplane/model/hotel_model.dart';
+import 'package:airplane/widgets/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
@@ -66,7 +67,11 @@ class AccountControllers extends ChangeNotifier {
     notifyListeners();
   }
 
-  void hotelcall(String checkin, String checkout) async {
+  void hotelcall(String checkin, String checkout,BuildContext context) async {
+    if (checkin.contains('Check In date') ||
+        checkout.contains('Check out date')) {
+      throw "Please Enter your date";
+    }
     _hotellist.clear();
     try {
       load = false;
@@ -91,6 +96,7 @@ class AccountControllers extends ChangeNotifier {
     } catch (e) {
       load = true;
       notifyListeners();
+      showAlertDialog(context,e.toString());
     }
   }
 

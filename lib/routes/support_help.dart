@@ -15,6 +15,8 @@ class SupportAndHelp extends StatelessWidget {
     final fonts = Provider.of<TypoGraphyOfApp>(context);
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        title: fonts.heading5("Support", color.textColor()),
         elevation: 0,
         iconTheme: IconThemeData(
           color: color.backButton(), //change your color here
@@ -32,7 +34,7 @@ class SupportAndHelp extends StatelessWidget {
                 Expanded(
                   child: data.message.isEmpty
                       ? Center(
-                          child: fonts.heading4(
+                          child: fonts.heading5(
                             "Chat With Me",
                             color.textColor(),
                           ),

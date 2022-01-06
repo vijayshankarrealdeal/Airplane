@@ -77,8 +77,8 @@ class HotelShow extends StatelessWidget {
                                   fonts.button("Search", color.textColor()),
                                 ],
                               ),
-                              onPressed: () =>
-                                  data.hotelcall(data.pickedDate, data.endate),
+                              onPressed: () => data.hotelcall(
+                                  data.pickedDate, data.endate, context),
                             )
                           : const LoadingSpinner(addText: false),
                     ],
@@ -92,6 +92,7 @@ class HotelShow extends StatelessWidget {
                           var _hotels = data.hoteldetails[index];
                           var _hotelname = _hotels.hotelName;
                           var _name = _hotelname;
+
                           return Card(
                             color: color.colorofCardShowing(),
                             child: Padding(

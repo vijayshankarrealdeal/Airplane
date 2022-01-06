@@ -20,14 +20,23 @@ class PaymentCard {
 }
 
 enum CardType {
+  // ignore: constant_identifier_names
   Master,
+  // ignore: constant_identifier_names
   Visa,
+  // ignore: constant_identifier_names
   Verve,
+  // ignore: constant_identifier_names
   Discover,
+  // ignore: constant_identifier_names
   AmericanExpress,
+  // ignore: constant_identifier_names
   DinersClub,
+  // ignore: constant_identifier_names
   Jcb,
+  // ignore: constant_identifier_names
   Others,
+  // ignore: constant_identifier_names
   Invalid
 }
 

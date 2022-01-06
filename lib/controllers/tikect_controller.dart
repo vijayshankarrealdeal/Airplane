@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:airplane/model/mytrips_tickets.dart';
 import 'package:airplane/services/auth.dart';
 import 'package:flutter/cupertino.dart';

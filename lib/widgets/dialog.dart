@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 Future<void> showAlertDialog(BuildContext context, String message) {
-  return showDialog(
+  return showCupertinoDialog(
       context: context,
       builder: (BuildContext context) {
         final fonts = Provider.of<TypoGraphyOfApp>(context);
@@ -13,8 +13,8 @@ Future<void> showAlertDialog(BuildContext context, String message) {
         return Theme(
           data: ThemeData(
               brightness: colors.darkmode ? Brightness.dark : Brightness.light),
-          child: AlertDialog(
-            title: fonts.body1("Alert", colors.textColor()),
+          child: CupertinoAlertDialog(
+            title: fonts.heading6("Alert", colors.textColor()),
             content: fonts.body1(message, colors.textColor()),
             actions: [
               CupertinoButton(

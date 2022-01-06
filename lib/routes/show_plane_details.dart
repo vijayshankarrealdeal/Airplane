@@ -1,6 +1,3 @@
-import 'dart:math';
-import 'dart:ui';
-
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/model/plane.dart';
@@ -11,6 +8,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 
 class ShowPlaneDetails extends StatelessWidget {
@@ -28,6 +26,8 @@ class ShowPlaneDetails extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+              title: fonts.heading5("Flight Details", color.textColor()),
+              centerTitle: true,
               elevation: 0,
               iconTheme: IconThemeData(
                 color: color.backButton(), //change your color here
@@ -38,6 +38,7 @@ class ShowPlaneDetails extends StatelessWidget {
             sliver: SliverList(
               delegate: SliverChildListDelegate(
                 [
+                  const SizedBox(height: 5),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -52,16 +53,16 @@ class ShowPlaneDetails extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      fonts.heading5(
+                      fonts.heading6(
                         data.originPlace,
                         color.textColor(),
                       ),
-                      fonts.heading5(
+                      fonts.heading6(
                         data.destinationPlace,
                         color.textColor(),
                       ),
@@ -96,32 +97,41 @@ class ShowPlaneDetails extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 50),
-                  fonts.heading6(
-                    "Services",
-                    color.textColor(),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  const SizedBox(height: 30),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ServicesIconPlane(
-                        color: color,
-                        fonts: fonts,
-                        servieType: "Wifi",
-                        icon: CupertinoIcons.wifi,
+                      Center(
+                        child: fonts.heading6(
+                          "Services",
+                          color.textColor(),
+                        ),
                       ),
-                      ServicesIconPlane(
-                        color: color,
-                        fonts: fonts,
-                        servieType: "Food",
-                        icon: CupertinoIcons.wand_rays,
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          ServicesIconPlane(
+                            color: color,
+                            fonts: fonts,
+                            servieType: "Wifi",
+                            icon: CupertinoIcons.wifi,
+                          ),
+                          ServicesIconPlane(
+                            color: color,
+                            fonts: fonts,
+                            servieType: "Food",
+                            icon: LineIcons.utensils,
+                          ),
+                          ServicesIconPlane(
+                              color: color,
+                              fonts: fonts,
+                              servieType: "Leisure",
+                              icon: CupertinoIcons.video_camera),
+                        ],
                       ),
-                      ServicesIconPlane(
-                          color: color,
-                          fonts: fonts,
-                          servieType: "Entertainment",
-                          icon: CupertinoIcons.video_camera),
                     ],
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.1),
@@ -179,11 +189,11 @@ class ServicesIconPlane extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Icon(icon, color: color.iconColor(), size: 45),
-        fonts.body1(
+        fonts.body2(
           servieType,
           color.textColor(),
         ),

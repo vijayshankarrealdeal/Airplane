@@ -52,74 +52,77 @@ class _QRViewExampleState extends State<QRViewExample> {
           Expanded(
             flex: 1,
             child: FittedBox(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  if (result != null)
-                    Text(
-                        'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
-                  else
-                    const Text('Scan a code'),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      IconButton(
-                          onPressed: () async {
-                            await controller?.toggleFlash();
-                            setState(() {});
-                          },
-                          icon: FutureBuilder(
-                            future: controller?.getFlashStatus(),
-                            builder: (context, snapshot) {
-                              return Icon(Icons.flash_on,
-                                  color: color.textColor());
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    if (result != null)
+                      Text(
+                          'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
+                    else
+                      fonts.body1('Scan Code', color.textColor()),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        IconButton(
+                            onPressed: () async {
+                              await controller?.toggleFlash();
+                              setState(() {});
                             },
-                          )),
-                      IconButton(
-                          onPressed: () async {
-                            await controller?.flipCamera();
-                            setState(() {});
-                          },
-                          icon: FutureBuilder(
-                            future: controller?.getCameraInfo(),
-                            builder: (context, snapshot) {
-                              if (snapshot.data != null) {
-                                return Icon(Icons.switch_camera_sharp,
-                                    color: color.textColor());
-                              } else {
-                                return const Text('loading');
-                              }
+                            icon: FutureBuilder(
+                              future: controller?.getFlashStatus(),
+                              builder: (context, snapshot) {
+                                return Icon(Icons.flash_on,
+                                    size: 25, color: color.textColor());
+                              },
+                            )),
+                        IconButton(
+                            onPressed: () async {
+                              await controller?.flipCamera();
+                              setState(() {});
                             },
-                          ))
-                    ],
-                  ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   crossAxisAlignment: CrossAxisAlignment.center,
-                  //   children: <Widget>[
-                  //     Container(
-                  //       margin: const EdgeInsets.all(8),
-                  //       child: ElevatedButton(
-                  //         onPressed: () async {
-                  //           await controller?.pauseCamera();
-                  //         },
-                  //         child: const Text('pause',
-                  //             style: TextStyle(fontSize: 20)),
-                  //       ),
-                  //     ),
-                  //     Container(
-                  //       margin: const EdgeInsets.all(8),
-                  //       child: ElevatedButton(
-                  //         onPressed: () async {
-                  //           await controller?.resumeCamera();
-                  //         },
-                  //         child: const Text('resume',
-                  //             style: TextStyle(fontSize: 20)),
-                  //       ),
-                  //     )
-                  //   ],
-                  // ),
-                ],
+                            icon: FutureBuilder(
+                              future: controller?.getCameraInfo(),
+                              builder: (context, snapshot) {
+                                if (snapshot.data != null) {
+                                  return Icon(Icons.switch_camera_sharp,
+                                      size: 25, color: color.textColor());
+                                } else {
+                                  return const Text('loading');
+                                }
+                              },
+                            ))
+                      ],
+                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   crossAxisAlignment: CrossAxisAlignment.center,
+                    //   children: <Widget>[
+                    //     Container(
+                    //       margin: const EdgeInsets.all(8),
+                    //       child: ElevatedButton(
+                    //         onPressed: () async {
+                    //           await controller?.pauseCamera();
+                    //         },
+                    //         child: const Text('pause',
+                    //             style: TextStyle(fontSize: 20)),
+                    //       ),
+                    //     ),
+                    //     Container(
+                    //       margin: const EdgeInsets.all(8),
+                    //       child: ElevatedButton(
+                    //         onPressed: () async {
+                    //           await controller?.resumeCamera();
+                    //         },
+                    //         child: const Text('resume',
+                    //             style: TextStyle(fontSize: 20)),
+                    //       ),
+                    //     )
+                    //   ],
+                    // ),
+                  ],
+                ),
               ),
             ),
           )

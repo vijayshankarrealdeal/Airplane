@@ -3,6 +3,7 @@ import 'package:airplane/controllers/tikect_controller.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/model/mytrips_tickets.dart';
 import 'package:airplane/routes/checklist_show.dart';
+import 'package:airplane/routes/fake_ut.dart';
 import 'package:airplane/routes/hotels_show.dart';
 import 'package:airplane/routes/serach_for_airplances.dart';
 import 'package:airplane/services/auth.dart';
@@ -296,6 +297,12 @@ class YourTrips extends StatelessWidget {
                     onPressed: () {
                       functin.cancelTicket(auth, e.id, functin.data.indexOf(e));
                       Navigator.pop(context);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FakeUI(),
+                        ),
+                      );
                     }),
                 CupertinoButton(
                     child: fonts.button("Cancel", colors.warning()),

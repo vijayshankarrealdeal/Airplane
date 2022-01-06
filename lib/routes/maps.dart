@@ -99,11 +99,11 @@ class _MapsAndLocationState extends State<MapsAndLocation> {
       backgroundColor: color.colorofScaffoldroute(),
       appBar: AppBar(
         backgroundColor: color.appBarColorroute(),
-        centerTitle: false,
+        centerTitle: true,
+        elevation: 0,
         iconTheme: IconThemeData(
           color: color.backButton(), //change your color here
         ),
-
         title: fonts.heading5("Navigation", color.textColor()),
         actions: [
           if (_origin != null)

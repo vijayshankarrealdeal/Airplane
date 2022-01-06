@@ -1,10 +1,8 @@
 import 'package:airplane/controllers/account_controller.dart';
 import 'package:airplane/controllers/colormager.dart';
-import 'package:airplane/controllers/movie_controllers.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/model/flight_board.dart';
 import 'package:airplane/widgets/loading_spinner.dart';
-import 'package:airplane/widgets/show_items_tab.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:flutter/material.dart';

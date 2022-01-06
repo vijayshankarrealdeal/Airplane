@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:airplane/model/plane.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -10,7 +9,7 @@ class PlaneControllers extends ChangeNotifier {
   List<FlightData> _flightMainData = [];
   List<FlightData> get flight => _flightMainData;
   DateTime selectedDate = DateTime.now();
-  String pickedDate = 'Select Date';
+  String pickedDate = '';
   String error = '';
 
   final Map<String, String> _codeX = {
@@ -71,8 +70,8 @@ class PlaneControllers extends ChangeNotifier {
 
   bool searchdone = true;
 
-  void call(String from, String where, String date, int adult, int children,
-      int infant) async {
+  Future<void> call(String from, String where, String date, int adult,
+      int children, int infant) async {
     searchdone = false;
     load = false;
     notifyListeners();
@@ -94,7 +93,6 @@ class PlaneControllers extends ChangeNotifier {
             "infant": 0
           },
         ));
-  
 
     Map<String, dynamic> _daa = json.decode(_response.body);
     List<dynamic> data = _daa['data'] ?? [];

@@ -4,6 +4,7 @@ import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/model/plane.dart';
 import 'package:airplane/routes/airplane_watchlist.dart';
 import 'package:airplane/services/auth.dart';
+import 'package:airplane/widgets/dialog.dart';
 import 'package:airplane/widgets/loading_spinner.dart';
 import 'package:airplane/widgets/show_airplane_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -200,13 +201,27 @@ class SearchForAirplanes extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 12, vertical: 4),
                               color: colors.buttonOutside(),
-                              onPressed: () => data.call(
-                                  data.originfrom.text.toLowerCase(),
-                                  data.destto.text.toLowerCase(),
-                                  data.pickedDate,
-                                  1,
-                                  0,
-                                  0),
+                              onPressed: () async {
+                                try {
+                                  if (data.originfrom.text.isEmpty ||
+                                      data.destto.text.isEmpty ||
+                                      data.pickedDate.isEmpty ||
+                                      data.destto.text ==
+                                          data.originfrom.text) {
+                                    throw "Please Enter all Fields or Enter Date";
+                                  } else {
+                                    await data.call(
+                                        data.originfrom.text.toLowerCase(),
+                                        data.destto.text.toLowerCase(),
+                                        data.pickedDate,
+                                        1,
+                                        0,
+                                        0);
+                                  }
+                                } catch (e) {
+                                  showAlertDialog(context, e.toString());
+                                }
+                              },
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,

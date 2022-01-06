@@ -45,11 +45,12 @@ class ShowAirPlaneCards extends StatelessWidget {
                         }
                       },
                       child: Icon(
-                        e.isselected
-                            ? CupertinoIcons.heart_fill
-                            : CupertinoIcons.heart,
-                        color: e.isselected ? color.warning() : Colors.white,
-                      ),
+                          e.isselected
+                              ? CupertinoIcons.heart_fill
+                              : CupertinoIcons.heart,
+                          color: e.isselected
+                              ? color.warning()
+                              : color.textColor()),
                     ),
                   ),
                   Row(

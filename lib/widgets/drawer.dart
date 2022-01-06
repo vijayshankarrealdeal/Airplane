@@ -2,7 +2,6 @@ import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/tikect_controller.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/routes/aboutus.dart';
-import 'package:airplane/routes/checklist_show.dart';
 import 'package:airplane/routes/contact_us.dart';
 import 'package:airplane/routes/covid.dart';
 import 'package:airplane/routes/maps.dart';
@@ -14,7 +13,6 @@ import 'package:airplane/routes/support_help.dart';
 import 'package:airplane/services/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 
@@ -47,60 +45,30 @@ class GetDrawer extends StatelessWidget {
                         icon: Icon(Icons.arrow_back, color: color.iconColor()),
                         onPressed: () => Navigator.pop(context),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          fonts.body1(auht.email, color.textColor()),
-                          fonts.body1(
-                              'BlrCoin ${coins.coins}', color.textColor()),
+                          fonts.body1('${coins.coins}', color.textColor()),
+                          const SizedBox(width: 5),
+                          Icon(
+                            LineIcons.wallet,
+                            color: color.yellow(),
+                            size: 25,
+                          ),
                         ],
                       ),
                     ],
                   ),
                 ),
                 ListTile(
-                  leading: Icon(
-                    CupertinoIcons.location_fill,
-                    color: color.bottomnavBarInactieIcons(),
-                  ),
-                  title: fonts.body1('Navigations', color.textColor()),
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const MapsAndLocation(),
-                    ),
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(CupertinoIcons.app_badge_fill,
-                      color: color.bottomnavBarInactieIcons()),
-                  title: fonts.body1('Check List', color.textColor()),
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CheckList(),
-                    ),
-                  ),
-                ),
-                ListTile(
-                    leading: Icon(CupertinoIcons.chat_bubble_2,
+                    leading: Icon(LineIcons.firstAid,
                         color: color.bottomnavBarInactieIcons()),
-                    title: fonts.body1('Customer Support', color.textColor()),
+                    title: fonts.body1('Covid 19', color.textColor()),
                     onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const SupportAndHelp(),
-                          ),
-                        )),
-                ListTile(
-                    leading: Icon(CupertinoIcons.car_detailed,
-                        color: color.bottomnavBarInactieIcons()),
-                    title: fonts.body1('Parking', color.textColor()),
-                    onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const Parking(),
+                            builder: (context) => const Covid(),
                           ),
                         )),
                 ListTile(
@@ -114,13 +82,47 @@ class GetDrawer extends StatelessWidget {
                           ),
                         )),
                 ListTile(
-                    leading: Icon(LineIcons.firstAid,
+                    leading: Icon(CupertinoIcons.car_detailed,
                         color: color.bottomnavBarInactieIcons()),
-                    title: fonts.body1('Covid 19', color.textColor()),
+                    title: fonts.body1('Parking', color.textColor()),
                     onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Covid(),
+                            builder: (context) => const Parking(),
+                          ),
+                        )),
+                ListTile(
+                  leading: Icon(
+                    CupertinoIcons.location_fill,
+                    color: color.bottomnavBarInactieIcons(),
+                  ),
+                  title: fonts.body1('Navigations', color.textColor()),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MapsAndLocation(),
+                    ),
+                  ),
+                ),
+                // ListTile(
+                //   leading: Icon(CupertinoIcons.app_badge_fill,
+                //       color: color.bottomnavBarInactieIcons()),
+                //   title: fonts.body1('Check List', color.textColor()),
+                //   onTap: () => Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => const CheckList(),
+                //     ),
+                //   ),
+                // ),
+                ListTile(
+                    leading: Icon(CupertinoIcons.chat_bubble_2,
+                        color: color.bottomnavBarInactieIcons()),
+                    title: fonts.body1('Customer Support', color.textColor()),
+                    onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SupportAndHelp(),
                           ),
                         )),
               ],

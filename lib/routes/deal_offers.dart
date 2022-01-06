@@ -1,5 +1,4 @@
 import 'package:airplane/controllers/colormager.dart';
-import 'package:airplane/controllers/typography.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +9,6 @@ class OffersDeals extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = Provider.of<ColorManager>(context);
-    final fonts = Provider.of<TypoGraphyOfApp>(context);
     return ListView.builder(
       itemBuilder: (context, index) {
         return Card(
