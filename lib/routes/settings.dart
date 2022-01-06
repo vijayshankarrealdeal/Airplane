@@ -43,8 +43,9 @@ class Settings extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            fonts.subTitle1("Change Your Password",
+                            fonts.heading6("Change Your Password",
                                 color.bottomnavBarInactieIcons()),
+                            const SizedBox(height: 10),
                             FormForApp(
                               email: _currpassword,
                               hideText: true,
@@ -60,10 +61,13 @@ class Settings extends StatelessWidget {
                               email: _confpass,
                               placeholder: "Confirm Password",
                             ),
+                            const SizedBox(height: 5),
                             auth.load
                                 ? const CupertinoActivityIndicator()
                                 : CupertinoButton(
-                                    padding: const EdgeInsets.all(4),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 18),
+                                    color: color.buttonoutside(),
                                     child: fonts.button(
                                         "Submit", color.textColor()),
                                     onPressed: () {
@@ -85,8 +89,9 @@ class Settings extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      fonts.subTitle1(
+                      fonts.heading6(
                           "Other Settings", color.bottomnavBarInactieIcons()),
+                      const SizedBox(height: 10),
                       SizedBox(
                         height: 50,
                         child: Consumer<LocationTaker>(
@@ -95,7 +100,7 @@ class Settings extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 fonts.body1("Notifications", color.textColor()),
-                                CupertinoSwitch(
+                                Switch(
                                   value: toggle.notification,
                                   onChanged: (value) {
                                     toggle.tooglenotification();
@@ -114,7 +119,7 @@ class Settings extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 fonts.body1("Location", color.textColor()),
-                                CupertinoSwitch(
+                                Switch(
                                   value: toggle.locationenable,
                                   onChanged: (value) {
                                     toggle.toggle();
@@ -131,7 +136,7 @@ class Settings extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             fonts.body1("Light/Dark mode", color.textColor()),
-                            CupertinoSwitch(
+                            Switch(
                               value: color.darkmode,
                               onChanged: (value) {
                                 color.applyMode();

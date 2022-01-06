@@ -1,7 +1,7 @@
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/tikect_controller.dart';
 import 'package:airplane/controllers/typography.dart';
-import 'package:airplane/routes/another_services.dart';
+import 'package:airplane/routes/aboutus.dart';
 import 'package:airplane/routes/checklist_show.dart';
 import 'package:airplane/routes/contact_us.dart';
 import 'package:airplane/routes/covid.dart';
@@ -14,6 +14,8 @@ import 'package:airplane/routes/support_help.dart';
 import 'package:airplane/services/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 
 class GetDrawer extends StatelessWidget {
@@ -92,7 +94,7 @@ class GetDrawer extends StatelessWidget {
                           ),
                         )),
                 ListTile(
-                    leading: Icon(CupertinoIcons.chat_bubble_2,
+                    leading: Icon(CupertinoIcons.car_detailed,
                         color: color.bottomnavBarInactieIcons()),
                     title: fonts.body1('Parking', color.textColor()),
                     onTap: () => Navigator.push(
@@ -102,7 +104,7 @@ class GetDrawer extends StatelessWidget {
                           ),
                         )),
                 ListTile(
-                    leading: Icon(CupertinoIcons.chat_bubble_2,
+                    leading: Icon(LineIcons.heartbeat,
                         color: color.bottomnavBarInactieIcons()),
                     title: fonts.body1('Medical Services', color.textColor()),
                     onTap: () => Navigator.push(
@@ -112,7 +114,7 @@ class GetDrawer extends StatelessWidget {
                           ),
                         )),
                 ListTile(
-                    leading: Icon(CupertinoIcons.chat_bubble_2,
+                    leading: Icon(LineIcons.firstAid,
                         color: color.bottomnavBarInactieIcons()),
                     title: fonts.body1('Covid 19', color.textColor()),
                     onTap: () => Navigator.push(
