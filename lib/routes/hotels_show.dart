@@ -1,6 +1,7 @@
 import 'package:airplane/controllers/account_controller.dart';
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
+import 'package:airplane/widgets/dialog.dart';
 import 'package:airplane/widgets/loading_spinner.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -77,9 +78,20 @@ class HotelShow extends StatelessWidget {
                                   fonts.button("Search", color.textColor()),
                                 ],
                               ),
-                              onPressed: () => data.hotelcall(
-                                  data.pickedDate, data.endate, context),
-                            )
+                              onPressed: () {
+                                try {
+                                  if (data.pickedDate
+                                          .contains('Check In date') ||
+                                      data.endate.contains('Check out date')) {
+                                    throw "Please Enter your date";
+                                  } else {
+                                    data.hotelcall(
+                                        data.pickedDate, data.endate);
+                                  }
+                                } catch (e) {
+                                  showAlertDialog(context, e.toString());
+                                }
+                              })
                           : const LoadingSpinner(addText: false),
                     ],
                   ),
@@ -94,7 +106,9 @@ class HotelShow extends StatelessWidget {
                           var _name = _hotelname;
 
                           return Card(
-                            color: color.colorofCardShowing(),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                            color: color.appBarColor(),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
@@ -102,83 +116,56 @@ class HotelShow extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: CachedNetworkImageProvider(
+                                          _hotels.img,
+                                        ),
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    height: MediaQuery.of(context).size.height *
+                                        0.3,
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: CachedNetworkImageProvider(
-                                              _hotels.img,
-                                            ),
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.33,
-                                        width:
-                                            MediaQuery.of(context).size.height *
-                                                0.25,
+                                      AutoSizeText(
+                                        _name.length > 21
+                                            ? _name.substring(0, 21) + ".."
+                                            : _name,
+                                        style: GoogleFonts.sourceSansPro(
+                                            color: color.textColor(),
+                                            fontSize: 28,
+                                            decoration: TextDecoration.none,
+                                            fontWeight: FontWeight.w400,
+                                            letterSpacing: 0.15),
                                       ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 12.0),
-                                        child: SizedBox(
-                                          width: MediaQuery.of(context)
+                                      SizedBox(
+                                          height: MediaQuery.of(context)
                                                   .size
-                                                  .width *
-                                              0.4,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              AutoSizeText(
-                                                _name.length > 21
-                                                    ? _name.substring(0, 21) +
-                                                        ".."
-                                                    : _name,
-                                                style:
-                                                    GoogleFonts.sourceSansPro(
-                                                        color:
-                                                            color.textColor(),
-                                                        fontSize: 28,
-                                                        decoration:
-                                                            TextDecoration.none,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        letterSpacing: 0.15),
-                                              ),
-                                              fonts.subTitle1(_hotels.rating,
-                                                  color.textColor()),
-                                              SizedBox(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.02),
-                                              fonts.subTitle1(_hotels.distance,
-                                                  color.textColor()),
-                                              SizedBox(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.002),
-                                              fonts.heading6(
-                                                _hotels.price,
-                                                color.textColor(),
-                                              ),
-                                              fonts.caption(_hotels.tax,
-                                                  color.textColor()),
-                                            ],
-                                          ),
-                                        ),
-                                      )
+                                                  .height *
+                                              0.01),
+                                      fonts.subTitle1(
+                                          _hotels.rating, color.textColor()),
+                                      fonts.subTitle1(
+                                          _hotels.distance, color.textColor()),
+                                      SizedBox(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.002),
+                                      fonts.heading6(
+                                        _hotels.price,
+                                        color.textColor(),
+                                      ),
+                                      fonts.caption(
+                                          _hotels.tax, color.textColor()),
                                     ],
                                   ),
                                 ],
@@ -215,7 +202,7 @@ class HotelShow extends StatelessWidget {
           builder: (ctx, data, _) {
             return Container(
               color: color.appBarColorroute(),
-              height: MediaQuery.of(context).size.height * 0.5,
+              height: MediaQuery.of(context).size.height * 0.35,
               child: ListView(
                 children: [
                   Container(width: double.infinity),
@@ -224,7 +211,7 @@ class HotelShow extends StatelessWidget {
                     child: IconButton(
                       onPressed: () => Navigator.pop(context),
                       icon: const Icon(
-                        CupertinoIcons.clear,
+                        CupertinoIcons.clear_circled,
                       ),
                     ),
                   ),
