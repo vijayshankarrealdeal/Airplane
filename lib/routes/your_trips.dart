@@ -34,7 +34,7 @@ class YourTrips extends StatelessWidget {
       body: auth.accesstoken.isEmpty
           ? Center(
               child: fonts.heading6(
-                "You are sign in",
+                "You are not sign in",
                 color.textColor(),
               ),
             )

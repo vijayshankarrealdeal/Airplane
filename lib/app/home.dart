@@ -32,23 +32,23 @@ class Home extends StatelessWidget {
     List<String> ppImage = [
       "assets/images/tk.png",
       "assets/images/hto.png",
-      "assets/images/flight.png",
+      "assets/images/trans.png",
       "assets/images/shop.png",
     ];
     List<String> pp = ["Flight", "Hotels", "Transport", "Shopping"];
-    List<String> px = ["Restaurants", "Entertainment", "Services ", "Info"];
+    List<String> px = ["Restaurants", "Entertainment", "Your Trips", "Info"];
 
     List<String> pxImage = [
       "assets/images/food.png",
-      "assets/images/music.jpg",
-      "assets/images/service.png",
+      "assets/images/music.png",
+      "assets/images/trips.png",
       "assets/images/info.png",
     ];
     List<String> tx = [
       "Flight-Status",
       "Deals-Offer",
       "Travel-Checklist",
-      "Your Trips",
+      "Services ",
       "Support & Help"
     ];
     final font = Provider.of<TypoGraphyOfApp>(context);
@@ -138,6 +138,12 @@ class Home extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   GestureDetector(
+                                    child: CircleAvatar(
+                                      backgroundImage:
+                                          AssetImage(ppImage[pp.indexOf(e)]),
+                                      radius: 40,
+                                      backgroundColor: Colors.white,
+                                    ),
                                     onTap: () {
                                       if (e == "Flight") {
                                         Navigator.push(
@@ -176,17 +182,11 @@ class Home extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                            const BuList(),
+                                                const BuList(),
                                           ),
                                         );
                                       }
                                     },
-                                    child: CircleAvatar(
-                                      backgroundImage:
-                                          AssetImage(ppImage[pp.indexOf(e)]),
-                                      radius: 40,
-                                      backgroundColor: color.buttonoutside(),
-                                    ),
                                   ),
                                   font.subTitle1(
                                     e,
@@ -221,6 +221,12 @@ class Home extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   GestureDetector(
+                                    child: CircleAvatar(
+                                      backgroundImage:
+                                          AssetImage(pxImage[px.indexOf(e)]),
+                                      radius: 40,
+                                      backgroundColor: Colors.white,
+                                    ),
                                     onTap: () {
                                       if (e == 'Entertainment') {
                                         Navigator.push(
@@ -249,12 +255,12 @@ class Home extends StatelessWidget {
                                           ),
                                         );
                                       }
-                                      if (e.contains('Services')) {
+                                      if (e.contains("Your Trips")) {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                            const ServiceList(),
+                                                const YourTrips(),
                                           ),
                                         );
                                       }
@@ -263,17 +269,11 @@ class Home extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                            const InfoList(),
+                                                const InfoList(),
                                           ),
                                         );
                                       }
                                     },
-                                    child: CircleAvatar(
-                                      backgroundImage:
-                                          AssetImage(pxImage[px.indexOf(e)]),
-                                      radius: 40,
-                                      backgroundColor: color.buttonInside(),
-                                    ),
                                   ),
                                   font.subTitle1(
                                     e,
@@ -321,11 +321,12 @@ class Home extends StatelessWidget {
                                     );
                                   }
 
-                                  if (e.contains("Your Trips")) {
+                                  if (e.contains('Services')) {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => const YourTrips(),
+                                        builder: (context) =>
+                                            const ServiceList(),
                                       ),
                                     );
                                   }
@@ -552,138 +553,3 @@ class Home extends StatelessWidget {
     );
   }
 }
-
-
-
-// SizedBox(
-                                        //   width: MediaQuery.of(context)
-                                        //           .size
-                                        //           .width *
-                                        //       0.9,
-                                        //   child: Padding(
-                                        //     padding:
-                                        //         const EdgeInsets.all(8.0),
-                                        //     child: Column(
-                                        //       mainAxisAlignment:
-                                        //           MainAxisAlignment.start,
-                                        //       crossAxisAlignment:
-                                        //           CrossAxisAlignment.start,
-                                        //       children: [
-
-                                        //         const SizedBox(height: 10),
-                                        //         SizedBox(
-                                        //           height:
-                                        //               MediaQuery.of(context)
-                                        //                       .size
-                                        //                       .height *
-                                        //                   0.15,
-                                        //           child: AutoSizeText(
-                                        //             movie.resultshop[index]
-                                        //                 .content,
-                                        //             style: GoogleFonts
-                                        //                 .sourceSansPro(
-                                        //                     color: color
-                                        //                         .textColor(),
-                                        //                     fontSize: 15,
-                                        //                     decoration:
-                                        //                         TextDecoration
-                                        //                             .none,
-                                        //                     fontWeight:
-                                        //                         FontWeight
-                                        //                             .w400,
-                                        //                     letterSpacing:
-                                        //                         0.5),
-                                        //           ),
-                                        //         ),
-
-                                        //       ],
-                                        //     ),
-                                        //   ),
-                                        // ),
-
-
-
-
-
- // Padding(
-                        //   padding:
-                        //       const EdgeInsets.only(left: 2.0, bottom: 8.0),
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //     children: [
-                        //       fonts.heading4("Movie", color.textColor()),
-                        //       CupertinoButton(
-                        //           child:
-                        //               fonts.button("More", color.warning()),
-                        //           onPressed: () {})
-                        //     ],
-                        //   ),
-                        // ),
-                        // CarouselSlider.builder(
-                        //   itemCount: movie.result.length - 5,
-                        //   itemBuilder: (BuildContext context, int itemIndex,
-                        //           int pageViewIndex) =>
-                        //       Stack(
-                        //     children: [
-                        //       Container(
-                        //         decoration: BoxDecoration(
-                        //           image: DecorationImage(
-                        //               image: NetworkImage(
-                        //                 'http://image.tmdb.org/t/p/w500' +
-                        //                     movie.result[itemIndex].posterPath
-                        //                         .toString(),
-                        //               ),
-                        //               fit: BoxFit.fitHeight),
-                        //         ),
-                        //       ),
-                        //       Center(
-                        //         child: ClipRRect(
-                        //           child: BackdropFilter(
-                        //             filter: ImageFilter.blur(
-                        //                 sigmaX: 1.5, sigmaY: 1.5),
-                        //             child: Container(
-                        //               width:
-                        //                   MediaQuery.of(context).size.width,
-                        //               height:
-                        //                   MediaQuery.of(context).size.height,
-                        //               decoration: BoxDecoration(
-                        //                   color:
-                        //                       Colors.black.withOpacity(0.5)),
-                        //               child: Padding(
-                        //                 padding: const EdgeInsets.all(8.0),
-                        //                 child: Column(
-                        //                   mainAxisAlignment:
-                        //                       MainAxisAlignment.center,
-                        //                   crossAxisAlignment:
-                        //                       CrossAxisAlignment.center,
-                        //                   children: [
-                        //                     fonts.heading2(
-                        //                         movie.result[itemIndex]
-                        //                                 .title ??
-                        //                             '',
-                        //                         Colors.white),
-                        //                     fonts.heading1(
-                        //                         movie.result[itemIndex]
-                        //                             .voteAverage
-                        //                             .toString(),
-                        //                         Colors.white)
-                        //                   ],
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        //   options: CarouselOptions(
-                        //       aspectRatio: 3 / 4,
-                        //       initialPage: 0,
-                        //       enableInfiniteScroll: true,
-                        //       reverse: false,
-                        //       autoPlay: true,
-                        //       autoPlayInterval: const Duration(seconds: 3),
-                        //       scrollDirection: Axis.horizontal,
-                        //       height:
-                        //           MediaQuery.of(context).size.height * 0.65),
-                        // ),
