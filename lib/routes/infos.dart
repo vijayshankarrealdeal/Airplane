@@ -16,6 +16,7 @@ class InfoList extends StatelessWidget {
         backgroundColor: color.colorofScaffoldroute(),
         appBar: AppBar(
           elevation: 0,
+          
           iconTheme: IconThemeData(
             color: color.backButton(), //change your color here
           ),

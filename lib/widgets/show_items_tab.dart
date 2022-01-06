@@ -1,4 +1,3 @@
-
 import 'package:airplane/controllers/colormager.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/model/shop_model.dart';
@@ -33,7 +32,7 @@ class ShowItemInTheTab extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                  color: color.interestTab(),
+                  color: color.appBarColor(),
                   image: DecorationImage(
                       fit: BoxFit.cover,
                       image: CachedNetworkImageProvider(international.img)),

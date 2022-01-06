@@ -24,30 +24,30 @@ class Bus extends StatelessWidget {
             duration: const Duration(milliseconds: 200),
             elevationCurve: Curves.decelerate,
             turnsCurve: Curves.decelerate,
-            title: fonts.heading4(
+            title: fonts.heading5(
               data.nya,
               color.textColor(),
             ),
             children: data.page
                 .map(
                   (e) => ChangeNotifierProvider<BusList>.value(
-                value: e,
-                child: Consumer<BusList>(
-                  builder: (ctx, d, _) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 4.0),
-                      child: ListTile(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                        tileColor: color.appBarColorroute(),
-                        title: fonts.body1(e.nya, color.textColor()),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            )
+                    value: e,
+                    child: Consumer<BusList>(
+                      builder: (ctx, d, _) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 4.0),
+                          child: ListTile(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                            tileColor: color.appBarColorroute(),
+                            title: fonts.body1(e.nya, color.textColor()),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                )
                 .toList()),
       ),
     );

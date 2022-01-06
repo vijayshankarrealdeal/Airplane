@@ -23,6 +23,8 @@ class FlightCheckList extends StatelessWidget {
       child: Scaffold(
         backgroundColor: color.colorofScaffoldroute(),
         appBar: AppBar(
+          title: fonts.heading5("Flight Status", color.textColor()),
+          centerTitle: true,
           elevation: 0,
           iconTheme: IconThemeData(
             color: color.backButton(), //change your color here
@@ -131,8 +133,7 @@ class FlightCheckList extends StatelessWidget {
                                   Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Row(
                                         children: [
@@ -236,8 +237,7 @@ class FlightCheckList extends StatelessWidget {
                                   Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Row(
                                         children: [

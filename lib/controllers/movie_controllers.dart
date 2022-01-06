@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:airplane/model/deals_offers_model.dart';
 import 'package:airplane/model/movie.dart';
 import 'package:airplane/model/shop_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,6 +14,7 @@ class MovieController extends ChangeNotifier {
     runInternational();
     preCalling();
     postCalling();
+    calldealsoffer();
   }
   List<Results> _results = [];
   List<Results> get result => _results;
@@ -26,10 +28,28 @@ class MovieController extends ChangeNotifier {
   List<ShopData> get resultfood => _food;
   List<ShopData> _postfood = [];
   List<ShopData> get resultpost => _postfood;
+  List<DealsOfferList> _dealsOffer = [];
+  List<DealsOfferList> get resultdeals => _dealsOffer;
 
   ///
 
   bool load = false;
+
+  void calldealsoffer() async {
+    try {
+      final _response = await http
+          .get(Uri.parse('https://serverxx.azurewebsites.net/api/dealsoffer'));
+      Map<String, dynamic> _daa = json.decode(_response.body);
+      DealsOffer _offer = DealsOffer.fromJson(_daa);
+      _dealsOffer = _offer.data;
+      load = true;
+      notifyListeners();
+    } catch (e) {
+      load = false;
+      notifyListeners();
+    }
+  }
+
   void call() async {
     try {
       final _response = await http

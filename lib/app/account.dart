@@ -135,7 +135,7 @@ class Account extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                            CrossAxisAlignment.end,
                                         children: [
                                           Row(
                                             children: [

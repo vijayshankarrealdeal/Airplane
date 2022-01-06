@@ -4,6 +4,7 @@ import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/routes/all_moive_route.dart';
 import 'package:airplane/routes/all_shop_route.dart';
 import 'package:airplane/routes/buses.dart';
+import 'package:airplane/routes/deals_offer_ui.dart';
 import 'package:airplane/routes/flightchecklist.dart';
 import 'package:airplane/routes/food_pre_post.dart';
 import 'package:airplane/routes/hotels_show.dart';
@@ -49,11 +50,11 @@ class Home extends StatelessWidget {
       "assets/images/info.png",
     ];
     List<String> tx = [
-      "Flight-Status",
-      "Deals-Offer",
+      "Flight Status",
+      "Deals & Offers",
       // "Travel-Checklist",
       "Services ",
-      "Support & Help"
+      "Support"
     ];
     final font = Provider.of<TypoGraphyOfApp>(context);
     final auth = Provider.of<Auth>(context);
@@ -68,7 +69,7 @@ class Home extends StatelessWidget {
             slivers: [
               SliverAppBar(
                 centerTitle: true,
-                title: font.heading5("Flight +", color.textColor()),
+                title: font.heading5("Flight+", color.textColor()),
                 // fltexibleSpace: Container(
                 //   width: double.infinity,
                 //   decoration: const BoxDecoration(
@@ -307,7 +308,7 @@ class Home extends StatelessWidget {
                             .map(
                               (e) => GestureDetector(
                                 onTap: () {
-                                  if (e.contains("Flight-Status")) {
+                                  if (e.contains("Flight Status")) {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -316,14 +317,16 @@ class Home extends StatelessWidget {
                                       ),
                                     );
                                   }
-                                  // if (e == "Travel-Checklist") {
-                                  //   Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //       builder: (context) => const CheckList(),
-                                  //     ),
-                                  //   );
-                                  // }
+
+                                  if (e == "Deals & Offers") {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const OffersDeals(),
+                                      ),
+                                    );
+                                  }
 
                                   if (e.contains('Services')) {
                                     Navigator.push(
@@ -334,7 +337,7 @@ class Home extends StatelessWidget {
                                       ),
                                     );
                                   }
-                                  if (e.contains("Support & Help")) {
+                                  if (e.contains("Support")) {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(

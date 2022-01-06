@@ -20,6 +20,8 @@ class ShoppingShowAll extends StatelessWidget {
       child: Scaffold(
         backgroundColor: color.colorofScaffoldroute(),
         appBar: AppBar(
+          title: fonts.heading5("Shopping", color.textColor()),
+          centerTitle: true,
           elevation: 0,
           iconTheme: IconThemeData(
             color: color.backButton(), //change your color here

@@ -12,6 +12,7 @@ class FakeUI extends StatelessWidget {
     final color = Provider.of<ColorManager>(context);
     final fonts = Provider.of<TypoGraphyOfApp>(context);
     return Scaffold(
+      
       backgroundColor: color.colorofScaffoldroute(),
       appBar: AppBar(
         elevation: 0,
