@@ -35,12 +35,25 @@ class TicketsAndMore extends ChangeNotifier {
     final _response = await http.get(
         Uri.parse('https://serverxx.azurewebsites.net/api/cancel_ticket/$id'),
         headers: {"Authorization": 'Bearer ${auth.accesstoken}'});
+    await deleteBLR(auth);
     final _daa = json.decode(_response.body);
     if (_daa['data'] == "Success") {
       data[index].cancel = true;
       load = false;
       notifyListeners();
     }
+  }
+
+  Future<void> updateBLR(Auth auth) async {
+    await http.get(
+        Uri.parse('https://serverxx.azurewebsites.net/api/update_coins/'),
+        headers: {"Authorization": 'Bearer ${auth.accesstoken}'});
+  }
+
+  Future<void> deleteBLR(Auth auth) async {
+    await http.get(
+        Uri.parse('https://serverxx.azurewebsites.net/api/delete_coins/'),
+        headers: {"Authorization": 'Bearer ${auth.accesstoken}'});
   }
 
   void functionRin(BuildContext context) async {

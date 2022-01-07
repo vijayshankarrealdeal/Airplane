@@ -85,6 +85,12 @@ class YourTrips extends StatelessWidget {
                                     padding: const EdgeInsets.all(12.0),
                                     child: Column(
                                       children: [
+                                        CupertinoButton(
+                                            child: fonts.button(
+                                                "DD", color.textColor()),
+                                            onPressed: () {
+                                              controller.updateBLR(auth);
+                                            }),
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,

@@ -13,12 +13,30 @@ class Auth extends ChangeNotifier {
   String email = '';
   Map<String, dynamic> data = {};
   bool load = false;
-  void getToken() async {
+  Future<void> getToken() async {
     final _oflineref = await SharedPreferences.getInstance();
     accesstoken = _oflineref.getString('access_token') ?? '';
     email = _oflineref.getString('username') ?? '';
     data['email'] = email;
+    getBlrCoins();
     notifyListeners();
+  }
+
+  Future<void> getBlrCoins() async {
+    if (accesstoken.isNotEmpty) {
+      try {
+        final _resp = await http.get(
+            Uri.parse('https://serverxx.azurewebsites.net/api/get_coins/'),
+            headers: {
+              "Content-Type": "application/json; charset=UTF-8",
+              "Authorization": 'Bearer $accesstoken'
+            });
+        data['blrCoins'] = json.decode(_resp.body)[0]['coins'];
+        notifyListeners();
+      } catch (e) {
+        log(e.toString());
+      }
+    }
   }
 
   Future<void> logout() async {
@@ -61,9 +79,11 @@ class Auth extends ChangeNotifier {
       if (_data['detail'] == "User with this exits'email'") {
         throw "User with email exits";
       }
+
       _data.forEach((key, value) {
         data[key] = value;
       });
+      getBlrCoins();
       accesstoken = _data['access'];
       email = _data['email'];
       _oflineref.setString("username", email);
@@ -85,6 +105,7 @@ class Auth extends ChangeNotifier {
       _data.forEach((key, value) {
         data[key] = value;
       });
+      getBlrCoins();
       _oflineref.setString("username", email);
       _oflineref.setString("access_token", accesstoken);
       accesstoken = _data['access'];

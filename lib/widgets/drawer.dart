@@ -24,7 +24,6 @@ class GetDrawer extends StatelessWidget {
     final color = Provider.of<ColorManager>(context);
     final fonts = Provider.of<TypoGraphyOfApp>(context);
     final auht = Provider.of<Auth>(context);
-    final coins = Provider.of<TicketsAndMore>(context);
 
     return Drawer(
       elevation: 6,
@@ -52,7 +51,8 @@ class GetDrawer extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          fonts.body1('${coins.coins}', color.textColor()),
+                          fonts.body1('${auht.data['blrCoins'] ?? 0}',
+                              color.textColor()),
                           const SizedBox(width: 5),
                           Icon(
                             LineIcons.wallet,

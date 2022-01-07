@@ -367,7 +367,9 @@ class Home extends StatelessWidget {
                   ),
                 ),
               ),
-              movie.load && movie.resultshop.isNotEmpty
+              movie.load &&
+                      movie.resultshop.isNotEmpty &&
+                      movie.resultfood.isNotEmpty
                   ? SliverList(
                       delegate: SliverChildListDelegate([
                         Padding(

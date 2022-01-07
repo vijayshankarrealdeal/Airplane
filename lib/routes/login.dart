@@ -36,6 +36,8 @@ class _SignInState extends State<SignIn> {
 
     return Scaffold(
       appBar: AppBar(
+        title: fonts.heading5("Login/Sign up", color.textColor()),
+        centerTitle: true,
         elevation: 0,
         iconTheme: IconThemeData(
           color: color.backButton(), //change your color here
@@ -47,7 +49,7 @@ class _SignInState extends State<SignIn> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          fonts.heading1("Flight +", color.textColor()),
+          fonts.heading2("Flight+", color.textColor()),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.001,
           ),
@@ -96,8 +98,8 @@ class _SignInState extends State<SignIn> {
           const SizedBox(height: 15.0),
           isSpin
               ? CupertinoButton(
-                  color: color.labeledButtonoutside(),
-                  child: fonts.button(primaryText, color.labeledButtoninside()),
+                  child:
+                      fonts.button(primaryText, color.labeledButtonoutside()),
                   onPressed: () => submit(_email.text.trim(), _password.text,
                       _confirmPassword.text, auth, color),
                 )
@@ -220,9 +222,9 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                   CupertinoButton(
-                      color: colorManager.labeledButtonoutside(),
+                      padding: EdgeInsets.zero,
                       child: typo.button(
-                          "Submit", colorManager.labeledButtoninside()),
+                          "Submit", colorManager.labeledButtonoutside()),
                       onPressed: () async {
                         try {
                           setState(() {

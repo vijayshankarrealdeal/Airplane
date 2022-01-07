@@ -45,7 +45,6 @@ class _BookTicketState extends State<BookTicket> {
   Widget build(BuildContext context) {
     final color = Provider.of<ColorManager>(context);
     final fonts = Provider.of<TypoGraphyOfApp>(context);
-    final coins = Provider.of<TicketsAndMore>(context);
     final auth = Provider.of<Auth>(context);
     return Scaffold(
         backgroundColor: color.colorofScaffoldroute(),
@@ -62,7 +61,7 @@ class _BookTicketState extends State<BookTicket> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  fonts.body1("${coins.coins}", color.textColor()),
+                  fonts.body1("${auth.data['blrCoins']}", color.textColor()),
                   const SizedBox(width: 5),
                   Icon(
                     LineIcons.wallet,
@@ -167,6 +166,9 @@ class _BookTicketState extends State<BookTicket> {
                     onSaved: (String? value) {
                       _card.name = value;
                     },
+                    inputFormatters: [
+                      FilteringTextInputFormatter.deny(RegExp(r'[0-9]')),
+                    ],
                     keyboardType: TextInputType.name,
                     validator: (String? value) =>
                         value!.isEmpty ? Strings.fieldReq : null,
@@ -323,6 +325,10 @@ class _BookTicketState extends State<BookTicket> {
                           CupertinoButton(
                               child: fonts.button("Pay", colors.textColor()),
                               onPressed: () async {
+                                final coins = Provider.of<TicketsAndMore>(
+                                    context,
+                                    listen: false);
+
                                 setState(() {
                                   load = true;
                                 });
@@ -342,7 +348,6 @@ class _BookTicketState extends State<BookTicket> {
                                           .toString()) +
                                       500
                                 };
-//https://serverxx.azurewebsites.net/api/booktickets/
                                 var thirdMap = {};
                                 thirdMap.addAll(x);
                                 thirdMap.addAll(widget.data.toJson());
@@ -354,6 +359,8 @@ class _BookTicketState extends State<BookTicket> {
                                           "application/json; charset=UTF-8"
                                     },
                                     body: json.encode(thirdMap));
+                                await coins.updateBLR(auth);
+                                await auth.getBlrCoins();
                                 log(_res.body);
                                 setState(() {
                                   load = false;
