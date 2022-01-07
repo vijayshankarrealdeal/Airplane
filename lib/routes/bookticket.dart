@@ -61,7 +61,8 @@ class _BookTicketState extends State<BookTicket> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  fonts.body1("${auth.data['blrCoins']}", color.textColor()),
+                  fonts.body1(
+                      "${auth.data['blrCoins'] ?? 0}", color.textColor()),
                   const SizedBox(width: 5),
                   Icon(
                     LineIcons.wallet,

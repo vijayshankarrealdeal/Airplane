@@ -36,6 +36,7 @@ class TicketsAndMore extends ChangeNotifier {
         Uri.parse('https://serverxx.azurewebsites.net/api/cancel_ticket/$id'),
         headers: {"Authorization": 'Bearer ${auth.accesstoken}'});
     await deleteBLR(auth);
+    await auth.getBlrCoins();
     final _daa = json.decode(_response.body);
     if (_daa['data'] == "Success") {
       data[index].cancel = true;

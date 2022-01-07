@@ -10,6 +10,7 @@ import 'package:airplane/services/auth.dart';
 import 'package:airplane/widgets/loading_spinner.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 
 class YourTrips extends StatelessWidget {
@@ -31,6 +32,22 @@ class YourTrips extends StatelessWidget {
           color: color.backButton(), //change your color here
         ),
         backgroundColor: color.appBarColorroute(),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                fonts.body1("${auth.data['blrCoins']??0}", color.textColor()),
+                const SizedBox(width: 5),
+                Icon(
+                  LineIcons.wallet,
+                  color: color.yellow(),
+                  size: 25,
+                ),
+              ],
+            ),
+          )
+        ],
       ),
       body: auth.accesstoken.isEmpty
           ? Center(
@@ -85,12 +102,6 @@ class YourTrips extends StatelessWidget {
                                     padding: const EdgeInsets.all(12.0),
                                     child: Column(
                                       children: [
-                                        CupertinoButton(
-                                            child: fonts.button(
-                                                "DD", color.textColor()),
-                                            onPressed: () {
-                                              controller.updateBLR(auth);
-                                            }),
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
