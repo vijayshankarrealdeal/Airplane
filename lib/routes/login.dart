@@ -36,7 +36,6 @@ class _SignInState extends State<SignIn> {
 
     return Scaffold(
       appBar: AppBar(
-        title: fonts.heading5("Login/Sign up", color.textColor()),
         centerTitle: true,
         elevation: 0,
         iconTheme: IconThemeData(
@@ -44,7 +43,7 @@ class _SignInState extends State<SignIn> {
         ),
         backgroundColor: color.appBarColorroute(),
       ),
-      backgroundColor: color.colorofScaffold(),
+      backgroundColor: color.colorofScaffoldroute(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -130,7 +129,7 @@ class _SignInState extends State<SignIn> {
               }),
           _formType == SignOptions.signIn
               ? CupertinoButton(
-                  child: fonts.button('Forget Password', Colors.grey),
+                  child: fonts.button('Forgot Password', Colors.grey),
                   onPressed: () => forgetPass(context, auth, fonts, color),
                   padding: const EdgeInsets.only(top: 0.5),
                 )
@@ -149,11 +148,18 @@ class _SignInState extends State<SignIn> {
   ) async {
     if (_formType == SignOptions.signIn) {
       try {
+        if (email.isEmpty || password.isEmpty) {
+          throw "Enter Email or Password";
+        }
         setState(() {
           isSpin = false;
         });
-        await auth.login(email, password);
-        Navigator.pop(context);
+        final _response = await auth.login(email, password);
+        if (_response) {
+          Navigator.pop(context);
+        } else {
+          throw "Enter valid Email or Password";
+        }
       } catch (e) {
         setState(() {
           isSpin = true;

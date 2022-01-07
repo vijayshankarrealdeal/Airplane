@@ -135,15 +135,16 @@ class HotelShow extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
+                                      const SizedBox(height: 5),
                                       AutoSizeText(
-                                        _name.length > 21
-                                            ? _name.substring(0, 21) + ".."
+                                        _name.length > 25
+                                            ? _name.substring(0, 25) + ".."
                                             : _name,
                                         style: GoogleFonts.sourceSansPro(
                                             color: color.textColor(),
-                                            fontSize: 28,
+                                            fontSize: 25,
                                             decoration: TextDecoration.none,
-                                            fontWeight: FontWeight.w400,
+                                            fontWeight: FontWeight.w900,
                                             letterSpacing: 0.15),
                                       ),
                                       SizedBox(
@@ -151,21 +152,22 @@ class HotelShow extends StatelessWidget {
                                                   .size
                                                   .height *
                                               0.01),
-                                      fonts.subTitle1(
+                                      fonts.body1(
                                           _hotels.rating, color.textColor()),
-                                      fonts.subTitle1(
+                                      fonts.body1(
                                           _hotels.distance, color.textColor()),
                                       SizedBox(
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height *
                                               0.002),
-                                      fonts.heading6(
+                                      fonts.heading5(
                                         _hotels.price,
                                         color.textColor(),
                                       ),
-                                      fonts.caption(
+                                      fonts.subTitle1(
                                           _hotels.tax, color.textColor()),
+                                      const SizedBox(height: 5),
                                     ],
                                   ),
                                 ],

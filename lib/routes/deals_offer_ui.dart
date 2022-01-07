@@ -19,7 +19,7 @@ class OffersDeals extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: fonts.heading5("Deals Offers", color.textColor()),
+        title: fonts.heading5("Deals For You", color.textColor()),
         iconTheme: IconThemeData(
           color: color.backButton(), //change your color here
         ),

@@ -1,5 +1,4 @@
 import 'package:airplane/controllers/colormager.dart';
-import 'package:airplane/controllers/tikect_controller.dart';
 import 'package:airplane/controllers/typography.dart';
 import 'package:airplane/routes/aboutus.dart';
 import 'package:airplane/routes/contact_us.dart';
@@ -11,6 +10,7 @@ import 'package:airplane/routes/settings.dart';
 import 'package:airplane/routes/login.dart';
 import 'package:airplane/routes/support_help.dart';
 import 'package:airplane/services/auth.dart';
+import 'package:airplane/widgets/dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
@@ -184,8 +184,11 @@ class GetDrawer extends StatelessWidget {
                         leading: Icon(Icons.exit_to_app_rounded,
                             color: color.bottomnavBarInactieIcons()),
                         title: fonts.body1('Log out', color.textColor()),
-                        onTap: () {
-                          auht.logout();
+                        onTap: () async {
+                          final _respond = await auht.logout();
+                          if (_respond) {
+                            await successDialog(context);
+                          }
                           Navigator.pop(context);
                         },
                       ),

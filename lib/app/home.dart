@@ -21,6 +21,7 @@ import 'package:airplane/widgets/loading_spinner.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:provider/provider.dart';
 
@@ -52,8 +53,7 @@ class Home extends StatelessWidget {
     List<String> tx = [
       "Flight Status",
       "Deals & Offers",
-      // "Travel-Checklist",
-      "Services ",
+      "Services",
       "Support"
     ];
     final font = Provider.of<TypoGraphyOfApp>(context);
@@ -80,7 +80,7 @@ class Home extends StatelessWidget {
                 // ),
                 backgroundColor: color.appBarColor(),
                 leading: IconButton(
-                  icon: Icon(CupertinoIcons.app, color: color.textColor()),
+                  icon: Icon(FontAwesomeIcons.bars, color: color.textColor()),
                   onPressed: () {
                     _scaffoldKey.currentState!.openDrawer();
                   },
@@ -347,18 +347,14 @@ class Home extends StatelessWidget {
                                     );
                                   }
                                 },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(1.0),
-                                  child: Container(
-                                    width: 140,
-                                    decoration: BoxDecoration(
-                                      color: color.appBarColorroute(),
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Center(
-                                      child:
-                                          font.heading6(e, color.textColor()),
-                                    ),
+                                child: Container(
+                                  width: 140,
+                                  decoration: BoxDecoration(
+                                    color: color.appBarColorroute(),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Center(
+                                    child: font.heading6(e, color.textColor()),
                                   ),
                                 ),
                               ),

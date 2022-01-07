@@ -25,3 +25,27 @@ Future<void> showAlertDialog(BuildContext context, String message) {
         );
       });
 }
+
+Future<void> successDialog(BuildContext context) {
+  return showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        final fonts = Provider.of<TypoGraphyOfApp>(context);
+        final colors = Provider.of<ColorManager>(context);
+        return Theme(
+          data: ThemeData(
+              brightness: colors.darkmode ? Brightness.dark : Brightness.light),
+          child: CupertinoAlertDialog(
+            title: fonts.heading6("Logout", colors.textColor()),
+            content: fonts.body1("You are log out", colors.textColor()),
+            actions: [
+              CupertinoButton(
+                  child: fonts.button("okay", colors.nowarning()),
+                  onPressed: () => Navigator.pop(context)),
+            ],
+          ),
+        );
+      });
+}
+
+   

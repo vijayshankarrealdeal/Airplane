@@ -39,32 +39,20 @@ class Auth extends ChangeNotifier {
     }
   }
 
-  Future<void> logout() async {
-    final _oflineref = await SharedPreferences.getInstance();
-    accesstoken = '';
-    email = '';
-    data = {};
-    _oflineref.setString("access_token", '');
-    _oflineref.setString('username', '');
-    notifyListeners();
+  Future<bool> logout() async {
+    try {
+      final _oflineref = await SharedPreferences.getInstance();
+      accesstoken = '';
+      email = '';
+      data = {};
+      _oflineref.setString("access_token", '');
+      _oflineref.setString('username', '');
+      notifyListeners();
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
-
-  // Future<void> newpassword(String currpassword, String newpassword) async {
-  //   final _oflineref = await SharedPreferences.getInstance();
-
-  //   final url =
-  //       "https://airlinefly.azurewebsites.net/api/userforgotpass/$uid/$currpassword/$newpassword";
-  //   try {
-  //     load = true;
-  //     notifyListeners();
-  //     final _respond = await http.get(Uri.parse(url));
-  //     log(_respond.body);
-  //     load = false;
-  //     notifyListeners();
-  //   } catch (e) {
-  //     log(e.toString());
-  //   }
-  // }
 
   Future<void> register(
       String email, String password, BuildContext context) async {
@@ -93,26 +81,47 @@ class Auth extends ChangeNotifier {
       throw "There is something wrong use another email";
     }
   }
+  //const url = "https://serverxx.azurewebsites.net/api/user/login";
 
-  Future<void> login(String email, String password) async {
+  Future<bool> login(String email, String password) async {
     final _oflineref = await SharedPreferences.getInstance();
-    const url = "https://serverxx.azurewebsites.net/api/user/login";
+
     try {
-      final _respond = await http.post(Uri.parse(url),
+      final _respond = await http.post(
+          Uri.parse('https://serverxx.azurewebsites.net/api/user/login'),
           body: {'username': email, 'password': password});
-      log(_respond.body);
       final _data = Map.from(json.decode(_respond.body));
+
       _data.forEach((key, value) {
         data[key] = value;
       });
       getBlrCoins();
+      accesstoken = _data['access'];
+      email = _data['email'];
       _oflineref.setString("username", email);
       _oflineref.setString("access_token", accesstoken);
-      accesstoken = _data['access'];
-      email = _data['username'];
       notifyListeners();
+      return true;
     } catch (e) {
-      log(e.toString());
+      return false;
     }
   }
 }
+
+
+  // Future<void> newpassword(String currpassword, String newpassword) async {
+  //   final _oflineref = await SharedPreferences.getInstance();
+
+  //   final url =
+  //       "https://airlinefly.azurewebsites.net/api/userforgotpass/$uid/$currpassword/$newpassword";
+  //   try {
+  //     load = true;
+  //     notifyListeners();
+  //     final _respond = await http.get(Uri.parse(url));
+  //     log(_respond.body);
+  //     load = false;
+  //     notifyListeners();
+  //   } catch (e) {
+  //     log(e.toString());
+  //   }
+  // }
