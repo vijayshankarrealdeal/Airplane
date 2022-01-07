@@ -12,7 +12,7 @@ Widget bulletPoint(String text, ColorManager color) {
       children: [
         CircleAvatar(
           radius: 3,
-          backgroundColor: color.yellow(),
+          backgroundColor: color.labeledButtonoutside(),
         ),
         const SizedBox(width: 5),
         Expanded(
@@ -20,7 +20,7 @@ Widget bulletPoint(String text, ColorManager color) {
           child: AutoSizeText(
             text,
             style: GoogleFonts.sourceSansPro(
-                color: color.textColor(),
+                color: color.subtitle(),
                 fontSize: 15,
                 decoration: TextDecoration.none,
                 fontWeight: FontWeight.w400,

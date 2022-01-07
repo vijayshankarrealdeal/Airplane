@@ -42,7 +42,10 @@ class GetDrawer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                        icon: Icon(Icons.arrow_back, color: color.iconColor()),
+                        icon: Icon(
+                          Icons.arrow_back,
+                          color: color.backButton(),
+                        ),
                         onPressed: () => Navigator.pop(context),
                       ),
                       Row(

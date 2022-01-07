@@ -84,9 +84,13 @@ class Covid extends StatelessWidget {
                       children: [
                         fonts.body1(_text[0], color.textColor()),
                         CupertinoButton(
-                            padding: const EdgeInsets.symmetric(horizontal: 4),
-                            onPressed: () => _launchURL(_text[1]),
-                            child: fonts.button(_text[1], color.backButton())),
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          onPressed: () => _launchURL(_text[1]),
+                          child: fonts.button(
+                            _text[1],
+                            color.labeledButtonoutside(),
+                          ),
+                        ),
                       ],
                     );
                   } else if (e.contains('b@')) {
@@ -94,7 +98,10 @@ class Covid extends StatelessWidget {
                   } else if (e.contains('These rates are fixed')) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: fonts.subTitle1(e, color.warning()),
+                      child: fonts.subTitle1(
+                        e,
+                        color.warning(),
+                      ),
                     );
                   } else {
                     return fonts.body1(e, color.textColor());

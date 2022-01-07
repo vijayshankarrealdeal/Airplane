@@ -42,8 +42,9 @@ class CheckList extends StatelessWidget {
                             EdgeInsets.all(datacontrol.startload ? 18.0 : 1.0),
                         child: CupertinoButton(
                             child: font.button(
-                                datacontrol.startload ? "" : "Save",
-                                color.textColor()),
+                              datacontrol.startload ? "" : "Save",
+                              color.labeledButtonoutside(),
+                            ),
                             onPressed: () {
                               pk!.isNotEmpty
                                   ? datacontrol.addListtodb(pk!, auth)

@@ -200,7 +200,6 @@ class SearchForAirplanes extends StatelessWidget {
                           ? CupertinoButton(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 12, vertical: 4),
-                              color: colors.buttonOutside(),
                               onPressed: () async {
                                 try {
                                   if (data.originfrom.text.isEmpty ||
@@ -228,9 +227,8 @@ class SearchForAirplanes extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Icon(CupertinoIcons.search,
-                                      color: colors.orange()),
-                                  fonts.subTitle1(
-                                      "Search", colors.buttonInside()),
+                                      color: colors.labeledButtonoutside()),
+                                  fonts.subTitle1("Search", colors.subtitle()),
                                 ],
                               ),
                             )

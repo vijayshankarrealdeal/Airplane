@@ -244,16 +244,20 @@ class _BookTicketState extends State<BookTicket> {
                   Container(
                     alignment: Alignment.center,
                     child: CupertinoButton(
-                        color: color.buttonoutside(),
-                        onPressed: () {
-                          try {
-                            _validateInputs();
-                            showPayDialog(context, auth);
-                          } catch (e) {
-                            showAlertDialog(context, e.toString());
-                          }
-                        },
-                        child: fonts.button(Strings.pay, color.textColor())),
+                      color: color.labeledButtonoutside(),
+                      onPressed: () {
+                        try {
+                          _validateInputs();
+                          showPayDialog(context, auth);
+                        } catch (e) {
+                          showAlertDialog(context, e.toString());
+                        }
+                      },
+                      child: fonts.button(
+                        Strings.pay,
+                        color.labeledButtoninside(),
+                      ),
+                    ),
                   )
                 ],
               )),

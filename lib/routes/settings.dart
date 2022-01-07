@@ -66,9 +66,9 @@ class Settings extends StatelessWidget {
                                 : CupertinoButton(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 18),
-                                    color: color.buttonoutside(),
+                                    color: color.labeledButtonoutside(),
                                     child: fonts.button(
-                                        "Submit", color.textColor()),
+                                        "Submit", color.labeledButtoninside()),
                                     onPressed: () {
                                       if (_newpass.text == _confpass.text) {
                                         // auth.newpassword(
@@ -99,7 +99,7 @@ class Settings extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 fonts.body1("Notifications", color.textColor()),
-                                Switch(
+                                CupertinoSwitch(
                                   value: toggle.notification,
                                   onChanged: (value) {
                                     toggle.tooglenotification();
@@ -118,7 +118,7 @@ class Settings extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 fonts.body1("Location", color.textColor()),
-                                Switch(
+                                CupertinoSwitch(
                                   value: toggle.locationenable,
                                   onChanged: (value) {
                                     toggle.toggle();
@@ -135,7 +135,7 @@ class Settings extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             fonts.body1("Light/Dark mode", color.textColor()),
-                            Switch(
+                            CupertinoSwitch(
                               value: color.darkmode,
                               onChanged: (value) {
                                 color.applyMode();

@@ -96,8 +96,8 @@ class _SignInState extends State<SignIn> {
           const SizedBox(height: 15.0),
           isSpin
               ? CupertinoButton(
-                  color: color.buttonOutside(),
-                  child: fonts.button(primaryText, color.buttonInside()),
+                  color: color.labeledButtonoutside(),
+                  child: fonts.button(primaryText, color.labeledButtoninside()),
                   onPressed: () => submit(_email.text.trim(), _password.text,
                       _confirmPassword.text, auth, color),
                 )
@@ -220,8 +220,9 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                   CupertinoButton(
-                      color: colorManager.buttonOutside(),
-                      child: typo.button("Submit", colorManager.buttonInside()),
+                      color: colorManager.labeledButtonoutside(),
+                      child: typo.button(
+                          "Submit", colorManager.labeledButtoninside()),
                       onPressed: () async {
                         try {
                           setState(() {

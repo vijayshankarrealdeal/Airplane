@@ -29,7 +29,7 @@ class ColorManager extends ChangeNotifier {
 
   Color colorofScaffold() {
     if (!darkmode) {
-      return const Color.fromRGBO(239, 239, 244, 1);
+      return const Color.fromRGBO(255, 255, 255, 1);
     } else {
       return const Color.fromRGBO(0, 0, 0, 1);
     }
@@ -99,19 +99,27 @@ class ColorManager extends ChangeNotifier {
     }
   }
 
-  Color buttonInside() {
+  Color subtitle() {
     if (!darkmode) {
-      return Colors.white;
+      return const Color.fromRGBO(60, 60, 67, 0.60);
     } else {
-      return Colors.white;
+      return const Color.fromRGBO(235, 235, 245, 0.60);
     }
   }
 
-  Color buttonOutside() {
+  Color labeledButtoninside() {
     if (!darkmode) {
-      return Colors.black;
+      return const Color.fromRGBO(255, 255, 255, 1);
     } else {
-      return Colors.black;
+      return const Color.fromRGBO(255, 255, 255, 1);
+    }
+  }
+
+  Color labeledButtonoutside() {
+    if (!darkmode) {
+      return const Color.fromRGBO(0, 122, 255, 1);
+    } else {
+      return const Color.fromRGBO(10, 132, 255, 1);
     }
   }
 
@@ -179,14 +187,6 @@ class ColorManager extends ChangeNotifier {
     }
   }
 
-  Color buttonoutside() {
-    if (!darkmode) {
-      return const Color.fromRGBO(0, 122, 255, 1);
-    } else {
-      return Colors.blue.shade900;
-    }
-  }
-
   Color interestTab() {
     if (!darkmode) {
       return Colors.red.shade700;
@@ -197,9 +197,9 @@ class ColorManager extends ChangeNotifier {
 
   Color warning() {
     if (!darkmode) {
-      return const Color(0xffFF3B30);
+      return const Color.fromRGBO(255, 59, 48, 1);
     } else {
-      return const Color(0xffFF453A);
+      return const Color.fromRGBO(255, 69, 58, 1);
     }
   }
 
@@ -221,9 +221,9 @@ class ColorManager extends ChangeNotifier {
 
   Color nowarning() {
     if (!darkmode) {
-      return const Color(0xff34C759);
+      return const Color.fromRGBO(52, 199, 89, 1);
     } else {
-      return const Color(0xff30D158);
+      return const Color.fromRGBO(50, 215, 75, 1);
     }
   }
 

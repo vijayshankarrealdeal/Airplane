@@ -52,7 +52,7 @@ class HotelShow extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           CupertinoButton(
-                            child: const Icon(CupertinoIcons.macwindow),
+                            child: const Icon(CupertinoIcons.calendar),
                             onPressed: () => data.incomedate(context),
                           ),
                           fonts.body1(data.pickedDate, color.textColor())
@@ -74,8 +74,8 @@ class HotelShow extends StatelessWidget {
                               child: Row(
                                 children: [
                                   Icon(CupertinoIcons.search,
-                                      color: color.orange()),
-                                  fonts.button("Search", color.textColor()),
+                                      color: color.labeledButtonoutside()),
+                                  fonts.button("Search", color.subtitle()),
                                 ],
                               ),
                               onPressed: () {
@@ -178,11 +178,11 @@ class HotelShow extends StatelessWidget {
                     )
                   : SliverFillRemaining(
                       child: Center(
-                        child: fonts.heading4(
+                        child: fonts.heading5(
                           data.load
                               ? "Plan your next staycation"
                               : "Looking for your stay",
-                          color.formPlaceholder(),
+                          color.subtitle(),
                         ),
                       ),
                     )

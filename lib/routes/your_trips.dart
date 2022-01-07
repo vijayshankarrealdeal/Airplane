@@ -56,9 +56,9 @@ class YourTrips extends StatelessWidget {
                                   CupertinoButton(
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 13, horizontal: 28),
-                                      color: color.buttonoutside(),
-                                      child: fonts.button(
-                                          "Book Flight", color.textColor()),
+                                      color: color.labeledButtonoutside(),
+                                      child: fonts.button("Book Flight",
+                                          color.labeledButtoninside()),
                                       onPressed: () {
                                         Navigator.push(
                                           context,
@@ -80,7 +80,7 @@ class YourTrips extends StatelessWidget {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12.0),
                                   ),
-                                  elevation: 6,
+                                  elevation: 2,
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
                                     child: Column(
@@ -184,10 +184,12 @@ class YourTrips extends StatelessWidget {
                                                             .symmetric(
                                                         vertical: 13,
                                                         horizontal: 28),
-                                                    color: color.interestTab(),
+                                                    color: color
+                                                        .labeledButtonoutside(),
                                                     child: fonts.button(
                                                         "Create/View Checklist",
-                                                        color.textColor()),
+                                                        color
+                                                            .labeledButtoninside()),
                                                     onPressed: () {
                                                       Navigator.push(
                                                         context,
@@ -206,10 +208,12 @@ class YourTrips extends StatelessWidget {
                                                             .symmetric(
                                                         vertical: 13,
                                                         horizontal: 28),
-                                                    color: color.interestTab(),
+                                                    color: color
+                                                        .labeledButtonoutside(),
                                                     child: fonts.button(
                                                         "Book Hotels",
-                                                        color.textColor()),
+                                                        color
+                                                            .labeledButtoninside()),
                                                     onPressed: () {
                                                       Navigator.push(
                                                         context,
@@ -234,7 +238,7 @@ class YourTrips extends StatelessWidget {
                                                 e.cancel
                                                     ? "Ticket Canceled"
                                                     : "Cancel Flight",
-                                                color.textColor()),
+                                                color.labeledButtoninside()),
                                             onPressed: e.cancel == true
                                                 ? null
                                                 : () => _showDialog(context,

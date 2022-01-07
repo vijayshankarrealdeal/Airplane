@@ -378,7 +378,8 @@ class Home extends StatelessWidget {
                             children: [
                               fonts.heading4("Shopping", color.textColor()),
                               CupertinoButton(
-                                child: fonts.button("More", color.warning()),
+                                child: fonts.button(
+                                    "More", color.labeledButtonoutside()),
                                 onPressed: () => {
                                   Navigator.push(
                                     context,
@@ -468,7 +469,8 @@ class Home extends StatelessWidget {
                             children: [
                               fonts.heading4("Food", color.textColor()),
                               CupertinoButton(
-                                child: fonts.button("More", color.warning()),
+                                child: fonts.button(
+                                    "More", color.labeledButtonoutside()),
                                 onPressed: () => {
                                   Navigator.push(
                                     context,

@@ -145,8 +145,8 @@ class ShowPlaneDetails extends StatelessWidget {
         width: double.infinity,
         child: CupertinoButton(
           borderRadius: BorderRadius.zero,
-          color: color.interestTab(),
-          child: fonts.button("Book", color.buttonInside()),
+          color: color.labeledButtonoutside(),
+          child: fonts.button("Book", color.labeledButtoninside()),
           onPressed: () {
             if (auth.accesstoken.isEmpty) {
               Navigator.push(

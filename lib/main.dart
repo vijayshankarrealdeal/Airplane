@@ -10,15 +10,25 @@ import 'package:airplane/navbar/homepage.dart';
 import 'package:airplane/services/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  runApp(MultiProvider(providers: [
-    Provider<TypoGraphyOfApp>(create: (context) => TypoGraphyOfApp()),
-    ChangeNotifierProvider(create: (context) => ColorManager()),
-    ChangeNotifierProvider(create: (context) => ChangeofPage()),
-    ChangeNotifierProvider<Auth>(create: (context) => Auth()),
-  ], child: const MyApp()));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp],
+  );
+  runApp(
+    MultiProvider(
+      providers: [
+        Provider<TypoGraphyOfApp>(create: (context) => TypoGraphyOfApp()),
+        ChangeNotifierProvider(create: (context) => ColorManager()),
+        ChangeNotifierProvider(create: (context) => ChangeofPage()),
+        ChangeNotifierProvider<Auth>(create: (context) => Auth()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
